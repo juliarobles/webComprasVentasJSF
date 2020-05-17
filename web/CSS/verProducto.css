@@ -1,0 +1,293 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16-abr-2020, 10:04:20
+    Author     : danim
+*/
+
+
+
+/*Codigo copiado estrellas valoracion*/
+.estre p {
+    font-size: 20px;
+    margin: 0px;
+}
+
+.estre label {
+    font-size: 25px;
+}
+
+.estre input[type="radio"] {
+    display: none;
+}
+
+.clasificacion {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    margin: 0px;
+    
+}
+
+.estre label:hover,
+.estre label:hover ~ label {
+    color: orange;
+}
+
+.estre input[type="radio"]:checked ~ label {
+    color: orange;
+}
+
+/*Aqui acaba copiado de la valoracion*/
+
+
+.todo {
+    width: 900px;
+    margin:0 auto;
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.imagen {
+    max-width: 350px;
+    min-width: 100px;
+    max-height: 350px;
+    min-height: 100px;
+    object-fit: contain;
+    object-position: top center;
+    background-color: white;
+    -webkit-border-radius: 3px 5px 1px 4px; 
+    -moz-border-radius: 6px; 
+    border-radius: 5px;
+    margin-bottom: 0px;
+    margin-right: 30px;
+    margin-left: 0px;
+}
+
+.contenido {
+    display: inline-block;
+    width: 95%;
+    margin: 20px;
+    margin-bottom: 0px;
+}
+
+.contenido p {
+    text-align: justify;
+}
+
+h1 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.descripcion {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow:hidden;
+}
+
+media, fecha {
+    display: inline-block;
+    float: right;
+    text-align: right;
+}
+
+categoria a {
+    text-decoration: none;
+}
+
+categoria a:hover {
+    color: #ababab;
+}
+
+fecha {
+    color: #8a8a8a;
+    font-size: 13px;
+}
+
+media {
+    color: #003257;
+    font-size: 24px;
+}
+
+vendedor, categoria a, .emisor {
+    color: #454545;
+    font-size: 15px;
+    vertical-align: bottom;
+}
+
+.fila {
+    line-height:1.5em;
+}
+
+h5 {
+    color: #454545;
+    margin: 0 auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+    clear: both;
+}
+
+.precio {
+    color: #003257;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.contenido button, .botonComentario, .comentarioSubmit {
+    text-decoration: none;
+    background-color: transparent;
+    color:#003257;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    border: 2px solid  #003257;
+    margin: 0 auto;
+    display: flex;
+    width: 150px;
+    justify-content: center;
+    
+}
+
+.contenido button:hover, .botonComentario:hover, .comentarioSubmit:hover {
+    color:white;
+    background-color: #003257;
+}
+
+.botonComentario {
+    width: 100%;
+}
+
+.comentarios{
+    margin: 20px;
+    width: 95%;
+    text-align: center;
+}
+
+.comentarios p {
+    margin: 10px;
+}
+
+table {
+    border: 0px;
+    margin: 0 auto;
+}
+
+td {
+    vertical-align: top;
+}
+
+/* */
+.cancelbtn, .eliminar {
+  text-decoration: none;
+  background: transparent;
+  border: 0px;
+  color: #f44336;
+  margin-bottom: 20px;
+}
+
+.cancelbtn:hover, .eliminar:hover {
+  color: #4a000c;
+}
+
+.modal textarea {
+    margin: 10px;
+    background-color: #e6e6e6;
+    -webkit-border-radius: 3px 5px 1px 4px; 
+    -moz-border-radius: 6px; 
+    border-radius: 5px;
+    border: 0px;
+}
+
+.modal h3 {
+    margin-top: 30px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: #ffffff; /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+  
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+  -webkit-border-radius: 3px 5px 1px 4px; 
+    -moz-border-radius: 6px; 
+    border-radius: 5px;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+
+/*  */
+
+.comentarioContainer {
+    margin: 0 auto;
+    padding:15px;
+    text-align: left;
+    border-color: #e6e6e6;
+    background-color: #e6e6e6;
+    border-radius:0px 20px 20px 20px;
+    -moz-border-radius: 0px 20px 20px 20px;
+    -webkit-border-radius: 0px 20px 20px 20px;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow:hidden;
+    
+}
+
+.emisor {
+    text-align: left;
+    padding-top: 20px;
+}
+
+.eliminar {
+    float:right;
+    font-size: 12px;
+}

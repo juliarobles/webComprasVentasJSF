@@ -1,0 +1,323 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 07-abr-2020, 19:27:55
+    Author     : Usuario
+*/
+/*
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 270px;
+  background-color: white;
+  margin: 10px;
+  text-align: left;
+  font-family: arial;
+  flex: 25%;
+  
+}
+*/
+
+.card {
+  background: #fafafa;
+  text-decoration: none;
+  color: #444;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  max-width: 270px;
+  position: relative;
+  top: 0;
+  transition: all .1s ease-in;
+  border-radius: 20px 20px 20px 20px;
+  -moz-border-radius: 20px 20px 20px 20px;
+  -webkit-border-radius: 20px 20px 20px 20px;
+}
+
+.card:hover {
+    top: -2px;
+    box-shadow: 0 4px 5px rgba(0,0,0,0.2);
+  }
+
+.headerImagen {
+    display:inline;
+    float:left;
+  /*margin-left: auto;
+  margin-right: auto;*/
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  object-fit: contain;
+}
+
+.header {
+    margin: 0px;
+    padding: 0px;
+    background: #003257;
+    width: 100%;
+}
+
+precio {
+    font-size: 18px;
+    color: #14536d;
+    font-weight: 600;
+}
+
+fecha{
+    display: inline-block;
+    margin-left: 5px;
+    float: right;
+    text-align: right;
+    color: #8a8a8a;
+    font-size: 12px;
+}
+
+.tituloCard {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    color: #363636;
+    text-decoration: none;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.descripcionCard {
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 40px;
+    color: #999;
+    max-height: 92px;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
+.bottom{
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    position: absolute;
+    display:block;
+    bottom:15px;
+    left:20px;
+    right:20px;
+}
+
+bottom div {
+    float: left;
+    width: 50%;
+    
+}
+
+article {
+    padding: 20px;
+    flex: 1;
+    justify-content: space-between;
+}
+
+html, body {
+    background: white;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 0px;
+  margin: 0px;
+}
+
+.band {
+    width: 100%;
+  margin: 0 auto;
+  
+  
+  display: grid;
+  
+  grid-template-columns: repeat(auto-fill, 270px);
+  grid-template-rows: auto;
+  grid-gap: 20px;
+  justify-content:center
+}
+/*
+@media (min-width: 30em) {
+    .band{
+       grid-template-columns: 1fr 1fr; 
+    }
+  }
+  
+  @media (min-width: 60em) {
+      .band{
+         grid-template-columns: repeat(auto-fill, 270px); 
+      }
+      
+  
+    
+  }*/
+
+p {
+    flex: 1;
+    
+    line-height: 0.3;
+    
+  }
+
+
+.imagen > img{
+	width: 270px;
+	height: 200px;
+	object-fit: cover;
+	background-color: black;
+        border-radius: 20px 20px 0px 0px;
+        -moz-border-radius: 20px 20px 0px 0px;
+        -webkit-border-radius: 20px 20px 0px 0px;
+}
+
+vendedor{
+    font-size: 12px;
+    color: #ccc;
+}
+
+valoracion{
+    color: #494949;
+    font-size: 16px;
+    display: inline-block;
+    margin-left: 5px;
+    float: right;
+}
+
+.top{
+    display: block;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+/*----------------------------------------------navbar-------------------------------------------------*/
+
+/* Style the navbar */
+.navbar {
+  overflow: hidden;
+  background-color: #003257;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  /*
+  margin: 0px;
+  padding-bottom: 5px;
+  */
+  width: 100%;
+}
+
+form {
+    display: inline;
+    margin: 0 auto;
+}
+
+/* Navbar links */
+.link, .Crear {
+  float: right;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  margin-top: 2px;
+  margin-right: 10px;
+}
+
+.link a:hover {
+    color: #d4d4d4;
+}
+
+a.Crear {
+    border-radius: 16px;
+    border: 0.5px solid white;
+    padding: 7px 10px;
+    margin-top: 8px;
+    margin-right: 20px;
+}
+
+a.Crear:hover {
+    color: #003257;
+    background: white;
+}
+
+/* Page content */
+.main {
+  margin-top: 80px;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
+}
+
+/* Style the search box inside the navigation bar */
+.navbar input[type=text], .navbar select {
+  float: left;
+  font-size: 17px;
+  border: none;
+ 
+  
+}
+
+.navbar input[type=text] {
+     border-radius: 0px 20px 20px 0px;
+    -moz-border-radius: 0px 20px 20px 0px;
+    -webkit-border-radius: 0px 20px 20px 0px;
+    margin-left: 0px;
+    height: 20px;
+    width: 30%;
+    margin-top: 8px;
+    margin-right: 16px;
+    padding: 6px;
+}
+
+.navbar select {
+  margin-right: 0px;
+  margin-top: 8px;
+  height: 32px;
+  font-size: 15px;
+   
+}
+
+.selectBuscar{
+     border-radius: 20px 0px 0px 20px;
+    -moz-border-radius: 20px 0px 0px 20px;
+    -webkit-border-radius: 20px 0px 0px 20px;
+    padding-left: 9px;
+    padding-right: 5px;
+}
+
+.categorias {
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
+/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
+@media screen and (max-width: 600px) {
+  .link, .navbar input[type=text] {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .navbar input[type=text] {
+    border: 1px solid #ccc;
+  }
+}

@@ -1,0 +1,82 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13-abr-2020, 20:48:54
+    Author     : Usuario
+*/
+
+input[type=text],input[type=email],input[type=url],input[type=number], select, textarea {
+    background-color:  #e6e6e6;
+    padding: 10px;
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    border:none;
+    width: 450px;
+}
+
+select {
+    width: 470px;
+}
+
+table {
+    display: flex;
+    margin: 0 auto;
+}
+
+td {
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 8px;
+    text-align: left;
+}
+
+.titulo {
+    text-align: right;
+}
+
+textarea {
+    height: 100px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+button {
+    text-decoration: none;
+    background-color: transparent;
+    color:#003257;
+    padding: 10px;
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 20px 20px 20px 20px;
+    -webkit-border-radius: 20px 20px 20px 20px;
+    border: 2px solid  #003257;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 300px;
+    justify-content: center;
+    
+}
+
+button:hover {
+    color:white;
+    background-color: #003257;
+}
+
+.todo {
+    width: 50%;
+    margin:0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+h1 {
+    color: #003257;
+    font-size: 30px;
+    text-align: center;
+}
+

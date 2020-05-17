@@ -1,0 +1,95 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 09-abr-2020, 19:40:21
+    Author     : Usuario
+*/
+
+
+
+.avatar {
+  border-radius: 50%;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  margin-bottom: 5px;
+  object-fit: cover;
+}
+
+table {
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
+}
+
+td {
+    min-height: 100px;
+}
+
+.eti{
+     max-width: 120px;
+}
+
+.imagen{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    background-color: black;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 25px;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 2px;
+    color: #a8a8a8;
+    font-size: 20px;
+}
+
+h3 {
+    padding-left: 30px;
+}
+
+.editar, .borrar{
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.editar {
+    border-radius: 6px;
+    padding: 10px;
+    border: 0.5px solid #003257;
+    color: #003257;
+    display: block;
+    min-width: 60px;
+}
+
+.editar:hover {
+    background-color: #003257;
+    color: white;
+}
+
+.borrar {
+    color: #9f0000;
+}
+
+.borrar:hover {
+    color: #4b0000;
+}
