@@ -4,27 +4,30 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>Menú principal</title>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="paginaPrincipal.css" />
-        <h:outputScript library="javascript" name="buscador.js"/>
         <div class="navbar" id="navbar">
             <h:form>
                 <h:link>
                     <img class="headerImagen" src="resources/imagenes/logoblanco.png" width="100" height="30"/>
                     <f:ajax render="listaProductos" listener="#{productosListarBean.doMostrarTodo()}"/>
                 </h:link>
-                <h:selectOneMenu id="selectFiltro" styleClass="selectBuscar" onchange="changePlaceholder()" value="#{productosListarBean.select}">
+                <h:selectOneMenu id="selectBuscar" styleClass="selectBuscar" value="#{productosListarBean.select}">
                     <f:selectItems value="#{productosListarBean.listaBusquedas}" var="busqueda"
                                    itemValue="#{busqueda[0]}" itemLabel="#{busqueda[1]}"/>
+                    <f:ajax render="busquedaPlaceholder" listener="#{productosListarBean.changePlaceHolder()}"/>
                 </h:selectOneMenu>
-                <h:inputText id="filtros" value="#{productosListarBean.search}">
-                    <f:ajax execute="selectFiltro" render="listaProductos" listener="#{productosListarBean.doFiltrar()}" event="keyup"/>
-                </h:inputText>
-                <h:selectOneMenu styleClass="categorias" id="filtroCategoria" value="#{productosListarBean.categoria}">
+                <h:panelGroup id="busquedaPlaceholder">
+                    <h:inputText id="busqueda" value="#{productosListarBean.search}" a:placeholder="#{productosListarBean.placeholder}">
+                        <f:ajax execute="selectBuscar" render="listaProductos" listener="#{productosListarBean.doFiltrar()}" event="keyup"/>
+                    </h:inputText>
+                </h:panelGroup>
+                <h:selectOneMenu styleClass="categorias" id="categoria" value="#{productosListarBean.categoria}">
                     <f:selectItem itemValue="" itemLabel="Todas las categorías"/>
                     <c:forEach id="categorias" items="#{productosListarBean.listaCategorias}" var="categoria">
                         <f:selectItem itemValue="A#{categoria.id}" itemLabel="#{categoria.nombre}"/>
@@ -61,7 +64,7 @@
                                     <valoracion>
                                         <h:outputText rendered="#{producto.valoracionmedia > 0}" value="#{producto.valoracionmedia}">
                                             <f:convertNumber maxFractionDigits="2" minFractionDigits="0"/>
-                                        </h:outputText>
+                                        </h:outputText>★
                                     </valoracion>
                                 </div>
                                 <h4 class="tituloCard">#{producto.titulo}</h4>

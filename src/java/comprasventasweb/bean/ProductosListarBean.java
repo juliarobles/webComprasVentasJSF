@@ -45,6 +45,7 @@ public class ProductosListarBean {
     protected String select;
     protected String search;
     protected String categoria;
+    protected String placeholder;
     
     /**
      * Creates a new instance of ProductosListarBean
@@ -67,6 +68,7 @@ public class ProductosListarBean {
                 select = "";
                 search = "";
                 categoria = null;
+                placeholder = "";
         //}
     }
 
@@ -117,9 +119,31 @@ public class ProductosListarBean {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+
+    public String getPlaceholder() {
+        return placeholder;
+    }
+
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
+    }
     
     public void doMostrarTodo(){
         listaProductos = this.productoServices.searchAllInverso(); 
+    }
+    
+    public void changePlaceHolder(){
+        if(select.equals("FechaHora")){
+            this.setPlaceholder("Ejemplo: 01/01/1990 20:54 o 01/01/1990 20:54 - 31/12/1990 23:54");
+        } else if (select.equals("Fecha")) {
+            this.setPlaceholder("Ejemplo: 01/01/1990 o 01/01/1990 - 31/12/1990");
+        } else if (select.equals("Hora")) {
+            this.setPlaceholder("Ejemplo: 20:54 o 20:54 - 21:54");
+        } else if (select.equals("Etiqueta")) {
+            this.setPlaceholder("Separar por espacios");
+        } else {
+            this.setPlaceholder("");
+        }
     }
     
     public void doFiltrar(){
