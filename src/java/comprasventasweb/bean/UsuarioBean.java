@@ -5,10 +5,15 @@
  */
 package comprasventasweb.bean;
 
+import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
+import comprasventasweb.service.UsuarioService;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 
 /**
  *
@@ -18,7 +23,13 @@ import java.io.Serializable;
 @SessionScoped
 public class UsuarioBean implements Serializable {
 
+    @EJB
+    private UsuarioService usuarioService;
+    
+    private static final Logger LOG = Logger.getLogger(UsuarioBean.class.getName());
+    
     protected UsuarioDTO usuario;
+    protected ProductoDTO productoSeleccionado;
     protected String volver;
     protected String actual;
     
@@ -28,12 +39,19 @@ public class UsuarioBean implements Serializable {
     public UsuarioBean() {
     }
     
+    //BORRAR ESTA FUNCION ENTERA CUANDO SE HAGA EL LOGIN DE VERDAD
+    @PostConstruct
+    public void init(){
+        usuario = this.usuarioService.buscarPorCorreo("julia@gmail.com");
+    }
+    
     public String doCerrarSesion(){
         return irA("login");
     }
     
     public String doCrearProducto(){
-        return irA("producto");
+        this.setProductoSeleccionado(null);
+        return irA("creacionProducto");
     }
     
     public String doPerfil(){
@@ -49,5 +67,31 @@ public class UsuarioBean implements Serializable {
         actual = ir;
         return actual;
     }
+
+    public String doBorrar(ProductoDTO producto){
+        //Aqui lo que sea
+        
+        LOG.info("doBorrar(): " + this.hashCode());
+        return "perfil?faces-redirect=true";
+    }
+    
+    
+    public UsuarioDTO getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioDTO usuario) {
+        this.usuario = usuario;
+    }
+
+    public ProductoDTO getProductoSeleccionado() {
+        return productoSeleccionado;
+    }
+
+    public void setProductoSeleccionado(ProductoDTO productoSeleccionado) {
+        this.productoSeleccionado = productoSeleccionado;
+    }
+    
+    
     
 }

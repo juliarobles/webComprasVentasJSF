@@ -28,6 +28,10 @@ public class ProductoDTO {
     public ProductoDTO() {
     }
 
+    public ProductoDTO(Integer productoId) {
+        this.id = productoId;
+    }
+
     public Integer getId() {
         return id;
     }

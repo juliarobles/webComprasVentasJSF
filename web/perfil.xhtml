@@ -1,12 +1,92 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Perfil</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:outputStylesheet library="css" name="formularios.css" />
+        <h:outputStylesheet library="css" name="perfil.css" />
+        <!--
+        CAMBIAR LA SIGUIENTE LINEA CUANDO ESTE LO DEL ADMIN
+        
+        -->
+        <h:link styleClass="volver" rendered="#{usuarioPerfilBean.usuario.administrador}" 
+                outcome="paginaPrincipal" value="&#8592; Volver atrás" />
+        <h:link styleClass="volver" rendered="#{!usuarioPerfilBean.usuario.administrador}" 
+                outcome="paginaPrincipal" value="&#8592; Volver al menú principal" />
+        <div class="todo">
+            <img class="avatar" id="avatar" src="#{usuarioPerfilBean.usuario.foto}" width="200" height="200"/>
+            <h1>#{usuarioPerfilBean.usuario.nombre}</h1>
+            <h2>#{usuarioPerfilBean.usuario.usuario}</h2>
+            <h3>Mis productos</h3>
+            <h:panelGroup rendered="#{usuarioPerfilBean.listaProductos.size() == 0}">
+                <h2>Ningún producto ha sido publicado todavía</h2>
+            </h:panelGroup>
+            <h:form>
+                <h:dataTable id="listaProductos" rendered="#{usuarioPerfilBean.listaProductos.size() > 0}" 
+                             value="#{usuarioPerfilBean.listaProductos}" var="producto">
+                    <h:column>
+                        <f:facet name="header">FOTO</f:facet>
+                        <img class="imagen" src="#{producto.foto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">TITULO</f:facet>
+                        #{producto.titulo}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">DESCRIPCION</f:facet>
+                        #{producto.descripcion}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">SUBCATEGORIA</f:facet>
+                        #{producto.categoria.nombre}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">ETIQUETAS</f:facet>
+                        <ui:repeat value="#{producto.etiquetas}" var="etiq">
+                            ##{etiq.nombre}
+                        </ui:repeat>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">PRECIO</f:facet>
+                        <h:outputText value="#{producto.precio}">
+                            <f:convertNumber minIntegerDigits="0" maxFractionDigits="2"/>
+                        </h:outputText>€
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">VALORACION</f:facet>
+                        <h:outputText value="#{producto.valoracionmedia}">
+                            <f:convertNumber minIntegerDigits="0" maxFractionDigits="2"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">FECHA</f:facet>
+                        <h:outputText value="#{producto.fecha}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">HORA</f:facet>
+                        <h:outputText value="#{producto.hora}">
+                            <f:convertDateTime pattern="HH:mm"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <h:commandLink styleClass="editar" value="Ver todo" action="#{usuarioBean.doCerrarSesion()}"/>
+                    </h:column>
+                    <h:column>
+                        <h:commandLink styleClass="editar" value="Editar" action="#{usuarioBean.doCerrarSesion()}"/>
+                    </h:column>
+                    <h:column>
+                        <h:commandLink styleClass="borrar" value="Borrar" onclick="return confirm('¿Estás seguro?');" action="#{usuarioBean.doBorrar(producto)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
     </h:body>
 </html>
 

@@ -30,15 +30,12 @@ public class SubcategoriaFacade extends AbstractFacade<Subcategoria> {
     public SubcategoriaFacade() {
         super(Subcategoria.class);
     }
-    
-    /*
-    public List<Subcategoria> findByCategory(Integer categoryId) {        
+
+    public List<Subcategoria> findListSubcategory(Integer id) {
         Query q = this.getEntityManager().createNamedQuery("Subcategoria.findByCategory");
-        q.setParameter("id", categoryId);
+        q.setParameter("id", id);
         
         return q.getResultList();
-        
     }
-*/
     
 }

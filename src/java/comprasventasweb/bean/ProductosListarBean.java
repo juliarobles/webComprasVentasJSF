@@ -55,21 +55,21 @@ public class ProductosListarBean {
     
     @PostConstruct
     public void init(){
-        /*
-        if (this.usuarioBean.usuario == null) { 
+        
+        if (this.usuarioBean.getUsuario() == null) { 
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("login.jsf");           
             } catch (IOException ex) {
                 LOG.severe(String.format("Se ha producido una excepcion: %s", ex.getMessage()));
             }
-        } else {*/
+        } else {
                 listaProductos = this.productoServices.searchAllInverso(); 
                 listaCategorias = this.categoriaService.searchAll();
                 select = "";
                 search = "";
                 categoria = null;
                 placeholder = "";
-        //}
+        }
     }
 
     public String[][] getListaBusquedas() {
