@@ -7,6 +7,7 @@ package comprasventasweb.bean;
 
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
+import comprasventasweb.service.ProductoService;
 import comprasventasweb.service.UsuarioService;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -25,6 +26,8 @@ public class UsuarioBean implements Serializable {
 
     @EJB
     private UsuarioService usuarioService;
+    @EJB
+    private ProductoService productoService;
     
     private static final Logger LOG = Logger.getLogger(UsuarioBean.class.getName());
     
@@ -68,13 +71,19 @@ public class UsuarioBean implements Serializable {
         return actual;
     }
 
-    public void doBorrar(UsuarioDTO usuario){ //antes era public String doBorrar(ProductoDTO producto){
-        //Aqui lo que sea
-        this.usuarioService.remove(Integer.toString(usuario.getId()));
+    public String doBorrar(ProductoDTO producto){
+        
+        this.productoService.remove(Integer.toString(producto.getId()));
         LOG.info("doBorrar(): " + this.hashCode());
-        // return "perfil?faces-redirect=true";
+        return "perfil?faces-redirect=true";
     }
     
+    public String doBorrarUsuario(UsuarioDTO usuario){
+        
+        this.usuarioService.remove(Integer.toString(usuario.getId()));
+        LOG.info("doBorrar(): " + this.hashCode());
+        return "perfil?faces-redirect=true";
+    }
     
     public UsuarioDTO getUsuario() {
         return usuario;
