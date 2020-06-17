@@ -68,11 +68,11 @@ public class UsuarioBean implements Serializable {
         return actual;
     }
 
-    public String doBorrar(ProductoDTO producto){
+    public void doBorrar(UsuarioDTO usuario){ //antes era public String doBorrar(ProductoDTO producto){
         //Aqui lo que sea
-        
+        this.usuarioService.remove(Integer.toString(usuario.getId()));
         LOG.info("doBorrar(): " + this.hashCode());
-        return "perfil?faces-redirect=true";
+        // return "perfil?faces-redirect=true";
     }
     
     
