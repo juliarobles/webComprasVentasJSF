@@ -43,7 +43,7 @@
                                 <f:selectItem itemLabel="Seleccione una categoria..."/>
                                 <f:selectItems value="#{productoCrearEditarBean.listaCategorias}" var="categoria"
                                                itemValue="#{categoria.id}" itemLabel="#{categoria.nombre}"/>
-                                <f:ajax render="subcategoria"/>
+                                <f:ajax render="subcategoria" listener="#{productoCrearEditarBean.actualizarListaSubcategorias()}"/>
                             </h:selectOneMenu>
                         </td>
                     </tr>
@@ -86,7 +86,7 @@
                         </td>
                     </tr>
                 </table>
-                <h:commandButton value="Publicar producto" action="#{usuarioBean.doCerrarSesion()}"/>
+                <h:commandButton value="Publicar producto" action="#{productoCrearEditarBean.doGuardar()}"/>
             </h:form>
         </div>
     </h:body>

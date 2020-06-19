@@ -33,6 +33,7 @@ public class UsuarioBean implements Serializable {
     
     protected UsuarioDTO usuario;
     protected ProductoDTO productoSeleccionado;
+    protected Integer subcategoriaSeleccionada;
     protected String volver;
     protected String actual;
     
@@ -54,6 +55,7 @@ public class UsuarioBean implements Serializable {
     
     public String doCrearProducto(){
         this.setProductoSeleccionado(null);
+        this.subcategoriaSeleccionada = -1;
         return irA("creacionProducto");
     }
     
@@ -100,6 +102,16 @@ public class UsuarioBean implements Serializable {
     public void setProductoSeleccionado(ProductoDTO productoSeleccionado) {
         this.productoSeleccionado = productoSeleccionado;
     }
+
+    public Integer getSubcategoriaSeleccionada() {
+        return subcategoriaSeleccionada;
+    }
+
+    public void setSubcategoriaSeleccionada(Integer subcategoriaSeleccionada) {
+        this.subcategoriaSeleccionada = subcategoriaSeleccionada;
+    }
+
+    
     
     
     

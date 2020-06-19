@@ -10,6 +10,7 @@ import comprasventasweb.dto.EtiquetaDTO;
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.SubcategoriaBasicaDTO;
 import comprasventasweb.service.CategoriaService;
+import comprasventasweb.service.ProductoService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,9 @@ public class ProductoCrearEditarBean {
     
     @EJB
     private CategoriaService categoriaService;
+    
+    @EJB
+    private ProductoService productoService;
     
     private static final Logger LOG = Logger.getLogger(ProductoCrearEditarBean.class.getName());
     
@@ -65,6 +69,7 @@ public class ProductoCrearEditarBean {
                 this.producto = new ProductoDTO(0);
                 this.producto.setVendedor(usuarioBean.getUsuario());
                 this.todasEtiquetas = "";
+                this.subcategoriaSeleccionada = this.usuarioBean.getSubcategoriaSeleccionada();
             } else { // Es editar producto
                 this.modoCrear = false;
                 this.categoriaSeleccionada = this.producto.getCategoria().getCategoriaPadre().getId();
@@ -79,7 +84,9 @@ public class ProductoCrearEditarBean {
                 this.todasEtiquetas = sb.toString();
             }
             this.listaCategorias = this.categoriaService.searchAll();
-            actualizarListaSubcategorias();
+            if(this.usuarioBean.getSubcategoriaSeleccionada() == -1){
+                actualizarListaSubcategorias();
+            }
         }
         
     }
@@ -92,6 +99,11 @@ public class ProductoCrearEditarBean {
         } else {
             this.listaSubcategorias = new ArrayList<>();
         }
+    }
+    
+    public String doGuardar(){
+        this.productoService.createOrUpdate(this.producto, this.subcategoriaSeleccionada, this.todasEtiquetas);
+        return "paginaPrincipal?faces-redirect=true";
     }
     
     public ProductoDTO getProducto() {
@@ -140,6 +152,7 @@ public class ProductoCrearEditarBean {
 
     public void setSubcategoriaSeleccionada(Integer subcategoriaSeleccionada) {
         this.subcategoriaSeleccionada = subcategoriaSeleccionada;
+        this.usuarioBean.setSubcategoriaSeleccionada(subcategoriaSeleccionada);
     }
 
     public String getTodasEtiquetas() {

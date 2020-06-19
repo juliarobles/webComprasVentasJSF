@@ -103,61 +103,6 @@ public class ProductoService {
         List<Producto> listaProductos = this.productoFacade.findAllInverso();
         return this.convertToDTO2(listaProductos);
     }
-    
-    public void createOrUpdate (String id, String vendedor, String titulo, String descripcion, String precio, String subcategoria,
-                                String foto, String etiquetas) {
-        Producto producto;
-        boolean esCrearNuevo = false;
-        
-        if (id == null || id.isEmpty()) { // Estamos en el caso de creación de un nuevo cliente
-            producto = new Producto(0); // Aunque el id es autoincremental, hay ocasiones en las que
-                                       // si no se le da un valor por defecto, da un error al guardarlo.
-            esCrearNuevo = true;
-        } else {
-            producto = this.productoFacade.find(new Integer(id));
-        }
-
-        producto.setTitulo(titulo);
-        producto.setDescripcion(descripcion);
-        producto.setPrecio(Float.parseFloat(precio));
-        producto.setCategoria(this.subcategoriaFacade.find(new Integer(subcategoria)));
-        producto.setFoto(foto);
-     
-        if(esCrearNuevo){
-            producto.setEtiquetaList(new ArrayList<>());
-            producto.setVendedor(this.usuarioFacade.find(new Integer(vendedor)));
-            producto.setFecha(new Date());
-            producto.setHora(new Date());
-            producto.setValoracionmedia(Float.parseFloat("-1"));
-        }
-        
-        if (esCrearNuevo) {
-            this.productoFacade.create(producto);
-        } else {
-            this.productoFacade.edit(producto);
-        } 
-        
-        if(!esCrearNuevo){
-           this.vaciarEtiquetas(producto);
-        }
-        
-        if(etiquetas != null || etiquetas.equals("")){
-           String[] split = etiquetas.split("#");
-            for(int i = 0; i < split.length; i++){
-                String s = split[i];
-
-                while(s != null && s.length() >= 1 && s.charAt(s.length()-1) == ' '){
-                    s = s.substring(0, s.length()-1);
-                }
-
-                if(s != null && s.length() >= 1){
-                    this.etiquetaFacade.createOrUpdate(s, producto);
-                }
-            } 
-        }
-        
-        
-    }
 
     public List<ProductoDTO> searchByUser(UsuarioDTO user) {
         List<Producto> listaProductos = this.productoFacade.findByUserId(this.usuarioFacade.find(user.getId()));
@@ -282,4 +227,43 @@ public class ProductoService {
         } else {
             return null;
         }    }
+
+    public void createOrUpdate(ProductoDTO producto, Integer subcategoria, String etiquetas) {
+        boolean esCrearNuevo = false;
+        Integer id = producto.getId();
+        if (id == null || id == 0) { // Estamos en el caso de creación de un nuevo cliente
+            esCrearNuevo = true;
+        }
+        
+        Producto n = new Producto(producto);
+        n.setVendedor(this.usuarioFacade.find(producto.getVendedor().getId()));
+        n.setCategoria(this.subcategoriaFacade.find(subcategoria));
+        
+        if(esCrearNuevo){
+            n.setEtiquetaList(new ArrayList<>());
+            n.setFecha(new Date());
+            n.setHora(new Date());
+            n.setValoracionmedia(Float.parseFloat("-1"));
+            this.productoFacade.create(n);
+        } else {
+            this.productoFacade.edit(n);
+            this.vaciarEtiquetas(n);
+        }
+        
+        if(etiquetas != null || etiquetas.equals("")){
+           String[] split = etiquetas.split("#");
+            for(int i = 0; i < split.length; i++){
+                String s = split[i];
+
+                while(s != null && s.length() >= 1 && s.charAt(s.length()-1) == ' '){
+                    s = s.substring(0, s.length()-1);
+                }
+
+                if(s != null && s.length() >= 1){
+                    this.etiquetaFacade.createOrUpdate(s, n);
+                }
+            } 
+        }
+    }
+    
 }

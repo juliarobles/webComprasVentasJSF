@@ -115,6 +115,17 @@ public class Producto implements Serializable {
     public Producto(Integer id) {
         this.id = id;
     }
+    
+    public Producto(ProductoDTO p){
+        this.descripcion = p.getDescripcion();
+        this.fecha = p.getFecha();
+        this.hora = p.getHora();
+        this.precio = p.getPrecio();
+        this.id = p.getId();
+        this.titulo = p.getTitulo();
+        this.foto = p.getFoto();
+        this.valoracionmedia = p.getValoracionmedia();
+    }
 
     public Producto(Integer id, String titulo, float precio, Date hora, Date fecha) {
         this.id = id;
