@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Roberto Michán Sánchez (doLogin)
  */
 package comprasventasweb.bean;
 
@@ -36,6 +34,9 @@ public class UsuarioBean implements Serializable {
     protected Integer subcategoriaSeleccionada;
     protected String volver;
     protected String actual;
+    protected String email;
+    protected String clave;
+    protected String status;
     
     /**
      * Creates a new instance of UsuarioBean
@@ -43,13 +44,11 @@ public class UsuarioBean implements Serializable {
     public UsuarioBean() {
     }
     
-    //BORRAR ESTA FUNCION ENTERA CUANDO SE HAGA EL LOGIN DE VERDAD
-    @PostConstruct
-    public void init(){
-        usuario = this.usuarioService.buscarPorCorreo("julia@gmail.com");
-    }
-    
     public String doCerrarSesion(){
+        this.usuario = null;
+        this.status = "";
+        this.email = "";
+        this.clave = "";
         return irA("login");
     }
     
@@ -109,6 +108,51 @@ public class UsuarioBean implements Serializable {
 
     public void setSubcategoriaSeleccionada(Integer subcategoriaSeleccionada) {
         this.subcategoriaSeleccionada = subcategoriaSeleccionada;
+    }
+    
+    public String doLogin () {        
+        UsuarioDTO usuarioLog = this.usuarioService.buscarPorCorreo(this.email);
+        if (usuarioLog == null) {
+            this.status = "El usuario no se encuentra en la base de datos";
+            this.email = "";
+            this.clave = "";
+            return null;
+        } else if (!this.clave.equals(usuarioLog.getPassword())) {
+           this.status = "La clave es incorrecta";            
+            this.clave = "";           
+            return null;           
+        } else {
+            this.usuario = usuarioLog;
+            if(usuario.getAdministrador()){
+                return "principalAdmin";
+            } else {
+                return "paginaPrincipal";
+            }          
+        }        
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String correo) {
+        this.email = correo;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     
