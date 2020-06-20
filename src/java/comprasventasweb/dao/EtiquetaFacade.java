@@ -9,6 +9,7 @@ import comprasventasweb.entity.Etiqueta;
 import comprasventasweb.entity.Producto;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,7 +21,7 @@ import javax.persistence.Query;
  */
 @Stateless
 public class EtiquetaFacade extends AbstractFacade<Etiqueta> {
-
+    
     @PersistenceContext(unitName = "ProyWebComprasVentasPU")
     private EntityManager em;
 
@@ -29,20 +30,28 @@ public class EtiquetaFacade extends AbstractFacade<Etiqueta> {
         return em;
     }
 
+    @EJB
+    protected ProductoFacade productoFacade;
+    
     public EtiquetaFacade() {
         super(Etiqueta.class);
     }
     
     public Etiqueta findByName(String name){
-        Etiqueta et = null;
-        Query q = this.getEntityManager().createNamedQuery("Etiqueta.findByNombre");
-        q.setParameter("nombre", name);
-        
-        List<Etiqueta> lista = q.getResultList();
-        if(lista != null && !lista.isEmpty()){ //Comprobamos si no peta y si está vacía o no
-             et = lista.get(0);                //devolvemos el primer resultado que deberia de ser el único
+        if(name != null){
+            Etiqueta et = null;
+            Query q = this.getEntityManager().createNamedQuery("Etiqueta.findByNombre");
+            q.setParameter("nombre", name);
+
+            List<Etiqueta> lista = q.getResultList();
+            if(lista != null && !lista.isEmpty()){ //Comprobamos si no peta y si está vacía o no
+                 et = lista.get(0);                //devolvemos el primer resultado que deberia de ser el único
+            }
+            return et;
+        } else {
+            return null;
         }
-        return et;
+        
     }
 
     public void addProducto(Etiqueta et, Producto p) {
@@ -56,15 +65,14 @@ public class EtiquetaFacade extends AbstractFacade<Etiqueta> {
                 lista2 = new ArrayList<>();
             }
             if(!lista.contains(p) && !lista2.contains(et)){
-                EntityManager em = this.getEntityManager();
                 
                 lista.add(p);
                 et.setProductoList(lista);
-                em.persist(et);
+                this.edit(et);
                 
                 lista2.add(et);
                 p.setEtiquetaList(lista2);
-                em.persist(p);
+                this.productoFacade.edit(p);
             }
         }
     }
@@ -75,11 +83,12 @@ public class EtiquetaFacade extends AbstractFacade<Etiqueta> {
             //List<Etiqueta> lista2 = p.getEtiquetaList();
             //&& lista2 != null && lista2.contains(et)
             if(lista != null && lista.contains(p)){
-                EntityManager em = this.getEntityManager();
+                //EntityManager em = this.getEntityManager();
                 
                 lista.remove(p);
                 et.setProductoList(lista);
-                em.persist(et);
+                this.edit(et);
+                //this.productoFacade.edit(p);
                 
                 /*
                 lista2.remove(et);
@@ -93,19 +102,12 @@ public class EtiquetaFacade extends AbstractFacade<Etiqueta> {
     
     public void createOrUpdate(String nombre, Producto p){
         Etiqueta et = this.findByName(nombre);
-        boolean esCrearNuevo = false;
         
         if (et == null) { 
             et = new Etiqueta(0);
             et.setNombre(nombre);
-            esCrearNuevo = true;
-        }
-   
-        if (esCrearNuevo) {
             this.create(et);
-        } else {
-            this.edit(et);
-        } 
+        }
         
         if(p != null){
             this.addProducto(et, p);     

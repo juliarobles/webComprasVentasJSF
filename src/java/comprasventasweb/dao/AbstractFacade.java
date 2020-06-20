@@ -6,10 +6,10 @@
 package comprasventasweb.dao;
 
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-
 /**
  *
  * @author Usuario
@@ -18,6 +18,8 @@ public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;
 
+    private static final Logger LOG = Logger.getLogger(AbstractFacade.class.getName());
+    
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
@@ -29,18 +31,35 @@ public abstract class AbstractFacade<T> {
             getEntityManager().persist(entity);
         } catch (ConstraintViolationException e) {
         // Aqui tira los errores de constraint
-        for (ConstraintViolation actual : e.getConstraintViolations()) {
-            System.out.println(actual.toString());
-        }
+            for (ConstraintViolation actual : e.getConstraintViolations()) {
+                System.out.println();
+                LOG.severe(String.format("Esto ha fallado: %s", actual.toString()));
+            }
         }
     }
 
     public void edit(T entity) {
-        getEntityManager().merge(entity);
+        try{
+            getEntityManager().merge(entity);
+        } catch (ConstraintViolationException e) {
+        // Aqui tira los errores de constraint
+        for (ConstraintViolation actual : e.getConstraintViolations()) {
+            System.out.println(actual.toString());
+            LOG.severe(String.format("Esto ha fallado: %s", actual.toString()));
+        }
+    }
     }
 
     public void remove(T entity) {
-        getEntityManager().remove(getEntityManager().merge(entity));
+        try{
+            getEntityManager().remove(getEntityManager().merge(entity));
+        } catch (ConstraintViolationException e) {
+            // Aqui tira los errores de constraint
+            for (ConstraintViolation actual : e.getConstraintViolations()) {
+                System.out.println(actual.toString());
+                LOG.severe(String.format("Esto ha fallado: %s", actual.toString()));
+            }
+        }
     }
 
     public T find(Object id) {

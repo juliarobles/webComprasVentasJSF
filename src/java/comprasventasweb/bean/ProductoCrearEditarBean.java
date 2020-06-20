@@ -8,17 +8,17 @@ package comprasventasweb.bean;
 import comprasventasweb.dto.CategoriaDTO;
 import comprasventasweb.dto.EtiquetaDTO;
 import comprasventasweb.dto.ProductoDTO;
-import comprasventasweb.dto.SubcategoriaBasicaDTO;
 import comprasventasweb.service.CategoriaService;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -28,7 +28,7 @@ import javax.inject.Inject;
  */
 @Named(value = "productoCrearEditarBean")
 @RequestScoped
-public class ProductoCrearEditarBean {
+public class ProductoCrearEditarBean implements Serializable {
 
     @Inject
     private UsuarioBean usuarioBean;
@@ -42,9 +42,7 @@ public class ProductoCrearEditarBean {
     private static final Logger LOG = Logger.getLogger(ProductoCrearEditarBean.class.getName());
     
     protected ProductoDTO producto;
-    protected boolean modoCrear;
     protected List<CategoriaDTO> listaCategorias;
-    protected List<SubcategoriaBasicaDTO> listaSubcategorias;
     protected Integer categoriaSeleccionada;
     protected Integer subcategoriaSeleccionada;
     protected String todasEtiquetas;
@@ -65,14 +63,11 @@ public class ProductoCrearEditarBean {
         } else {        
             this.producto = this.usuarioBean.getProductoSeleccionado();
             if (this.producto == null) { // Es crear nuevo producto
-                this.modoCrear = true;
                 this.producto = new ProductoDTO(0);
                 this.producto.setVendedor(usuarioBean.getUsuario());
                 this.todasEtiquetas = "";
-                this.subcategoriaSeleccionada = this.usuarioBean.getSubcategoriaSeleccionada();
             } else { // Es editar producto
-                this.modoCrear = false;
-                this.categoriaSeleccionada = this.producto.getCategoria().getCategoriaPadre().getId();
+                this.setCategoriaSeleccionada(this.producto.getCategoria().getCategoriaPadre().getId());
                 this.subcategoriaSeleccionada = this.producto.getCategoria().getId();
                 this.usuarioBean.setProductoSeleccionado(null);
                 StringBuilder sb = new StringBuilder();
@@ -84,26 +79,24 @@ public class ProductoCrearEditarBean {
                 this.todasEtiquetas = sb.toString();
             }
             this.listaCategorias = this.categoriaService.searchAll();
-            if(this.usuarioBean.getSubcategoriaSeleccionada() == -1){
-                actualizarListaSubcategorias();
-            }
         }
         
     }
 
     public void actualizarListaSubcategorias(){
         if(this.categoriaSeleccionada != null){
-            this.setListaSubcategorias(this.categoriaService.listSubcategory(categoriaSeleccionada));
-        } else if(this.listaSubcategorias != null){
-            this.listaSubcategorias.clear();
-        } else {
-            this.listaSubcategorias = new ArrayList<>();
+            this.usuarioBean.setListaSubcategorias(this.categoriaService.listSubcategory(categoriaSeleccionada));
         }
     }
     
     public String doGuardar(){
         this.productoService.createOrUpdate(this.producto, this.subcategoriaSeleccionada, this.todasEtiquetas);
-        return "paginaPrincipal?faces-redirect=true";
+
+        if(this.usuarioBean.isModoCrear() == true){
+            return "paginaPrincipal?faces-redirect=true";
+        } else {
+            return "perfil?faces-redirect=true";
+        }
     }
     
     public ProductoDTO getProducto() {
@@ -114,14 +107,6 @@ public class ProductoCrearEditarBean {
         this.producto = producto;
     }
 
-    public boolean isModoCrear() {
-        return modoCrear;
-    }
-
-    public void setModoCrear(boolean modoCrear) {
-        this.modoCrear = modoCrear;
-    }
-
     public List<CategoriaDTO> getListaCategorias() {
         return listaCategorias;
     }
@@ -130,20 +115,13 @@ public class ProductoCrearEditarBean {
         this.listaCategorias = listaCategorias;
     }
 
-    public List<SubcategoriaBasicaDTO> getListaSubcategorias() {
-        return listaSubcategorias;
-    }
-
-    public void setListaSubcategorias(List<SubcategoriaBasicaDTO> listaSubcategorias) {
-        this.listaSubcategorias = listaSubcategorias;
-    }
-
     public Integer getCategoriaSeleccionada() {
         return categoriaSeleccionada;
     }
 
     public void setCategoriaSeleccionada(Integer categoriaSeleccionada) {
         this.categoriaSeleccionada = categoriaSeleccionada;
+        actualizarListaSubcategorias();
     }
 
     public Integer getSubcategoriaSeleccionada() {
@@ -152,7 +130,6 @@ public class ProductoCrearEditarBean {
 
     public void setSubcategoriaSeleccionada(Integer subcategoriaSeleccionada) {
         this.subcategoriaSeleccionada = subcategoriaSeleccionada;
-        this.usuarioBean.setSubcategoriaSeleccionada(subcategoriaSeleccionada);
     }
 
     public String getTodasEtiquetas() {

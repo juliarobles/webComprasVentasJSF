@@ -79,7 +79,7 @@
                         <h:commandLink styleClass="editar" value="Ver todo" action="#{usuarioBean.doCerrarSesion()}"/>
                     </h:column>
                     <h:column>
-                        <h:commandLink styleClass="editar" value="Editar" action="#{usuarioBean.doCerrarSesion()}"/>
+                        <h:commandLink styleClass="editar" value="Editar" action="#{usuarioBean.doEditarProducto(producto)}"/>
                     </h:column>
                     <h:column>
                         <h:commandLink styleClass="borrar" value="Borrar" onclick="return confirm('¿Estás seguro?');" action="#{usuarioBean.doBorrar(producto)}"/>

@@ -5,7 +5,7 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Crear producto</title>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="formularios.css" />
@@ -15,6 +15,13 @@
             <h:form>
                 <h:inputHidden value="#{productoCrearEditarBean.producto.id}"/>
                 <h:inputHidden value="#{productoCrearEditarBean.producto.vendedor.id}"/>
+                <h:inputHidden value="#{productoCrearEditarBean.producto.fecha}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/> 
+                </h:inputHidden>
+                <h:inputHidden value="#{productoCrearEditarBean.producto.hora}">
+                    <f:convertDateTime pattern="hh:MM"/> 
+                </h:inputHidden>
+                <h:inputHidden value="#{productoCrearEditarBean.producto.valoracionmedia}"/>
                 <table>
                     <tr>
                         <h1>Crear nuevo producto</h1>
@@ -43,7 +50,7 @@
                                 <f:selectItem itemLabel="Seleccione una categoria..."/>
                                 <f:selectItems value="#{productoCrearEditarBean.listaCategorias}" var="categoria"
                                                itemValue="#{categoria.id}" itemLabel="#{categoria.nombre}"/>
-                                <f:ajax render="subcategoria" listener="#{productoCrearEditarBean.actualizarListaSubcategorias()}"/>
+                                <f:ajax render="subcategoria"/>
                             </h:selectOneMenu>
                         </td>
                     </tr>
@@ -52,7 +59,7 @@
                         <td>
                             <h:selectOneMenu id="subcategoria" value="#{productoCrearEditarBean.subcategoriaSeleccionada}">
                                 <f:selectItem itemLabel="Seleccione una subcategoria..."/>
-                                <f:selectItems value="#{productoCrearEditarBean.listaSubcategorias}" var="subcategoria"
+                                <f:selectItems value="#{usuarioBean.listaSubcategorias}" var="subcategoria"
                                                itemValue="#{subcategoria.id}" itemLabel="#{subcategoria.nombre}"/>
                                 <f:validateRequired/>
                             </h:selectOneMenu>
