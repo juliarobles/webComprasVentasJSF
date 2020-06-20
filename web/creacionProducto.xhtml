@@ -1,5 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+    AUTOR: Julia Robles Medina
+-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
@@ -10,6 +13,9 @@
     <h:body>
         <h:outputStylesheet library="css" name="formularios.css" />
         <h:outputStylesheet library="css" name="producto.css" />
+        <h:form>
+            <h:commandLink styleClass="volver" value="&#8592; Volver atrás" action="#{productoCrearEditarBean.doVolver()}"/>
+        </h:form>
         <!--<a class="volver" href=<%= destino %>>&#8592 Volver atrás </a></br>-->
         <div class="todo">
             <h:form>
@@ -93,7 +99,7 @@
                         </td>
                     </tr>
                 </table>
-                <h:commandButton value="Publicar producto" action="#{productoCrearEditarBean.doGuardar()}"/>
+                <h:commandButton styleClass="button" value="Publicar producto" action="#{productoCrearEditarBean.doGuardar()}"/>
             </h:form>
         </div>
     </h:body>

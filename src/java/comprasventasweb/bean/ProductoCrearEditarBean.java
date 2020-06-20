@@ -1,8 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    AUTOR: Julia Robles Medina
+*/
 package comprasventasweb.bean;
 
 import comprasventasweb.dto.CategoriaDTO;
@@ -91,7 +89,10 @@ public class ProductoCrearEditarBean implements Serializable {
     
     public String doGuardar(){
         this.productoService.createOrUpdate(this.producto, this.subcategoriaSeleccionada, this.todasEtiquetas);
-
+        return doVolver();
+    }
+    
+    public String doVolver(){
         if(this.usuarioBean.isModoCrear() == true){
             return "paginaPrincipal?faces-redirect=true";
         } else {

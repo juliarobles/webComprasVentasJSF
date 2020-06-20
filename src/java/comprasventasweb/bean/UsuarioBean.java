@@ -1,5 +1,8 @@
 /*
+ * AUTORES:
+ * Julia Robles Medina (doCerrarSesion, doCrearProducto, doEditarProducto, doPerfil, doListarProductos)
  * Roberto Michán Sánchez (doLogin)
+ * Tomás (doBorrarProducto)
  */
 package comprasventasweb.bean;
 
@@ -16,10 +19,6 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 
-/**
- *
- * @author Usuario
- */
 @Named(value = "usuarioBean")
 @SessionScoped
 public class UsuarioBean implements Serializable {
@@ -83,7 +82,7 @@ public class UsuarioBean implements Serializable {
         return actual;
     }
 
-    public String doBorrar(ProductoDTO producto){
+    public String doBorrarProducto(ProductoDTO producto){
         
         this.productoService.remove(Integer.toString(producto.getId()));
         LOG.info("doBorrar(): " + this.hashCode());
