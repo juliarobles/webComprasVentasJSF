@@ -89,12 +89,7 @@ public class UsuarioBean implements Serializable {
         return "perfil?faces-redirect=true";
     }
     
-    public String doBorrarUsuario(UsuarioDTO usuario){
-        
-        this.usuarioService.remove(Integer.toString(usuario.getId()));
-        LOG.info("doBorrar(): " + this.hashCode());
-        return "perfil?faces-redirect=true";
-    }
+    
     
     public UsuarioDTO getUsuario() {
         return usuario;

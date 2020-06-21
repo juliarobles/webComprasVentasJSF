@@ -1,16 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+Tomás Goizueta Díaz
 -->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Menu Principal Usuarios</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+    </h:head>
+    <h1>Listado de usuarios</h1>
+    <h:body>
+        <h:form>
+            <h:dataTable id="listaUsuarios" border="1" value="#{usuariosListarBean.listaUsuarios}" var="usuario">
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                #{usuario.id}               
+            </h:column>            
+            <h:column>
+                <f:facet name="header">USUARIO</f:facet>                
+                #{usuario.usuario}
+            </h:column>                        
+            <h:column>        
+                <f:facet name="header">EMAIL</f:facet>                
+                #{usuario.email}
+            </h:column>
+                
+            <h:column>
+                <f:facet name="header">NOMBRE</f:facet>                
+                #{usuario.nombre}
+            </h:column>     
+                
+            <h:column>
+                <f:facet name="header">ADMINISTRADOR</f:facet>                
+                #{usuario.administrador}
+            </h:column>                        
+            <h:column>        
+                <f:facet name="header">FOTO</f:facet>                
+                #{usuario.foto}
+            </h:column>
+            <h:column>
+                <h:commandButton value="Consultar" action="#{usuarioPerfilBean.init()}" />                
+            </h:column>
+            <h:column>
+                <h:commandButton value="Borrar" action="#{usuariosListarBean.doBorrarUsuario(usuario)}" />                
+            </h:column>
+            <h:column>
+                <h:commandLink value="Editar" action="#{usuarioBean.doUsuarioEditar(usuario)}" />                
+            </h:column>            
+        </h:dataTable>
+            <h:link outcome="principalAdmin">Menu de administración</h:link> 
+            <h:commandLink styleClass="link" value="Cerrar sesión" action="#{usuarioBean.doCerrarSesion()}"/>
+               
+        </h:form>
+    </h:body>
 </html>
