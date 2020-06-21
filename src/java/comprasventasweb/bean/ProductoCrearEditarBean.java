@@ -1,5 +1,6 @@
 /*
     AUTOR: Julia Robles Medina
+    Roberto Michán Sánchez (doVolverAdmin, doGuardarAdmin)
 */
 package comprasventasweb.bean;
 
@@ -98,6 +99,15 @@ public class ProductoCrearEditarBean implements Serializable {
         } else {
             return "perfil?faces-redirect=true";
         }
+    }
+    
+    public String doGuardarAdmin(){
+        this.productoService.createOrUpdate(this.producto, this.subcategoriaSeleccionada, this.todasEtiquetas);
+        return doVolverAdmin();
+    }
+    
+    public String doVolverAdmin(){
+        return "productosAdmin";
     }
     
     public ProductoDTO getProducto() {

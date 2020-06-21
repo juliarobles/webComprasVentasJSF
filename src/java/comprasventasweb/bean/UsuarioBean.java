@@ -1,7 +1,7 @@
 /*
  * AUTORES:
  * Julia Robles Medina (doCerrarSesion, doCrearProducto, doEditarProducto, doPerfil, doListarProductos)
- * Roberto Michán Sánchez (doLogin)
+ * Roberto Michán Sánchez (doLogin, comprobarAdmin, comprobarLogin)
  * Tomás (doBorrarProducto)
  */
 package comprasventasweb.bean;
@@ -134,6 +134,22 @@ public class UsuarioBean implements Serializable {
                 return "paginaPrincipal";
             }          
         }        
+    }
+    
+    public String comprobarAdmin() {
+        if(usuario == null || !usuario.getAdministrador()){
+            return "paginaPrincipal";
+        } else {
+            return null;
+        }
+    }
+    
+    public String comprobarLogin() {
+        if(usuario != null){
+            return null;
+        } else {
+            return "login";
+        }
     }
 
     public String getEmail() {

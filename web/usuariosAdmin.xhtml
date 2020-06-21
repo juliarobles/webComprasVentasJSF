@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 Tomás Goizueta Díaz
-Roberto Michán Sánchez (ver foto en nueva pestaña, retoques menús)
+Roberto Michán Sánchez (ver foto en nueva pestaña, retoques menús, comprobarAdmin)
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:viewAction action="#{usuarioBean.comprobarAdmin()}" />
+    </f:metadata>
     <h:head>
         <title>Menu Principal Usuarios</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>

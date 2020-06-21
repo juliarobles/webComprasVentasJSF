@@ -6,11 +6,13 @@ Roberto Michán Sánchez
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:viewAction action="#{usuarioBean.comprobarAdmin()}" />
+    </f:metadata>
     <h:head>
         <title>Lista de productos</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    
     <h:body>
         <h:outputStylesheet library="css" name="menuAdmin.css" />
         <h:link>
@@ -23,7 +25,12 @@ Roberto Michán Sánchez
             <h:commandLink action="#{usuarioBean.doCerrarSesion()}" value="Cerrar sesión" />
             <h1>Lista de productos</h1>
         </h:form>
-        <h:form>
+        <h:form rendered="#{(productosListarBean.listaProductosFull == null) or (productosListarBean.listaProductosFull.size() == 0)}">
+            <center>
+                <h2>No se han encontrado productos</h2>
+            </center>
+        </h:form>
+        <h:form rendered="#{productosListarBean.listaProductosFull.size() > 0}">
             <h:dataTable id="listaProductos" border="1" value="#{productosListarBean.listaProductosFull}" var="producto">
             <h:column>
                 <f:facet name="header">Título</f:facet>
