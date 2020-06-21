@@ -140,14 +140,6 @@ public class UsuarioBean implements Serializable {
             }          
         }        
     }
-    
-    public String doLogout () {
-        this.usuario = null;
-        this.status = "";
-        this.email = "";
-        this.clave = "";
-        return "login";        
-    }
 
     public String getEmail() {
         return email;
