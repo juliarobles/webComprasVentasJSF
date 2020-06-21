@@ -215,7 +215,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     public void vaciarEtiquetas(Producto producto) {
          EntityManager em = this.getEntityManager();
          producto.setEtiquetaList(new ArrayList<>());
-         em.persist(producto);
+         this.edit(producto);
     }
     
     public List<Producto> findBySubcategory(Subcategoria id) {        

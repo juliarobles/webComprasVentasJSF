@@ -43,7 +43,7 @@ textarea {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
-button {
+.button {
     text-decoration: none;
     background-color: transparent;
     color:#003257;
@@ -61,7 +61,7 @@ button {
     
 }
 
-button:hover {
+.button:hover {
     color:white;
     background-color: #003257;
 }

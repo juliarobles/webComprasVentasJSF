@@ -238,7 +238,7 @@ public class ProductoService {
         Producto n = new Producto(producto);
         n.setVendedor(this.usuarioFacade.find(producto.getVendedor().getId()));
         n.setCategoria(this.subcategoriaFacade.find(subcategoria));
-        
+                
         if(esCrearNuevo){
             n.setEtiquetaList(new ArrayList<>());
             n.setFecha(new Date());
@@ -246,11 +246,18 @@ public class ProductoService {
             n.setValoracionmedia(Float.parseFloat("-1"));
             this.productoFacade.create(n);
         } else {
+            Producto antiguo = this.productoFacade.find(n.getId());
+            n.setComentarioList(antiguo.getComentarioList());
+            n.setEtiquetaList(antiguo.getEtiquetaList());
+            n.setValoracionList(antiguo.getValoracionList());
             this.productoFacade.edit(n);
+        }
+        
+        if(!esCrearNuevo){
             this.vaciarEtiquetas(n);
         }
         
-        if(etiquetas != null || etiquetas.equals("")){
+        if(etiquetas != null && !etiquetas.equals("")){
            String[] split = etiquetas.split("#");
             for(int i = 0; i < split.length; i++){
                 String s = split[i];

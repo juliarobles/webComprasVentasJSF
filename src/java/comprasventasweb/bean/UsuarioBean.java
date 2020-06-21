@@ -1,23 +1,24 @@
 /*
+ * AUTORES:
+ * Julia Robles Medina (doCerrarSesion, doCrearProducto, doEditarProducto, doPerfil, doListarProductos)
  * Roberto Michán Sánchez (doLogin)
+ * Tomás (doBorrarProducto)
  */
 package comprasventasweb.bean;
 
 import comprasventasweb.dto.ProductoDTO;
+import comprasventasweb.dto.SubcategoriaBasicaDTO;
 import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.ProductoService;
 import comprasventasweb.service.UsuarioService;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 
-/**
- *
- * @author Usuario
- */
 @Named(value = "usuarioBean")
 @SessionScoped
 public class UsuarioBean implements Serializable {
@@ -31,9 +32,10 @@ public class UsuarioBean implements Serializable {
     
     protected UsuarioDTO usuario;
     protected ProductoDTO productoSeleccionado;
-    protected Integer subcategoriaSeleccionada;
     protected String volver;
     protected String actual;
+    protected boolean modoCrear;
+    protected List<SubcategoriaBasicaDTO> listaSubcategorias;
     protected String email;
     protected String clave;
     protected String status;
@@ -53,8 +55,16 @@ public class UsuarioBean implements Serializable {
     }
     
     public String doCrearProducto(){
+        this.modoCrear = true;
         this.setProductoSeleccionado(null);
-        this.subcategoriaSeleccionada = -1;
+        this.listaSubcategorias = null;
+        return irA("creacionProducto");
+    }
+    
+    public String doEditarProducto(ProductoDTO producto){
+        this.modoCrear = false;
+        this.setProductoSeleccionado(producto);
+        this.listaSubcategorias = null;
         return irA("creacionProducto");
     }
     
@@ -72,7 +82,7 @@ public class UsuarioBean implements Serializable {
         return actual;
     }
 
-    public String doBorrar(ProductoDTO producto){
+    public String doBorrarProducto(ProductoDTO producto){
         
         this.productoService.remove(Integer.toString(producto.getId()));
         LOG.info("doBorrar(): " + this.hashCode());
@@ -102,12 +112,12 @@ public class UsuarioBean implements Serializable {
         this.productoSeleccionado = productoSeleccionado;
     }
 
-    public Integer getSubcategoriaSeleccionada() {
-        return subcategoriaSeleccionada;
+    public List<SubcategoriaBasicaDTO> getListaSubcategorias() {
+        return listaSubcategorias;
     }
 
-    public void setSubcategoriaSeleccionada(Integer subcategoriaSeleccionada) {
-        this.subcategoriaSeleccionada = subcategoriaSeleccionada;
+    public void setListaSubcategorias(List<SubcategoriaBasicaDTO> listaSubcategorias) {
+        this.listaSubcategorias = listaSubcategorias;
     }
     
     public String doLogin () {        
@@ -162,6 +172,15 @@ public class UsuarioBean implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public boolean isModoCrear() {
+        return modoCrear;
+    }
+
+    public void setModoCrear(boolean modoCrear) {
+        this.modoCrear = modoCrear;
+    }
+
 
     
     

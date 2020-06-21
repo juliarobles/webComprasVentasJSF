@@ -5,6 +5,8 @@
  */
 package comprasventasweb.dto;
 
+import java.util.Objects;
+
 /**
  *
  * @author Usuario
@@ -30,6 +32,31 @@ public class SubcategoriaBasicaDTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SubcategoriaBasicaDTO other = (SubcategoriaBasicaDTO) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
     
     

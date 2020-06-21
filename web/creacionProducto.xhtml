@@ -1,20 +1,33 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+    AUTOR: Julia Robles Medina
+-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Crear producto</title>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="formularios.css" />
         <h:outputStylesheet library="css" name="producto.css" />
+        <h:form>
+            <h:commandLink styleClass="volver" value="&#8592; Volver atrás" action="#{productoCrearEditarBean.doVolver()}"/>
+        </h:form>
         <!--<a class="volver" href=<%= destino %>>&#8592 Volver atrás </a></br>-->
         <div class="todo">
             <h:form>
                 <h:inputHidden value="#{productoCrearEditarBean.producto.id}"/>
                 <h:inputHidden value="#{productoCrearEditarBean.producto.vendedor.id}"/>
+                <h:inputHidden value="#{productoCrearEditarBean.producto.fecha}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/> 
+                </h:inputHidden>
+                <h:inputHidden value="#{productoCrearEditarBean.producto.hora}">
+                    <f:convertDateTime pattern="hh:MM"/> 
+                </h:inputHidden>
+                <h:inputHidden value="#{productoCrearEditarBean.producto.valoracionmedia}"/>
                 <table>
                     <tr>
                         <h1>Crear nuevo producto</h1>
@@ -43,7 +56,7 @@
                                 <f:selectItem itemLabel="Seleccione una categoria..."/>
                                 <f:selectItems value="#{productoCrearEditarBean.listaCategorias}" var="categoria"
                                                itemValue="#{categoria.id}" itemLabel="#{categoria.nombre}"/>
-                                <f:ajax render="subcategoria" listener="#{productoCrearEditarBean.actualizarListaSubcategorias()}"/>
+                                <f:ajax render="subcategoria"/>
                             </h:selectOneMenu>
                         </td>
                     </tr>
@@ -52,7 +65,7 @@
                         <td>
                             <h:selectOneMenu id="subcategoria" value="#{productoCrearEditarBean.subcategoriaSeleccionada}">
                                 <f:selectItem itemLabel="Seleccione una subcategoria..."/>
-                                <f:selectItems value="#{productoCrearEditarBean.listaSubcategorias}" var="subcategoria"
+                                <f:selectItems value="#{usuarioBean.listaSubcategorias}" var="subcategoria"
                                                itemValue="#{subcategoria.id}" itemLabel="#{subcategoria.nombre}"/>
                                 <f:validateRequired/>
                             </h:selectOneMenu>
@@ -86,7 +99,7 @@
                         </td>
                     </tr>
                 </table>
-                <h:commandButton value="Publicar producto" action="#{productoCrearEditarBean.doGuardar()}"/>
+                <h:commandButton styleClass="button" value="Publicar producto" action="#{productoCrearEditarBean.doGuardar()}"/>
             </h:form>
         </div>
     </h:body>
