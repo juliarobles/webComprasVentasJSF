@@ -16,16 +16,14 @@ Roberto Michán Sánchez
             <img class="headerImagen" src="resources/imagenes/logoblancoGRANDE.png"/>
             <f:ajax render="principalAdmin"/>
         </h:link>
-        <div class="todo">
             
-            <table>
-                <tr><td><h2> Acceder a... </h2></td></tr>
-                <tr><td><h:link styleClass="boton" outcome="productosAdmin">Lista de productos</h:link></td></tr>    
-                <tr><td><h:link styleClass="boton" outcome="usuariosAdmin">Lista de clientes</h:link></td></tr>
-                <tr><td><h:form>
-                    <h:commandLink styleClass="cerrar" action="#{usuarioBean.doCerrarSesion()}" value="Cerrar sesión" />
-                </h:form></td></tr>
-            </table>
-        </div>
+        <h:panelGrid styleClass="todo">
+            <h2> Acceder a... </h2>
+            <h:link styleClass="boton" outcome="productosAdmin">Lista de productos</h:link>    
+            <h:link styleClass="boton" outcome="usuariosAdmin">Lista de clientes</h:link>
+            <h:form>
+                <h:commandLink styleClass="cerrar" action="#{usuarioBean.doCerrarSesion()}" value="Cerrar sesión" />
+            </h:form>
+        </h:panelGrid>
     </h:body>
 </html>

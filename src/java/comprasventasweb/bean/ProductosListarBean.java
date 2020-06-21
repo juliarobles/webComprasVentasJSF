@@ -5,6 +5,7 @@ package comprasventasweb.bean;
 
 import comprasventasweb.dto.CategoriaDTO;
 import comprasventasweb.dto.ProductoBasicoDTO;
+import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.service.CategoriaService;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class ProductosListarBean {
     private static final Logger LOG = Logger.getLogger(ProductosListarBean.class.getName());
     
     protected List<ProductoBasicoDTO> listaProductos;
+    protected List<ProductoDTO> listaProductosFull;
     protected List<CategoriaDTO> listaCategorias;
     protected String[][] listaBusquedas = {{"TituloDescripcion", "Título y descripción"}, {"Titulo","Título"}, {"Descripcion","Descripción"}, {"Etiqueta","Etiquetas"}, 
         {"FechaHora", "Fecha y hora"}, {"Fecha","Fecha"}, {"Hora","Hora"}};;
@@ -62,6 +64,7 @@ public class ProductosListarBean {
             }
         } else {
                 listaProductos = this.productoServices.searchAllInverso(); 
+                listaProductosFull = this.productoServices.searchAllInverso2();
                 listaCategorias = this.categoriaService.searchAll();
                 select = "";
                 search = "";
@@ -85,6 +88,14 @@ public class ProductosListarBean {
     public void setListaProductos(List<ProductoBasicoDTO> listaProductos) {
         this.listaProductos = listaProductos;
     }
+    public List<ProductoDTO> getListaProductosFull() {
+        return listaProductosFull;
+    }
+
+    public void setListaProductosFull(List<ProductoDTO> listaProductos) {
+        this.listaProductosFull = listaProductos;
+    }
+    
 
     public List<CategoriaDTO> getListaCategorias() {
         return listaCategorias;

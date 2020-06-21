@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 Tomás Goizueta Díaz
+Roberto Michán Sánchez (ver foto en nueva pestaña, retoques menús)
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -10,6 +11,16 @@ Tomás Goizueta Díaz
         <title>Menu Principal Usuarios</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
+    <h:outputStylesheet library="css" name="menuAdmin.css" />
+        <h:link>
+            <img class="headerImagen" src="resources/imagenes/logo.png" width="800" height="100"/>
+            <f:ajax render="principalAdmin"/>
+        </h:link>
+    <h:form>
+            <h:link outcome="principalAdmin">Menú de Administración</h:link>
+            &nbsp;
+            <h:commandLink action="#{usuarioBean.doCerrarSesion()}" value="Cerrar sesión" />
+    </h:form>
     <h1>Listado de usuarios</h1>
     <h:body>
         <h:form>
@@ -38,7 +49,7 @@ Tomás Goizueta Díaz
             </h:column>                        
             <h:column>        
                 <f:facet name="header">FOTO</f:facet>                
-                #{usuario.foto}
+               <h:outputLink value="#{usuario.foto}" target="_blank">Ver foto</h:outputLink>
             </h:column>
             <h:column>
                 <h:commandButton value="Consultar" action="#{usuarioPerfilBean.init()}" />                
@@ -51,7 +62,10 @@ Tomás Goizueta Díaz
             </h:column>            
         </h:dataTable>
             <h:link outcome="principalAdmin">Menu de administración</h:link> 
+            &nbsp;
             <h:commandLink styleClass="link" value="Cerrar sesión" action="#{usuarioBean.doCerrarSesion()}"/>
+            &nbsp;
+            <a href="#top">Ir arriba</a>
                
         </h:form>
     </h:body>

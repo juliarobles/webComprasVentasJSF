@@ -1,16 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+Roberto Michán Sánchez 
 -->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Lista de productos</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+    </h:head>
+    
+    <h:body>
+        <h:outputStylesheet library="css" name="menuAdmin.css" />
+        <h:link>
+            <img class="headerImagen" src="resources/imagenes/logo.png" width="800" height="100"/>
+            <f:ajax render="principalAdmin"/>
+        </h:link>
+        <h:form>
+            <h:link outcome="principalAdmin">Menú de Administración</h:link>
+            &nbsp;
+            <h:commandLink action="#{usuarioBean.doCerrarSesion()}" value="Cerrar sesión" />
+            <h1>Lista de productos</h1>
+        </h:form>
+        <h:form>
+            <h:dataTable id="listaProductos" border="1" value="#{productosListarBean.listaProductosFull}" var="producto">
+            <h:column>
+                <f:facet name="header">Título</f:facet>
+                #{producto.titulo}               
+            </h:column>            
+            <h:column>
+                <f:facet name="header">Descripción</f:facet>                
+                #{producto.descripcion}
+            </h:column>                        
+            <h:column>        
+                <f:facet name="header">Precio</f:facet>                
+                #{producto.precio}
+            </h:column>
+                
+            <h:column>
+                <f:facet name="header">Hora</f:facet>                
+                <h:outputText value="#{producto.hora}">
+                    <f:convertDateTime pattern="HH:mm"/>
+                </h:outputText>
+            </h:column>     
+                
+            <h:column>
+                <f:facet name="header">Fecha</f:facet>                
+                <h:outputText value="#{producto.fecha}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </h:column>                        
+            <h:column>        
+                <f:facet name="header">Foto</f:facet>
+                <h:outputLink value="#{producto.foto}" target="_blank">Ver foto</h:outputLink>
+            </h:column>
+            <h:column>        
+                <f:facet name="header">Valoración</f:facet>                
+                #{producto.valoracionmedia}
+            </h:column>
+            <h:column>        
+                <f:facet name="header">Etiquetas</f:facet>                
+                #{producto.etiquetas}
+            </h:column>
+            <h:column>        
+                <f:facet name="header">Categoría</f:facet>                
+                #{producto.categoria.nombre}
+            </h:column>
+            <h:column>        
+                <f:facet name="header">Vendedor</f:facet>                
+                #{producto.vendedor.nombre}
+            </h:column>
+            <h:column>
+                <h:link value="Consultar" outcome="verProducto" includeViewParams="true"/>  
+            </h:column>
+            <h:column>
+                <h:commandLink value="Editar" action="#{usuarioBean.doEditarProducto(producto)}" />                
+            </h:column>
+            <h:column>
+                <h:commandLink value="Borrar"  />                
+            </h:column>            
+        </h:dataTable>
+            
+            <h:link outcome="principalAdmin">Menú de administración</h:link> 
+            &nbsp;
+            <h:commandLink value="Cerrar sesión" action="#{usuarioBean.doCerrarSesion()}"/>
+            &nbsp;
+            <a href="#top">Ir arriba</a>
+        </h:form>
+    </h:body>
 </html>
