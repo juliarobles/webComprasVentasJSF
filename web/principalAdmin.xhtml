@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+Roberto Michán Sánchez 
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Menú de administración</title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="formularios.css" />
+        <h:outputStylesheet library="css" name="menuAdmin.css" />
+        <h:link>
+            <img class="headerImagen" src="resources/imagenes/logoblancoGRANDE.png"/>
+            <f:ajax render="principalAdmin"/>
+        </h:link>
+        <div class="todo">
+            
+            <table>
+                <tr><td><h2> Acceder a... </h2></td></tr>
+                <tr><td><h:link styleClass="boton" outcome="productosAdmin">Lista de productos</h:link></td></tr>    
+                <tr><td><h:link styleClass="boton" outcome="usuariosAdmin">Lista de clientes</h:link></td></tr>
+                <tr><td><h:form>
+                    <h:commandLink styleClass="cerrar" action="#{usuarioBean.doLogout()}" value="Cerrar sesión" />
+                </h:form></td></tr>
+            </table>
+        </div>
+    </h:body>
+</html>
