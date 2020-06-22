@@ -13,8 +13,9 @@
     <f:metadata>
         <f:viewAction action="#{usuarioBean.comprobarLogin()}" />
     </f:metadata>
+   <f:view locale="#{usuarioBean.currentLocale}">
     <h:head>
-        <title>Menú principal</title>
+        <title>#{msgs.tituloPrincipal}</title>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="paginaPrincipal.css" />
@@ -43,6 +44,12 @@
                     </c:forEach>
                     <f:ajax render="listaProductos" listener="#{productosListarBean.doFiltrar()}" />
                 </h:selectOneMenu>
+                <h:commandLink styleClass="lenguaje ingles" action="#{usuarioBean.setEnglish()}">
+                    <img src="resources/imagenes/en.png"/>
+                </h:commandLink>&nbsp;
+                <h:commandLink styleClass="lenguaje" action="#{usuarioBean.setSpanish()}">   
+                    <img src="resources/imagenes/es.png"/>
+                </h:commandLink>
                 <h:commandLink styleClass="link" value="Cerrar sesión" action="#{usuarioBean.doCerrarSesion()}"/>
                 <h:commandLink styleClass="link" value="Perfil" action="#{usuarioBean.doPerfil()}"/>
                 <h:commandLink styleClass="Crear" value="Nuevo producto" action="#{usuarioBean.doCrearProducto()}"/>
@@ -96,5 +103,6 @@
         </h:panelGroup>
         </div>
     </h:body>
+    </f:view>
 </html>
 

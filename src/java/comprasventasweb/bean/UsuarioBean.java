@@ -15,8 +15,11 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 
 @Named(value = "usuarioBean")
 @SessionScoped
@@ -28,7 +31,10 @@ public class UsuarioBean implements Serializable {
     private ProductoService productoService;
     
     private static final Logger LOG = Logger.getLogger(UsuarioBean.class.getName());
+    private final static Locale ENGLISH = new Locale("en");
+    private final static Locale SPANISH = new Locale("es");
     
+    private Locale currentLocale; 
     protected UsuarioDTO usuario;
     protected ProductoDTO productoSeleccionado;
     protected UsuarioDTO usuarioSeleccionado;
@@ -102,7 +108,27 @@ public class UsuarioBean implements Serializable {
         }
     }
     
-    
+    public Locale getCurrentLocale() {
+        return(currentLocale);
+    }
+
+    public String setEnglish() {
+        currentLocale=ENGLISH;
+        changeLocale();
+        return null;
+    }
+  
+    public String setSpanish() {
+        currentLocale=SPANISH;
+        changeLocale();    
+        return null;
+    }
+  
+    private void changeLocale () {
+        UIViewRoot view = FacesContext.getCurrentInstance()
+        			.getViewRoot();
+        view.setLocale(currentLocale);
+    }
     
     public UsuarioDTO getUsuario() {
         return usuario;

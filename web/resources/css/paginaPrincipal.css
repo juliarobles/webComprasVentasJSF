@@ -216,6 +216,15 @@ form {
     margin: 0 auto;
 }
 
+.lenguaje {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.ingles{
+   margin-left: 40px;
+}
+
 /* Navbar links */
 .link, .Crear {
   float: right;
