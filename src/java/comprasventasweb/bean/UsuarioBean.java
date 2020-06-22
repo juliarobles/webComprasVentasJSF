@@ -16,7 +16,6 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 
 @Named(value = "usuarioBean")
@@ -86,7 +85,11 @@ public class UsuarioBean implements Serializable {
         
         this.productoService.remove(Integer.toString(producto.getId()));
         LOG.info("doBorrar(): " + this.hashCode());
-        return "perfil?faces-redirect=true";
+        if(usuario.getAdministrador()){
+            return "productosAdmin?faces-redirect=true";
+        } else {
+            return "perfil?faces-redirect=true";
+        }
     }
     
     
