@@ -78,6 +78,7 @@ public class UsuarioCrearEditarBean {
         if(this.usuarioBean.getUsuario().getAdministrador()){
             return "usuariosAdmin?faces-redirect=true";
         } else {
+            this.usuarioBean.setUsuario(this.usuarioService.buscarPorUsuario(this.usuarioSeleccionado.getUsuario()));
             return "paginaPrincipal?faces-redirect=true";
         }
     }
