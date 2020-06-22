@@ -31,9 +31,6 @@ public class UsuarioPerfilBean {
     @EJB
     private ProductoService productoService;
     
-    @EJB
-    private UsuarioService usuarioService;
-    
     private static final Logger LOG = Logger.getLogger(UsuarioPerfilBean.class.getName());
     
     protected UsuarioDTO usuario;
@@ -46,15 +43,28 @@ public class UsuarioPerfilBean {
     
     @PostConstruct
     public void init(){
-        this.usuario = this.usuarioBean.getUsuario();
-        if (this.usuario == null) { // Se ha llamado sin haberse autenticado
+        UsuarioDTO usu = this.usuarioBean.getUsuario();
+        if (usu == null) { // Se ha llamado sin haberse autenticado
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("login.jsf");           
             } catch (IOException ex) {
                 LOG.severe(String.format("Se ha producido una excepcion: %s", ex.getMessage()));
             }           
         } else {
-            listaProductos = this.productoService.searchByUser(usuario);
+            if(usu.getAdministrador()){
+                this.usuario = this.usuarioBean.getUsuarioSeleccionado();
+            } else {
+                this.usuario = this.usuarioBean.getUsuario();
+            }
+            if (this.usuario == null) {
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("login.jsf");           
+                } catch (IOException ex) {
+                    LOG.severe(String.format("Se ha producido una excepcion: %s", ex.getMessage()));
+                } 
+            } else {
+                listaProductos = this.productoService.searchByUser(usuario);
+            }
         }
     }
 

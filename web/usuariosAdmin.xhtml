@@ -53,16 +53,16 @@ Roberto Michán Sánchez (ver foto en nueva pestaña, retoques menús, comprobar
             </h:column>                        
             <h:column>        
                 <f:facet name="header">FOTO</f:facet>                
-               <h:outputLink value="#{usuario.foto}" target="_blank">Ver foto</h:outputLink>
+                <h:outputLink value="#{usuario.foto}" target="_blank" rendered="#{!usuario.administrador}">Ver foto</h:outputLink>
             </h:column>
             <h:column>
-                <h:commandButton value="Consultar" action="#{usuarioPerfilBean.init()}" />                
+                <h:commandButton value="Consultar" action="#{usuarioBean.doPerfil(usuario)}" rendered="#{!usuario.administrador}"/>                
             </h:column>
             <h:column>
-                <h:commandButton value="Editar" action="#{usuarioBean.doUsuarioEditar(usuario)}" />                
+                <h:commandButton value="Editar" action="#{usuarioBean.doUsuarioEditar(usuario)}" rendered="#{!usuario.administrador}"/>                
             </h:column>
             <h:column>
-                <h:commandButton value="Borrar" action="#{usuariosListarBean.doBorrarUsuario(usuario)}" onclick="return confirm('¿Estás seguro? Esta acción no se puede deshacer');" />                
+                <h:commandButton value="Borrar" action="#{usuariosListarBean.doBorrarUsuario(usuario)}" onclick="return confirm('¿Estás seguro? Esta acción no se puede deshacer');" rendered="#{!usuario.administrador}"/>                
             </h:column> 
         </h:dataTable>
             <h:link outcome="principalAdmin">Menu de administración</h:link> 

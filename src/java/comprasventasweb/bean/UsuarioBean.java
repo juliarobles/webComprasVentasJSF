@@ -79,14 +79,22 @@ public class UsuarioBean implements Serializable {
         return "perfil";
     }
     
+    public String doPerfil(UsuarioDTO usuario){
+        if(this.usuario != null && this.usuario.getAdministrador()){
+            this.setUsuarioSeleccionado(usuario);
+        }
+        return "perfil";
+    }
+    
     public String doListarProductos(){
         return "paginaPrincipal";
     }
 
     public String doBorrarProducto(ProductoDTO producto){
-        
-        this.productoService.remove(Integer.toString(producto.getId()));
-        LOG.info("doBorrar(): " + this.hashCode());
+        if(this.usuario != null && (this.usuario.getId() == producto.getVendedor().getId() || this.usuario.getAdministrador())){
+            this.productoService.remove(Integer.toString(producto.getId()));
+            LOG.info("doBorrar(): " + this.hashCode());
+        }
         if(usuario.getAdministrador()){
             return "productosAdmin?faces-redirect=true";
         } else {
