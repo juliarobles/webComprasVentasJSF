@@ -47,8 +47,9 @@ Roberto Michán Sánchez (ver foto en nueva pestaña, retoques menús, comprobar
             </h:column>     
                 
             <h:column>
-                <f:facet name="header">ADMINISTRADOR</f:facet>                
-                #{usuario.administrador}
+                <f:facet name="header">ADMINISTRADOR</f:facet>
+                <h:outputText value="SI" rendered="#{usuario.administrador}"/>
+                <h:outputText value="NO" rendered="#{!usuario.administrador}"/>
             </h:column>                        
             <h:column>        
                 <f:facet name="header">FOTO</f:facet>                
@@ -58,11 +59,11 @@ Roberto Michán Sánchez (ver foto en nueva pestaña, retoques menús, comprobar
                 <h:commandButton value="Consultar" action="#{usuarioPerfilBean.init()}" />                
             </h:column>
             <h:column>
-                <h:commandButton value="Borrar" action="#{usuariosListarBean.doBorrarUsuario(usuario)}" />                
+                <h:commandButton value="Editar" action="#{usuarioBean.doUsuarioEditar(usuario)}" />                
             </h:column>
             <h:column>
-                <h:commandLink value="Editar" action="#{usuarioBean.doUsuarioEditar(usuario)}" />                
-            </h:column>            
+                <h:commandButton value="Borrar" action="#{usuariosListarBean.doBorrarUsuario(usuario)}" onclick="return confirm('¿Estás seguro? Esta acción no se puede deshacer');" />                
+            </h:column> 
         </h:dataTable>
             <h:link outcome="principalAdmin">Menu de administración</h:link> 
             &nbsp;

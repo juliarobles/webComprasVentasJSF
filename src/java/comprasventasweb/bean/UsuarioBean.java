@@ -31,8 +31,7 @@ public class UsuarioBean implements Serializable {
     
     protected UsuarioDTO usuario;
     protected ProductoDTO productoSeleccionado;
-    protected String volver;
-    protected String actual;
+    protected UsuarioDTO usuarioSeleccionado;
     protected boolean modoCrear;
     protected List<SubcategoriaBasicaDTO> listaSubcategorias;
     protected String email;
@@ -50,35 +49,38 @@ public class UsuarioBean implements Serializable {
         this.status = "";
         this.email = "";
         this.clave = "";
-        return irA("login");
+        return "login";
     }
     
     public String doCrearProducto(){
         this.modoCrear = true;
         this.setProductoSeleccionado(null);
         this.listaSubcategorias = null;
-        return irA("creacionProducto");
+        return "creacionProducto";
     }
     
     public String doEditarProducto(ProductoDTO producto){
         this.modoCrear = false;
         this.setProductoSeleccionado(producto);
         this.listaSubcategorias = null;
-        return irA("creacionProducto");
+        return "creacionProducto";
+    }
+    
+    public String doUsuarioEditar(UsuarioDTO usuario){
+        if(this.usuario != null && this.usuario.getAdministrador()){
+            this.setUsuarioSeleccionado(usuario);
+            return "editarUsuario";
+        } else {
+            return "login";
+        }
     }
     
     public String doPerfil(){
-        return irA("perfil");
+        return "perfil";
     }
     
     public String doListarProductos(){
-        return irA("paginaPrincipal");
-    }
-    
-    private String irA(String ir){
-        volver = actual;
-        actual = ir;
-        return actual;
+        return "paginaPrincipal";
     }
 
     public String doBorrarProducto(ProductoDTO producto){
@@ -187,9 +189,11 @@ public class UsuarioBean implements Serializable {
         this.modoCrear = modoCrear;
     }
 
+    public UsuarioDTO getUsuarioSeleccionado() {
+        return usuarioSeleccionado;
+    }
 
-    
-    
-    
-    
+    public void setUsuarioSeleccionado(UsuarioDTO usuarioSeleccionado) {
+        this.usuarioSeleccionado = usuarioSeleccionado;
+    }
 }

@@ -21,7 +21,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author Usuario
+ * Autor: Julia Robles Medina (createOrUpdate) - todo lo demás es reutilizado de la otra entrega
  */
 
 @Stateless
@@ -85,51 +85,21 @@ public class UsuarioService {
         }
     }
 
-    public void create(String usuario, String correo, String nombre, String pass, boolean b, String foto) {    
-        //Actualizar cuando se pueda y si es necesario a createOrUpdate
-        Usuario user;
-        user = new Usuario(0);
-        
-        user.setAdministrador(b);
-        user.setUsuario(usuario);
-        user.setEmail(correo);
-        user.setNombre(nombre);
-        user.setPassword(pass);
-        user.setFoto(foto);
-        this.usuarioFacade.create(user);
-        
-    }
-
-    public void createOrUpdate (Integer id, String usuario, String email, String nombre, String password, Boolean administador,
-                                String foto) {
-        Usuario usuarioMod;
+    public void createOrUpdate(UsuarioDTO usuario) {
         boolean esCrearNuevo = false;
-        
-        if (id == null) { // Estamos en el caso de creación de un nuevo cliente
-            usuarioMod = new Usuario(0); // Aunque el id es autoincremental, hay ocasiones en las que
-                                       // si no se le da un valor por defecto, da un error al guardarlo.
+        Integer id = usuario.getId();
+        if (id == null || id == 0) { // Estamos en el caso de creación de un nuevo cliente
             esCrearNuevo = true;
-        } else {
-            usuarioMod = this.usuarioFacade.find(id);
         }
-
+        usuario.setAdministrador(false);
+        Usuario u = new Usuario(usuario);
         
-        usuarioMod.setId(id);
-        usuarioMod.setUsuario(usuario);
-        usuarioMod.setEmail(email);
-        usuarioMod.setNombre(nombre);
-        usuarioMod.setPassword(password);
-        usuarioMod.setAdministrador(administador);
-        usuarioMod.setFoto(foto);
-        
-        if (esCrearNuevo) {
-            this.usuarioFacade.create(usuarioMod);
+        if(esCrearNuevo){
+            this.usuarioFacade.create(u);
         } else {
-            this.usuarioFacade.edit(usuarioMod);
-        } 
-      
-    }
-    
+            this.usuarioFacade.edit(u);
+        }
+    }  
     
     public boolean remove (String userId) {     
         
@@ -160,5 +130,7 @@ public class UsuarioService {
     public Usuario buscarPorID(Integer usuario) {
        return this.usuarioFacade.find(usuario);
     }
+
+    
   
 }

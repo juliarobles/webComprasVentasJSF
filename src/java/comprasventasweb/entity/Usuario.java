@@ -89,6 +89,16 @@ public class Usuario implements Serializable {
         this.administrador = administrador;
     }
 
+    public Usuario(UsuarioDTO usuario) {
+        this.id = usuario.getId();
+        this.usuario = usuario.getUsuario();
+        this.email = usuario.getEmail();
+        this.nombre = usuario.getNombre();
+        this.password = usuario.getPassword();
+        this.administrador = usuario.getAdministrador();
+        this.foto = usuario.getFoto();
+    }
+
     public Integer getId() {
         return id;
     }
