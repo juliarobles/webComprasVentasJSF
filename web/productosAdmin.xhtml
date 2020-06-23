@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 Roberto Michán Sánchez 
+Julia Robles Medina (internacionalizacion)
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -9,8 +10,9 @@ Roberto Michán Sánchez
     <f:metadata>
         <f:viewAction action="#{usuarioBean.comprobarAdmin()}" />
     </f:metadata>
+    <f:view locale="#{usuarioBean.currentLocale}">
     <h:head>
-        <title>Lista de productos</title>
+        <title>#{msgs.listaProductos}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
@@ -20,80 +22,91 @@ Roberto Michán Sánchez
             <f:ajax render="principalAdmin"/>
         </h:link>
         <h:form>
-            <h:link outcome="principalAdmin">Menú de Administración</h:link>
+            <center>
+                <h:commandLink styleClass="lenguaje ingles" action="#{usuarioBean.setEnglish()}">
+                    <img src="resources/imagenes/en.png"/>
+                </h:commandLink>&nbsp;
+                <h:commandLink styleClass="lenguaje" action="#{usuarioBean.setSpanish()}">   
+                    <img src="resources/imagenes/es.png"/>
+                </h:commandLink>
+            </center>
+        </h:form>
+        <h:form>
+            <h:link outcome="principalAdmin">#{msgs.menuAdmin}</h:link>
             &nbsp;
-            <h:commandLink action="#{usuarioBean.doCerrarSesion()}" value="Cerrar sesión" />
+            <h:commandLink action="#{usuarioBean.doCerrarSesion()}" value="#{msgs.cerrarSesion}" />
             <h1>Lista de productos</h1>
         </h:form>
         <h:form rendered="#{(productosListarBean.listaProductosFull == null) or (productosListarBean.listaProductosFull.size() == 0)}">
             <center>
-                <h2>No se han encontrado productos</h2>
+                <h2>#{msgs.productoNoEncontrado}</h2>
             </center>
         </h:form>
         <h:form rendered="#{productosListarBean.listaProductosFull.size() > 0}">
             <h:dataTable id="listaProductos" border="1" value="#{productosListarBean.listaProductosFull}" var="producto">
             <h:column>
-                <f:facet name="header">Título</f:facet>
+                <f:facet name="header">#{msgs.titulo}</f:facet>
                 #{producto.titulo}               
             </h:column>            
             <h:column>
-                <f:facet name="header">Descripción</f:facet>                
+                <f:facet name="header">#{msgs.descripcion}</f:facet>                
                 #{producto.descripcion}
             </h:column>                        
             <h:column>        
-                <f:facet name="header">Precio</f:facet>                
+                <f:facet name="header">#{msgs.precio}</f:facet>                
                 #{producto.precio}
             </h:column>
                 
             <h:column>
-                <f:facet name="header">Hora</f:facet>                
+                <f:facet name="header">#{msgs.hora}</f:facet>                
                 <h:outputText value="#{producto.hora}">
                     <f:convertDateTime pattern="HH:mm"/>
                 </h:outputText>
             </h:column>     
                 
             <h:column>
-                <f:facet name="header">Fecha</f:facet>                
+                <f:facet name="header">#{msgs.fecha}</f:facet>                
                 <h:outputText value="#{producto.fecha}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:outputText>
             </h:column>                        
             <h:column>        
-                <f:facet name="header">Foto</f:facet>
-                <h:outputLink value="#{producto.foto}" target="_blank">Ver foto</h:outputLink>
+                <f:facet name="header">#{msgs.foto}</f:facet>
+                <h:outputLink value="#{producto.foto}" target="_blank">#{msgs.verFoto}</h:outputLink>
             </h:column>
             <h:column>        
-                <f:facet name="header">Valoración</f:facet>                
+                <f:facet name="header">#{msgs.valoracion}</f:facet>                
                 #{producto.valoracionmedia}
             </h:column>
             <h:column>        
-                <f:facet name="header">Etiquetas</f:facet>                
+                <f:facet name="header">#{msgs.etiquetas}</f:facet>                
                 #{producto.etiquetas}
             </h:column>
             <h:column>        
-                <f:facet name="header">Categoría</f:facet>                
+                <f:facet name="header">#{msgs.subcategoria}</f:facet>                
                 #{producto.categoria.nombre}
             </h:column>
             <h:column>        
-                <f:facet name="header">Vendedor</f:facet>                
+                <f:facet name="header">#{msgs.vendedor}</f:facet>                
                 #{producto.vendedor.nombre}
             </h:column>
             <h:column>
-                <h:link value="Consultar" outcome="verProducto" includeViewParams="true"/>  
+                <h:link value="#{msgs.consultar}" outcome="verProducto" includeViewParams="true"/>  
             </h:column>
             <h:column>
-                <h:commandLink value="Editar" action="#{usuarioBean.doEditarProducto(producto)}" />                
+                <h:commandLink value="#{msgs.editar}" action="#{usuarioBean.doEditarProducto(producto)}" />                
             </h:column>
             <h:column>
-                <h:commandLink value="Borrar" action="#{usuarioBean.doBorrarProducto(producto)}" onclick="return confirm('¿Estás seguro? Esta acción no se puede deshacer');" />                
+                <h:commandLink value="#{msgs.borrar}" action="#{usuarioBean.doBorrarProducto(producto)}" onclick="return confirm('¿Estás seguro? Esta acción no se puede deshacer');" />                
             </h:column>            
         </h:dataTable>
             
-            <h:link outcome="principalAdmin">Menú de administración</h:link> 
+            <h:link outcome="principalAdmin">#{msgs.menuAdmin}</h:link> 
             &nbsp;
-            <h:commandLink value="Cerrar sesión" action="#{usuarioBean.doCerrarSesion()}"/>
+            <h:commandLink value="#{msgs.cerrarSesion}" action="#{usuarioBean.doCerrarSesion()}"/>
             &nbsp;
-            <a href="#top">Ir arriba</a>
+            <a href="#top">#{msgs.irArriba}</a>
         </h:form>
     </h:body>
+    </f:view>
 </html>

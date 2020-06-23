@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!--
 Roberto Michán Sánchez 
+Julia Robles Medina (internacionalizacion)
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -9,8 +10,9 @@ Roberto Michán Sánchez
     <f:metadata>
         <f:viewAction action="#{usuarioBean.comprobarAdmin()}" />
     </f:metadata>
+    <f:view locale="#{usuarioBean.currentLocale}">
     <h:head>
-        <title>Menú de administración</title>
+        <title>#{msgs.menuAdmin}</title>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="formularios.css" />
@@ -21,12 +23,23 @@ Roberto Michán Sánchez
         </h:link>
             
         <h:panelGrid styleClass="todo">
-            <h2> Acceder a... </h2>
-            <h:link styleClass="boton" outcome="productosAdmin">Lista de productos</h:link>    
-            <h:link styleClass="boton" outcome="usuariosAdmin">Lista de clientes</h:link>
+            <h2>#{msgs.accederA}</h2>
+            <h:link styleClass="boton" outcome="productosAdmin">#{msgs.listaProductos}</h:link>    
+            <h:link styleClass="boton" outcome="usuariosAdmin">#{msgs.listaUsuarios}</h:link>
             <h:form>
-                <h:commandLink styleClass="cerrar" action="#{usuarioBean.doCerrarSesion()}" value="Cerrar sesión" />
+                <h:commandLink styleClass="cerrar" action="#{usuarioBean.doCerrarSesion()}" value="#{msgs.cerrarSesion}" />
+            </h:form>
+            <h:form>
+                <center>
+                    <h:commandLink styleClass="lenguaje ingles" action="#{usuarioBean.setEnglish()}">
+                        <img src="resources/imagenes/en.png"/>
+                    </h:commandLink>&nbsp;
+                    <h:commandLink styleClass="lenguaje" action="#{usuarioBean.setSpanish()}">   
+                        <img src="resources/imagenes/es.png"/>
+                    </h:commandLink>
+                </center>
             </h:form>
         </h:panelGrid>
     </h:body>
+    </f:view>
 </html>

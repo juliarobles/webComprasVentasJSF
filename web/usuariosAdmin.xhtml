@@ -2,6 +2,7 @@
 <!--
 Tomás Goizueta Díaz
 Roberto Michán Sánchez (ver foto en nueva pestaña, retoques menús, comprobarAdmin)
+Julia Robles Medina (internacionalizacion)
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -10,67 +11,79 @@ Roberto Michán Sánchez (ver foto en nueva pestaña, retoques menús, comprobar
     <f:metadata>
         <f:viewAction action="#{usuarioBean.comprobarAdmin()}" />
     </f:metadata>
+    <f:view locale="#{usuarioBean.currentLocale}">
     <h:head>
-        <title>Menu Principal Usuarios</title>
+        <title>#{msgs.listaUsuarios}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:outputStylesheet library="css" name="menuAdmin.css" />
-        <h:link>
-            <img class="headerImagen" src="resources/imagenes/logo.png" width="800" height="100"/>
-            <f:ajax render="principalAdmin"/>
-        </h:link>
+    <h:link>
+        <img class="headerImagen" src="resources/imagenes/logo.png" width="800" height="100"/>
+        <f:ajax render="principalAdmin"/>
+    </h:link>
     <h:form>
-            <h:link outcome="principalAdmin">Menú de Administración</h:link>
-            &nbsp;
-            <h:commandLink action="#{usuarioBean.doCerrarSesion()}" value="Cerrar sesión" />
+        <center>
+            <h:commandLink styleClass="lenguaje ingles" action="#{usuarioBean.setEnglish()}">
+                <img src="resources/imagenes/en.png"/>
+            </h:commandLink>&nbsp;
+            <h:commandLink styleClass="lenguaje" action="#{usuarioBean.setSpanish()}">   
+                <img src="resources/imagenes/es.png"/>
+            </h:commandLink>
+        </center>
     </h:form>
-    <h1>Listado de usuarios</h1>
+    <h:form>
+        <h:link outcome="principalAdmin">#{msgs.menuAdmin}</h:link>
+        &nbsp;
+        <h:commandLink action="#{usuarioBean.doCerrarSesion()}" value="#{msgs.cerrarSesion}" />
+    </h:form>
+    <h1>#{msgs.listaUsuarios}</h1>
     <h:body>
         <h:form>
             <h:dataTable id="listaUsuarios" border="1" value="#{usuariosListarBean.listaUsuarios}" var="usuario">
             <h:column>
-                <f:facet name="header">ID</f:facet>
+                <f:facet name="header">Id</f:facet>
                 #{usuario.id}               
             </h:column>            
             <h:column>
-                <f:facet name="header">USUARIO</f:facet>                
+                <f:facet name="header">#{msgs.usuario}</f:facet>                
                 #{usuario.usuario}
             </h:column>                        
             <h:column>        
-                <f:facet name="header">EMAIL</f:facet>                
+                <f:facet name="header">#{msgs.correo}</f:facet>                
                 #{usuario.email}
             </h:column>
                 
             <h:column>
-                <f:facet name="header">NOMBRE</f:facet>                
+                <f:facet name="header">#{msgs.nombre}</f:facet>                
                 #{usuario.nombre}
             </h:column>     
                 
             <h:column>
-                <f:facet name="header">ADMINISTRADOR</f:facet>
+                <f:facet name="header">#{msgs.administrador}</f:facet>
                 <h:outputText value="SI" rendered="#{usuario.administrador}"/>
                 <h:outputText value="NO" rendered="#{!usuario.administrador}"/>
             </h:column>                        
             <h:column>        
-                <f:facet name="header">FOTO</f:facet>                
+                <f:facet name="header">#{msgs.foto}</f:facet>                
                 <h:outputLink value="#{usuario.foto}" target="_blank" rendered="#{!usuario.administrador}">Ver foto</h:outputLink>
             </h:column>
             <h:column>
-                <h:commandButton value="Consultar" action="#{usuarioBean.doPerfil(usuario)}" rendered="#{!usuario.administrador}"/>                
+                <h:commandButton value="#{msgs.consultar}" action="#{usuarioBean.doPerfil(usuario)}" rendered="#{!usuario.administrador}"/>                
             </h:column>
             <h:column>
-                <h:commandButton value="Editar" action="#{usuarioBean.doUsuarioEditar(usuario)}" rendered="#{!usuario.administrador}"/>                
+                <h:commandButton value="#{msgs.editar}" action="#{usuarioBean.doUsuarioEditar(usuario)}" rendered="#{!usuario.administrador}"/>                
             </h:column>
             <h:column>
-                <h:commandButton value="Borrar" action="#{usuariosListarBean.doBorrarUsuario(usuario)}" onclick="return confirm('¿Estás seguro? Esta acción no se puede deshacer');" rendered="#{!usuario.administrador}"/>                
+                <h:commandButton value="#{msgs.borrar}" action="#{usuariosListarBean.doBorrarUsuario(usuario)}" onclick="return confirm('¿Estás seguro? Esta acción no se puede deshacer');" rendered="#{!usuario.administrador}"/>                
             </h:column> 
         </h:dataTable>
-            <h:link outcome="principalAdmin">Menu de administración</h:link> 
+            <h:link outcome="principalAdmin">#{msgs.menuAdmin}</h:link> 
             &nbsp;
-            <h:commandLink styleClass="link" value="Cerrar sesión" action="#{usuarioBean.doCerrarSesion()}"/>
+            <h:commandLink styleClass="link" value="#{msgs.cerrarSesion}" action="#{usuarioBean.doCerrarSesion()}"/>
             &nbsp;
-            <a href="#top">Ir arriba</a>
+            <a href="#top">#{msgs.irArriba}</a>
                
         </h:form>
     </h:body>
+    </f:view>
 </html>
