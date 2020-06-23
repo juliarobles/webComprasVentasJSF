@@ -73,6 +73,7 @@ and open the template in the editor.
 .centrar{
     text-align: center;
     justify-content: center;
+    
 }
 .contenido {
     display: inline-block;
