@@ -14,6 +14,8 @@ and open the template in the editor.
 .estre p {
     font-size: 20px;
     margin: 0px;
+    text-align: center;
+    justify-content: center;
 }
 
 .estre label {
@@ -68,6 +70,10 @@ and open the template in the editor.
     float: left;
 }
 
+.centrar{
+    text-align: center;
+    justify-content: center;
+}
 .contenido {
     display: inline-block;
     width: 95%;

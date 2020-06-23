@@ -13,7 +13,7 @@
     <h:body>
         <h:outputStylesheet library="css" name="verProducto.css"/>
         <h:outputStylesheet library="css" name="formularios.css"/>
-        
+        <h:outputScript library="javascript" name="comentario.js"  />
         <h:link styleClass="volver" rendered="#{!usuarioBean.usuario.administrador}" 
                 outcome="paginaPrincipal" value="&#8592; Volver al menú principal" />
         
@@ -40,11 +40,49 @@
                 </h:dataTable>
                 
                 <p class="fila">
-                    <vendedor>Vendido por: #{productoVerBean.producto.vendedor.usuario}</vendedor>
+                    <vendedor>Vendido por:</vendedor>
+                    <h:outputText value="#{productoVerBean.producto.vendedor.usuario}"/>
                     <fecha>productoVerBean.formatearFecha</fecha>
                 </p>
                 
-                <h:commandButton value="Comprar" rendered="#{!productoVerBean.esPropio()}" />
+                
+                <h:button class="boton" value="Comprar" rendered="#{!productoVerBean.esPropio()}" />
+            </div>
+            <div class="comentarios">
+                <h:panelGrid rendered="#{!productoVerBean.esPropio()}">
+                                  
+                <h3>Queremos saber tu opinión</h3>
+                <table>
+                    <tr class="centrar">
+                        <td>
+                            <p > ¿Que nota le pondrías a este producto? </p>
+                            <h:form class="estre" >
+                                <p class="clasificacion"> 
+                                    <h:selectOneRadio value="#{productoVerBean.valoracion}" onclick="this.form.submit();">
+                                        <f:selectItem itemValue="1" itemLabel="★" />
+                                        <f:selectItem itemValue="2" itemLabel="★" />
+                                        <f:selectItem itemValue="3" itemLabel="★" />
+                                        <f:selectItem itemValue="4" itemLabel="★" />
+                                        <f:selectItem itemValue="5" itemLabel="★" />
+                                    </h:selectOneRadio>
+                                </p>
+                            </h:form>
+                        </td>
+                        <td>  
+                            <p class="centrar"> ¿Te gustaría añadir un comentario? </p>
+                            <h:button onclick="document.getElementById('id01').style.display='block'" class="botonComentario" value="Pulsa aquí para añadir un comentario"/>
+                        </td>
+                    </tr>
+                </table>
+                 <div id="id01" class="modal">
+                    <h:form class="modal-content animate">
+                        <h3>Nuevo comentario</h3>
+                        <h:inputTextarea class="contenidoComentario"  cols="60" rows="8" required="true" value="#{productoVerBean.contenido}"/>
+                        <p><h:commandButton  class="comentarioSubmit" value="Enviar comentario" action="#{productoVerBean.comentar}"/></p>
+                        <p><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancelar</button></p>
+                    </h:form>
+                </div>
+                </h:panelGrid>
             </div>
         </div>
     </h:body>
