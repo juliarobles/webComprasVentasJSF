@@ -146,9 +146,8 @@ public class ProductoVerBean {
                     LOG.log(Level.SEVERE, "No se ha encontrado el comentario a borrar"); 
                 } else {
                     this.comentarioService.eliminarComentario(Integer.parseInt(idComentario));
-                    //Actualizar con Ajax
+                    actualizarListas();
                 }
-                actualizarListas();
     }
     
     public boolean AdminOUsuario(ComentarioDTO comentario){
@@ -172,8 +171,9 @@ public class ProductoVerBean {
             } else {      
                 System.out.println("El contenido del comentario es5 " + contenido);
                 this.comentarioService.comentario(pr, this.usuarioBean.getUsuario(), contenido);   
+                actualizarListas();
             }
-            actualizarListas();
+            
     }
     public String getContenido() {
         return contenido;
@@ -186,6 +186,7 @@ public class ProductoVerBean {
     
     public void actualizarListas(){
         this.listaComentarios = this.comentarioService.searchByProducto(producto);
+        System.out.println("Comentarios actuales "+this.listaComentarios.toString());
     }
     
     
