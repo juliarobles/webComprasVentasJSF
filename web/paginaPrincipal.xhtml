@@ -15,7 +15,7 @@
     </f:metadata>
    <f:view locale="#{usuarioBean.currentLocale}">
     <h:head>
-        <title>#{msgs.tituloPrincipal}</title>
+        <title>#{msgs.menuPrincipalTitulo}</title>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="paginaPrincipal.css" />
@@ -36,7 +36,7 @@
                     </h:inputText>
                 </h:panelGroup>
                 <h:selectOneMenu styleClass="categorias" id="categoria" value="#{productosListarBean.categoria}">
-                    <f:selectItem itemValue="" itemLabel="Todas las categorías"/>
+                    <f:selectItem itemValue="" itemLabel="#{msgs.menuPrincipalCategorias}"/>
                     <c:forEach id="categorias" items="#{productosListarBean.listaCategorias}" var="categoria">
                         <f:selectItem itemValue="A#{categoria.id}" itemLabel="#{categoria.nombre}"/>
                         <f:selectItems value="#{categoria.subcategoriaList}" var="subcategoria"
@@ -50,9 +50,9 @@
                 <h:commandLink styleClass="lenguaje" action="#{usuarioBean.setSpanish()}">   
                     <img src="resources/imagenes/es.png"/>
                 </h:commandLink>
-                <h:commandLink styleClass="link" value="Cerrar sesión" action="#{usuarioBean.doCerrarSesion()}"/>
-                <h:commandLink styleClass="link" value="Perfil" action="#{usuarioBean.doPerfil()}"/>
-                <h:commandLink styleClass="Crear" value="Nuevo producto" action="#{usuarioBean.doCrearProducto()}"/>
+                <h:commandLink styleClass="link" value="#{msgs.cerrarSesion}" action="#{usuarioBean.doCerrarSesion()}"/>
+                <h:commandLink styleClass="link" value="#{msgs.menuPrincipalPerfil}" action="#{usuarioBean.doPerfil()}"/>
+                <h:commandLink styleClass="Crear" value="#{msgs.menuPrincipalNuevoProducto}" action="#{usuarioBean.doCrearProducto()}"/>
             </h:form>
         </div>
         <div class="main">

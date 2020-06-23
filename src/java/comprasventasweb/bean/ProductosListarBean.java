@@ -42,6 +42,8 @@ public class ProductosListarBean {
     protected List<CategoriaDTO> listaCategorias;
     protected String[][] listaBusquedas = {{"TituloDescripcion", "Título y descripción"}, {"Titulo","Título"}, {"Descripcion","Descripción"}, {"Etiqueta","Etiquetas"}, 
         {"FechaHora", "Fecha y hora"}, {"Fecha","Fecha"}, {"Hora","Hora"}};;
+    protected String[][] listaBusquedasEN = {{"TituloDescripcion", "Title and description"}, {"Titulo","Title"}, {"Descripcion","Description"}, {"Etiqueta","Labels"}, 
+        {"FechaHora", "Date and Time"}, {"Fecha","Date"}, {"Hora","Time"}};;
     protected String select;
     protected String search;
     protected String categoria;
@@ -74,7 +76,11 @@ public class ProductosListarBean {
     }
 
     public String[][] getListaBusquedas() {
-        return listaBusquedas;
+        if(!usuarioBean.isSpanish()){
+            return listaBusquedasEN;
+        } else {
+            return listaBusquedas;
+        }
     }
 
     public void setListaBusquedas(String[][] listaBusquedas) {
@@ -143,13 +149,29 @@ public class ProductosListarBean {
     
     public void changePlaceHolder(){
         if(select.equals("FechaHora")){
-            this.setPlaceholder("Ejemplo: 01/01/1990 20:54 o 01/01/1990 20:54 - 31/12/1990 23:54");
+            if(usuarioBean.isSpanish()){
+               this.setPlaceholder("Ejemplo: 01/01/1990 20:54 o 01/01/1990 20:54 - 31/12/1990 23:54"); 
+            } else {
+               this.setPlaceholder("Example: 01/01/1990 20:54 o 01/01/1990 20:54 - 31/12/1990 23:54");
+            }
         } else if (select.equals("Fecha")) {
-            this.setPlaceholder("Ejemplo: 01/01/1990 o 01/01/1990 - 31/12/1990");
+            if(usuarioBean.isSpanish()){
+               this.setPlaceholder("Ejemplo: 01/01/1990 o 01/01/1990 - 31/12/1990"); 
+            } else {
+               this.setPlaceholder("Example: 01/01/1990 o 01/01/1990 - 31/12/1990"); 
+            }
         } else if (select.equals("Hora")) {
-            this.setPlaceholder("Ejemplo: 20:54 o 20:54 - 21:54");
+            if(usuarioBean.isSpanish()){
+                this.setPlaceholder("Ejemplo: 20:54 o 20:54 - 21:54");
+            } else {
+                this.setPlaceholder("Example: 20:54 o 20:54 - 21:54");
+            }
         } else if (select.equals("Etiqueta")) {
-            this.setPlaceholder("Separar por espacios");
+            if(usuarioBean.isSpanish()){
+                this.setPlaceholder("Separar por espacios");
+            } else {
+                this.setPlaceholder("Separate by spaces");
+            }
         } else {
             this.setPlaceholder("");
         }

@@ -130,6 +130,10 @@ public class UsuarioBean implements Serializable {
         view.setLocale(currentLocale);
     }
     
+    public boolean isSpanish(){
+        return this.currentLocale == null || this.currentLocale.equals(SPANISH);
+    }
+    
     public UsuarioDTO getUsuario() {
         return usuario;
     }
