@@ -11,64 +11,89 @@
         <f:viewAction action="#{usuarioBean.comprobarAdmin()}" />
     </f:metadata>
     <h:head>
-        <title>Editar usuario</title>
+        <title>#{msgs.editarUsuario}</title>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="formularios.css" />
         <h:outputStylesheet library="css" name="producto.css" />
         <h:form>
-            <h:commandLink styleClass="volver" value="&#8592; Volver atrás" action="#{usuarioCrearEditarBean.doVolver()}"/>
+            <h:commandLink styleClass="volver" value="&#8592; #{msgs.volverAtras}" action="#{usuarioCrearEditarBean.doVolver()}"/>
         </h:form>
         <div class="todo">
+            <center>
+                <h:form>
+                    <h:commandLink styleClass="lenguaje" action="#{usuarioBean.setSpanish()}">   
+                        <img src="resources/imagenes/es.png"/>
+                    </h:commandLink>&nbsp;
+                    <h:commandLink styleClass="lenguaje ingles" action="#{usuarioBean.setEnglish()}">
+                        <img src="resources/imagenes/en.png"/>
+                    </h:commandLink>
+                </h:form>
+            </center>
             <h:form>
                 <h:inputHidden value="#{usuarioCrearEditarBean.usuarioSeleccionado.id}"/>
                 <table>
                     <tr>
-                        <td>Usuario</td>
+                        <td>#{msgs.usuario}</td>
                         <td>
-                            <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.usuario}" a:placeholder="Usuario" a:pattern="[A-Za-z0-9]+">
-                                <f:validateRequired/>
+                            <h:inputText id="usuario" value="#{usuarioCrearEditarBean.usuarioSeleccionado.usuario}" a:placeholder="#{msgs.usuario}" a:pattern="[A-Za-z0-9]+"
+                                        required ="true"
+                                        requiredMessage="#{msgs.campoNecesario}"
+                                        validatorMessage="#{msgs.errorUsuario}">
                                 <f:validateLength maximum="100"/>
                             </h:inputText>
+                            <h:message for="usuario" styleClass="mensajeError"/><br></br>
                         </td>
                     </tr>
                     <tr>
-                        <td>Email</td>
+                        <td>#{msgs.correo}</td>
                         <td>
-                            <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.email}" a:placeholder="Email" a:pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-                                <f:validateRequired/>
+                            <h:inputText id="correo" value="#{usuarioCrearEditarBean.usuarioSeleccionado.email}" a:placeholder="#{msgs.correo}" a:pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                         required ="true"
+                                         requiredMessage="#{msgs.campoNecesario}"
+                                         validatorMessage="#{msgs.errorEmail}">
                                 <f:validateLength maximum="100"/>
                             </h:inputText>
+                            <h:message for="correo" styleClass="mensajeError"/><br></br>
                         </td>
                     </tr>
                     <tr>
-                        <td>Nombre</td>
+                        <td>#{msgs.nombre}</td>
                         <td>
-                            <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.nombre}" a:placeholder="Nombre" a:pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}">
-                                <f:validateRequired/>
+                            <h:inputText id="nombre" value="#{usuarioCrearEditarBean.usuarioSeleccionado.nombre}" a:placeholder="#{msgs.nombre}" a:pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}"
+                                        required ="true"
+                                        requiredMessage="#{msgs.campoNecesario}"
+                                        validatorMessage="#{msgs.longitudErronea} 100">
                                 <f:validateLength maximum="100"/>
                             </h:inputText>
+                            <h:message for="nombre" styleClass="mensajeError"/><br></br>
                         </td>
                     </tr>
                     <tr>
-                        <td>Foto</td>
+                        <td>#{msgs.foto}</td>
                         <td>
-                            <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.foto}" a:placeholder="URL de la imagen" a:type="url">
+                            <h:inputText id="foto" value="#{usuarioCrearEditarBean.usuarioSeleccionado.foto}" a:placeholder="#{msgs.urlImagen}" a:type="url"
+                                         validatorMessage="#{msgs.errorURL}">
                                 <f:validateLength maximum="520"/>
                             </h:inputText>
+                            <h:message for="foto" styleClass="mensajeError"/><br></br>
                         </td>
                     </tr>
                     <tr>
-                        <td>Contraseña</td>
+                        <td>#{msgs.pass}</td>
                         <td>
-                            <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.password}" a:placeholder="Contraseña" a:pattern="[A-Za-z0-9!?-]{8,50}">
-                                <f:validateRequired/>
+                            <h:inputText id="pass" value="#{usuarioCrearEditarBean.usuarioSeleccionado.password}" a:placeholder="#{msgs.pass}" a:pattern="[A-Za-z0-9!?-]{8,50}"
+                                        required ="true"
+                                        requiredMessage="#{msgs.campoNecesario}"
+                                        validatorMessage="#{msgs.errorPassword}">
                                 <f:validateLength maximum="50"/>
                             </h:inputText>
+                            <h:message for="pass" styleClass="mensajeError"/><br></br>
                         </td>
                     </tr>
                 </table>
-                <h:commandButton styleClass="button" onclick="return confirm('¿Estás seguro?');" value="Editar usuario" action="#{usuarioCrearEditarBean.doGuardar()}"/>
+                <h:commandButton rendered="#{usuarioBean.spanish}" styleClass="button" onclick="return confirm('¿Estás seguro?');" value="#{msgs.editarUsuario}" action="#{usuarioCrearEditarBean.doGuardar()}"/>
+                <h:commandButton rendered="#{!usuarioBean.spanish}" styleClass="button" onclick="return confirm('Are you sure?');" value="#{msgs.editarUsuario}" action="#{usuarioCrearEditarBean.doGuardar()}"/>
             </h:form>
         </div>
     </h:body>

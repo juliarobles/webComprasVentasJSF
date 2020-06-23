@@ -8,6 +8,15 @@ and open the template in the editor.
     Author     : Usuario
 */
 
+.mensajeError {
+    color:red;
+    font-size: small;
+    margin-top: 0;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    text-align: center;
+}
+
 html {
     background: #003257;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;

@@ -21,38 +21,48 @@
                 <h1 class="iniciarSesion">#{msgs.bienvenido}</h1>
                 <h3 class="palabrasPrincipales">#{msgs.introduceDatos}</h3>
                 
-                <h:outputText  class="palabrasPrincipales" value="#{msgs.usuario}"/>
-                <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.usuario}" validator="#{usuarioCrearEditarBean.validarUsuario}" a:placeholder="#{msgs.usuario}" a:pattern="[A-Za-z0-9]+">
-                    <f:validateRequired/>
+                <h:outputText class="palabrasPrincipales" value="#{msgs.usuario}"/>
+                <h:inputText id="usuario" value="#{usuarioCrearEditarBean.usuarioSeleccionado.usuario}" validator="#{usuarioCrearEditarBean.validarUsuario}" a:placeholder="#{msgs.usuario}" a:pattern="[A-Za-z0-9]+"
+                             required ="true"
+                             requiredMessage="#{msgs.campoNecesario}"
+                             validatorMessage="#{msgs.errorUsuario}">
                     <f:validateLength maximum="100"/>
                 </h:inputText>
-               
+               <h:message for="usuario" styleClass="mensajeError"/><br></br>
 
-                <h:outputText class="palabrasPrincipales" id="correo" value="#{msgs.correo}"/>
-                <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.email}" validator="#{usuarioCrearEditarBean.validarCorreo}" a:placeholder="#{msgs.correo}" a:pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
-                    <f:validateRequired/>
+                <h:outputText class="palabrasPrincipales" value="#{msgs.correo}"/>
+                <h:inputText id="correo" value="#{usuarioCrearEditarBean.usuarioSeleccionado.email}" validator="#{usuarioCrearEditarBean.validarCorreo}" a:placeholder="#{msgs.correo}" a:pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                             required ="true"
+                             requiredMessage="#{msgs.campoNecesario}"
+                             validatorMessage="#{msgs.errorEmail}">
                     <f:validateLength maximum="100"/>
                 </h:inputText>
-                <h:message for="correo"/>
+                <h:message for="correo" styleClass="mensajeError"/><br></br>
 
                 <h:outputText class="palabrasPrincipales" value="#{msgs.nombre}"/>
-                <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.nombre}" a:placeholder="#{msgs.nombre}" a:pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}">
-                    <f:validateRequired/>
+                <h:inputText id="nombre" value="#{usuarioCrearEditarBean.usuarioSeleccionado.nombre}" a:placeholder="#{msgs.nombre}" a:pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}"
+                             required ="true"
+                             requiredMessage="#{msgs.campoNecesario}"
+                             validatorMessage="#{msgs.longitudErronea} 100">
                     <f:validateLength maximum="100"/>
                 </h:inputText>
-                
-
+                <h:message for="nombre" styleClass="mensajeError"/><br></br>
+                 
                 <h:outputText class="palabrasPrincipales" value="#{msgs.pass}"/>
-                <h:inputSecret value="#{usuarioCrearEditarBean.usuarioSeleccionado.password}" a:placeholder="#{msgs.pass}" a:pattern="[A-Za-z0-9!?-]{8,50}">
-                    <f:validateRequired/>
-                    <f:validateLength maximum="50"/>
+                <h:inputSecret id="pass" value="#{usuarioCrearEditarBean.usuarioSeleccionado.password}" a:placeholder="#{msgs.pass}" a:pattern="[A-Za-z0-9!?-]{1,50}"
+                               required ="true"
+                               requiredMessage="#{msgs.campoNecesario}"
+                               validatorMessage="#{msgs.errorPassword}">
+                    <f:validateLength minimum="8" maximum="50"/>
                 </h:inputSecret>
-                
+                <h:message for="pass" styleClass="mensajeError"/><br></br>
 
-                <h:outputText  class="palabrasPrincipales" value="#{msgs.fotoPerfil}"/>
-                <h:inputText  value="#{usuarioCrearEditarBean.usuarioSeleccionado.foto}" a:placeholder="#{msgs.urlImagen}" a:type="url">
+                <h:outputText class="palabrasPrincipales" value="#{msgs.fotoPerfil}"/>
+                <h:inputText id="foto" value="#{usuarioCrearEditarBean.usuarioSeleccionado.foto}" a:placeholder="#{msgs.urlImagen}" a:type="url"
+                             validatorMessage="#{msgs.errorURL}">
                     <f:validateLength maximum="520"/>
                 </h:inputText>
+                <h:message for="foto" styleClass="mensajeError"/><br></br>
                 
                 <h:commandButton class="btn" value="#{msgs.registrar}" action="#{usuarioCrearEditarBean.doGuardar()}"/>
             </h:form>

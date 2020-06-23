@@ -9,7 +9,7 @@
         <supported-locale>en</supported-locale>
     </locale-config>      
     <resource-bundle>
-      <base-name>internationalization.messages</base-name>
+      <base-name>properties.messages</base-name>
       <var>msgs</var>
     </resource-bundle>
   </application>
