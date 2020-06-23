@@ -11,15 +11,30 @@
     <f:metadata>
         <f:viewAction action="#{usuarioBean.comprobarLogin()}" />
     </f:metadata>
+    <f:view locale="#{usuarioBean.currentLocale}">
     <h:head>
-        <title>Crear producto</title>
+        <h:panelGroup rendered="#{usuarioBean.modoCrear}">
+            <title>#{msgs.crearProducto}</title>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{!usuarioBean.modoCrear}">
+            <title>#{msgs.editarProducto}</title>
+        </h:panelGroup>
+        
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="formularios.css" />
         <h:outputStylesheet library="css" name="producto.css" />
         <h:form>
-            <h:commandLink styleClass="volver" value="&#8592; Volver atrás" action="#{productoCrearEditarBean.doVolver()}" rendered="#{!usuarioPerfilBean.usuario.administrador}"/>
-            <h:commandLink styleClass="volver" value="&#8592; Volver atrás" action="#{productoCrearEditarBean.doVolverAdmin()}" rendered="#{usuarioPerfilBean.usuario.administrador}"/>
+            <h:commandLink styleClass="volver" value="&#8592; #{msgs.volverAtras}" action="#{productoCrearEditarBean.doVolver()}" rendered="#{!usuarioPerfilBean.usuario.administrador}"/>
+            <h:commandLink styleClass="volver" value="&#8592; #{msgs.volverAtras}" action="#{productoCrearEditarBean.doVolverAdmin()}" rendered="#{usuarioPerfilBean.usuario.administrador}"/>
+        </h:form>
+        <h:form>
+            <h:commandLink styleClass="lenguaje" action="#{usuarioBean.setSpanish()}">   
+                <img src="resources/imagenes/es.png"/>
+            </h:commandLink>&nbsp;
+            <h:commandLink styleClass="lenguaje ingles" action="#{usuarioBean.setEnglish()}">
+                <img src="resources/imagenes/en.png"/>
+            </h:commandLink>
         </h:form>
         <div class="todo">
             <h:form>
@@ -34,30 +49,35 @@
                 <h:inputHidden value="#{productoCrearEditarBean.producto.valoracionmedia}"/>
                 <table>
                     <tr>
-                        <h1>Crear nuevo producto</h1>
+                        <h:panelGroup rendered="#{usuarioBean.modoCrear}">
+                            <h1>#{msgs.crearNuevoProducto}</h1>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{!usuarioBean.modoCrear}">
+                            <h1>#{msgs.editarProducto}</h1>
+                        </h:panelGroup>
                     </tr>
                     <tr>
-                        <td class="titulo">Título</td>
+                        <td class="titulo">#{msgs.titulo}</td>
                         <td>
-                            <h:inputText id="titulo" value="#{productoCrearEditarBean.producto.titulo}" a:placeholder="Título" a:pattern="[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}">
+                            <h:inputText id="titulo" value="#{productoCrearEditarBean.producto.titulo}" a:placeholder="#{msgs.titulo}" a:pattern="[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}">
                                 <f:validateLength maximum="100" minimum="1"/>
                                 <f:validateRequired/>
                             </h:inputText>
                         </td>
                     </tr>
                     <tr>
-                        <td class="titulo">Descripción</td>
+                        <td class="titulo">#{msgs.descripcion}</td>
                         <td>
-                            <h:inputTextarea value="#{productoCrearEditarBean.producto.descripcion}" a:placeholder="Descripción">
+                            <h:inputTextarea value="#{productoCrearEditarBean.producto.descripcion}" a:placeholder="#{msgs.descripcion}">
                                 <f:validateLength maximum="500"/>
                             </h:inputTextarea>
                         </td>
                     </tr>
                     <tr>
-                        <td class="titulo">Categoria</td>
+                        <td class="titulo">#{msgs.categoria}</td>
                         <td>
                             <h:selectOneMenu value="#{productoCrearEditarBean.categoriaSeleccionada}">
-                                <f:selectItem itemLabel="Seleccione una categoria..."/>
+                                <f:selectItem itemLabel="#{msgs.seleccionaCategoria}"/>
                                 <f:selectItems value="#{productoCrearEditarBean.listaCategorias}" var="categoria"
                                                itemValue="#{categoria.id}" itemLabel="#{categoria.nombre}"/>
                                 <f:ajax render="subcategoria"/>
@@ -65,10 +85,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="titulo">Subcategoria</td>
+                        <td class="titulo">#{msgs.subcategoria}</td>
                         <td>
                             <h:selectOneMenu id="subcategoria" value="#{productoCrearEditarBean.subcategoriaSeleccionada}">
-                                <f:selectItem itemLabel="Seleccione una subcategoria..."/>
+                                <f:selectItem itemLabel="#{msgs.seleccionaSubcategoria}"/>
                                 <f:selectItems value="#{usuarioBean.listaSubcategorias}" var="subcategoria"
                                                itemValue="#{subcategoria.id}" itemLabel="#{subcategoria.nombre}"/>
                                 <f:validateRequired/>
@@ -76,9 +96,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="titulo">Precio</td>
+                        <td class="titulo">#{msgs.precio}</td>
                         <td>
-                            <h:inputText value="#{productoCrearEditarBean.producto.precio}" a:placeholder="Precio">
+                            <h:inputText value="#{productoCrearEditarBean.producto.precio}" a:placeholder="#{msgs.precio}">
                                 <f:validateLength maximum="50"/>
                                 <!--<f:convertNumber maxFractionDigits="2" type="currency"/>-->
                                 <f:validateDoubleRange minimum="0"/>
@@ -87,26 +107,27 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="titulo">Foto</td>
+                        <td class="titulo">#{msgs.foto}</td>
                         <td>
-                            <h:inputText value="#{productoCrearEditarBean.producto.foto}" a:placeholder="URL de la imagen" a:type="url">
+                            <h:inputText value="#{productoCrearEditarBean.producto.foto}" a:placeholder="#{msgs.urlImagen}" a:type="url">
                                 <f:validateLength maximum="520"/>
                             </h:inputText>
                         </td>
                     </tr>
                     <tr>
-                        <td class="titulo">Etiquetas</td>
+                        <td class="titulo">#{msgs.etiquetas}</td>
                         <td>
-                            <h:inputText value="#{productoCrearEditarBean.todasEtiquetas}" a:placeholder="#etiqueta1 #etiqueta2" a:pattern="([#]{1}[a-zA-Z0-9]{1,200}[ ]{0,200}){0,200}" >
+                            <h:inputText value="#{productoCrearEditarBean.todasEtiquetas}" a:placeholder="#{msgs.etiquetaPlaceholder}" a:pattern="([#]{1}[a-zA-Z0-9]{1,200}[ ]{0,200}){0,200}" >
                                 <f:validateLength maximum="200"/>
                             </h:inputText>
                         </td>
                     </tr>
                 </table>
-                <h:commandButton styleClass="button" value="Publicar producto" action="#{productoCrearEditarBean.doGuardar()}" rendered="#{!usuarioPerfilBean.usuario.administrador}"/>
-                <h:commandButton styleClass="button" value="Editar producto" action="#{productoCrearEditarBean.doGuardarAdmin()}" rendered="#{usuarioPerfilBean.usuario.administrador}" />
+                <h:commandButton styleClass="button" value="#{msgs.publicarProducto}" action="#{productoCrearEditarBean.doGuardar()}" rendered="#{!usuarioPerfilBean.usuario.administrador}"/>
+                <h:commandButton styleClass="button" value="#{msgs.editarProducto}" action="#{productoCrearEditarBean.doGuardarAdmin()}" rendered="#{usuarioPerfilBean.usuario.administrador}" />
             </h:form>
         </div>
     </h:body>
+    </f:view>
 </html>
 

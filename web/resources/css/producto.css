@@ -8,6 +8,17 @@ and open the template in the editor.
     Author     : Usuario
 */
 
+.lenguaje {
+    position: absolute;
+    right: 20px;
+    top: 35px;
+    margin-right: 20px;
+}
+
+.ingles {
+    margin-right: 60px;
+}
+
 input[type=text],input[type=email],input[type=url],input[type=number], select, textarea {
     background-color:  #e6e6e6;
     padding: 10px;

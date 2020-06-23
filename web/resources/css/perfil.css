@@ -8,7 +8,13 @@ and open the template in the editor.
     Author     : Usuario
 */
 
+.lenguaje {
+    float: right;
+}
 
+.ingles {
+    margin-right: 10px;
+}
 
 .avatar {
   border-radius: 50%;

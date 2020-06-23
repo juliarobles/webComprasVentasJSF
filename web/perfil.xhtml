@@ -14,7 +14,7 @@
     </f:metadata>
     <f:view locale="#{usuarioBean.currentLocale}">
     <h:head>
-        <title>Perfil</title>
+        <title>#{msgs.menuPrincipalPerfil}</title>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="formularios.css" />
@@ -43,48 +43,48 @@
                 <h:dataTable id="listaProductos" rendered="#{usuarioPerfilBean.listaProductos.size() > 0}" 
                              value="#{usuarioPerfilBean.listaProductos}" var="producto">
                     <h:column>
-                        <f:facet name="header">#{msgs.foto}</f:facet>
+                        <f:facet name="header">#{msgs.fotoM}</f:facet>
                         <img class="imagen" src="#{producto.foto}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">#{msgs.titulo}</f:facet>
+                        <f:facet name="header">#{msgs.tituloM}</f:facet>
                         #{producto.titulo}
                     </h:column>
                     <h:column>
-                        <f:facet name="header">#{msgs.descripcion}</f:facet>
+                        <f:facet name="header">#{msgs.descripcionM}</f:facet>
                         #{producto.descripcion}
                     </h:column>
                     <h:column>
-                        <f:facet name="header">#{msgs.subcategoria}</f:facet>
+                        <f:facet name="header">#{msgs.subcategoriaM}</f:facet>
                         #{producto.categoria.nombre}
                     </h:column>
                     <h:column>
-                        <f:facet name="header">#{msgs.etiquetas}</f:facet>
+                        <f:facet name="header">#{msgs.etiquetasM}</f:facet>
                         <ui:repeat value="#{producto.etiquetas}" var="etiq">
                             ##{etiq.nombre}
                         </ui:repeat>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">#{msgs.precio}</f:facet>
+                        <f:facet name="header">#{msgs.precioM}</f:facet>
                         <h:outputText value="#{producto.precio}">
                             <f:convertNumber minIntegerDigits="0" maxFractionDigits="2"/>
                         </h:outputText>€
                     </h:column>
                     <h:column>
-                        <f:facet name="header">#{msgs.valoracion}</f:facet>
+                        <f:facet name="header">#{msgs.valoracionM}</f:facet>
                         <h:outputText rendered="#{producto.valoracionmedia >= 0}" value="#{producto.valoracionmedia}">
                             <f:convertNumber minIntegerDigits="0" maxFractionDigits="2"/>
                         </h:outputText>
                         <h:outputText rendered="#{producto.valoracionmedia lt 0}" value="Sin valoraciones"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">#{msgs.fecha}</f:facet>
+                        <f:facet name="header">#{msgs.fechaM}</f:facet>
                         <h:outputText value="#{producto.fecha}">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </h:outputText>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">#{msgs.hora}</f:facet>
+                        <f:facet name="header">#{msgs.horaM}</f:facet>
                         <h:outputText value="#{producto.hora}">
                             <f:convertDateTime pattern="HH:mm"/>
                         </h:outputText>
