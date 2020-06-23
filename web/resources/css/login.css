@@ -23,7 +23,7 @@ body, html {
   width: 100%;
   height: 100%;
   /* The image used */
-  background-image: url("../imagenes/Foto1.jpg");
+  background-image: url("#{resource['imagenes/Foto1.jpg']}");
   
   /* Control the height of the image */
   min-height: 640px;
@@ -51,6 +51,7 @@ body, html {
 
 /* Add styles to the form container */
 .container {
+  text-align: center;
   position: absolute;
   right: 0;
   margin: 20px;
@@ -72,7 +73,7 @@ body, html {
 .error{
     color:red;
     font-weight: normal;
-    line-height: 6px;
+    line-height: 17px;
     font-size: 15px;
     text-align: center;
 }

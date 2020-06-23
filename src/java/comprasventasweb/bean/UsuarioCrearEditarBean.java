@@ -13,6 +13,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -91,7 +94,35 @@ public class UsuarioCrearEditarBean {
         }
     }
     
+        public void validarCorreo(FacesContext context, UIComponent toValidate, Object value){
+        context = FacesContext.getCurrentInstance();
+        String texto = (String) value;
+        
+        UsuarioDTO res =this.usuarioService.buscarPorCorreo(texto);
+        
+        if(res != null){//Ya hay un usuario con ese correo
+            ((UIInput)toValidate).setValid(false);
+            context.addMessage(toValidate.getClientId(context), new FacesMessage("El correo ya está en uso"));
+        }
+    }
     
+    public void validarUsuario(FacesContext context, UIComponent toValidate, Object value){
+        context = FacesContext.getCurrentInstance();
+        String texto = (String) value;
+        
+        UsuarioDTO res =this.usuarioService.buscarPorUsuario(texto);
+        
+        if(res != null){//Ya hay un usuario con ese correo
+            ((UIInput)toValidate).setValid(false);
+            context.addMessage(toValidate.getClientId(context), new FacesMessage("El usuario ya está en uso"));
+        }
+    }
+    public String doRegistrar(){
+        this.usuarioService.createOrUpdate(this.usuarioSeleccionado);
+        this.usuarioBean.usuario = this.usuarioSeleccionado;
+        //Este metodo está pendiente de revisión
+        return "paginaPrincipal";
+    }
     
     
 }

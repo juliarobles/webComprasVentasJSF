@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="registro.css" />
+        
+        <div class="fondo">
+            <h:form class="container">
+                <h1 class="iniciarSesion">¡Bienvenido!</h1>
+                <h3 class="palabrasPrincipales">Introduce tus datos</h3>
+                
+                <h:outputText  class="palabrasPrincipales" value="Usuario"/>
+                <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.usuario}" validator="#{usuarioCrearEditarBean.validarUsuario}" required="true"/>
+               
+
+                <h:outputText class="palabrasPrincipales" id="correo" value="Correo"/>
+                <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.email}" validator="#{usuarioCrearEditarBean.validarCorreo}" required="true"/>
+                <h:message for="correo"/>
+
+                <h:outputText class="palabrasPrincipales" value="Nombre"/>
+                <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.nombre}" required="true"/>
+                
+
+                <h:outputText class="palabrasPrincipales" value="Contraseña"/>
+                <h:inputSecret value="#{usuarioCrearEditarBean.usuarioSeleccionado.password}" required="true"/>
+                
+
+                <h:outputText  class="palabrasPrincipales" value="Foto de perfil"/>
+                <h:inputText  maxlength ="512"/>
+
+                
+                <h:commandButton class="btn" value="Registrar" action="#{usuarioCrearEditarBean.doRegistrar}"/>
+            </h:form>
+        </div>
+        
+    </h:body>
+</html>
+
