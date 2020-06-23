@@ -94,7 +94,7 @@ Julia Robles Medina (internacionalizacion)
                 #{producto.vendedor.nombre}
             </h:column>
             <h:column>
-                <h:link value="#{msgs.consultar}" outcome="verProducto" includeViewParams="true"/>  
+                <h:commandLink value="#{msgs.consultar}" action="#{usuarioBean.doVerProducto(producto.id)}"/>
             </h:column>
             <h:column>
                 <h:commandLink value="#{msgs.editar}" action="#{usuarioBean.doEditarProducto(producto)}" />                
