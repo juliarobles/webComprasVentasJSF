@@ -8,6 +8,11 @@ and open the template in the editor.
     Author     : danim
 */
 
+.lenguaje {
+    display: inline-block;
+    margin-top: 15px;
+}
+
 body, html {
   height: 100%;
   margin: 0px;
