@@ -79,8 +79,8 @@
                     <h:form class="modal-content animate">
                         <h3>Nuevo comentario</h3>
                         <h:inputTextarea id="contenido" class="contenidoComentario"  cols="60" rows="8" required="true" value="#{productoVerBean.contenido}"/>
-                        <p><h:commandButton  class="comentarioSubmit" value="Enviar comentario" action="#{productoVerBean.comentar}">
-                                <f:ajax execute = "contenido" render = "panelComentarios" listener="#{productoVerBean.actualizarListas()}" />
+                        <p><h:commandButton id="comentar" class="comentarioSubmit" value="Enviar comentario" >
+                                <f:ajax listener="#{productoVerBean.comentar}" execute="contenido" render="listaComentarios"/>
                             </h:commandButton></p>
                         <p><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancelar</button></p>
                     </h:form>
@@ -96,8 +96,8 @@
                         <ui:repeat value="#{productoVerBean.listaComentarios}" var="comentario" id="listaComentarios">
                             <p class="emisor"> #{comentario.usuario.usuario}</p>
                             <p class="comentarioContainer">#{comentario.texto}</p>
-                            <p><h:commandLink value="Eliminar comentario" class="eliminar"  rendered="#{productoVerBean.AdminOUsuario(comentario)}">
-                                    <f:ajax execute = "#{productoVerBean.eliminarComentario(comentario)}" render = "panelComentarios" listener="#{productoVerBean.actualizarListas()}" />
+                            <p><h:commandLink id="eliminarComent" value="Eliminar comentario" class="eliminar"  rendered="#{productoVerBean.AdminOUsuario(comentario)}" >
+                                    <f:ajax render = "eliminarComent" listener="#{productoVerBean.eliminarComentario(comentario)}" />
                                </h:commandLink>
                             </p>
                         </ui:repeat>

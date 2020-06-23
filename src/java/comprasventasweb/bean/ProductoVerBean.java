@@ -170,9 +170,8 @@ public class ProductoVerBean {
                 LOG.severe(String.format("Se ha producido una excepcion: %s", ex.getMessage()));
             }        
             } else {      
-                System.out.println("Comentario " + contenido);
-                this.comentarioService.comentario(pr, this.usuarioBean.getUsuario(), contenido);
-                
+                System.out.println("El contenido del comentario es5 " + contenido);
+                this.comentarioService.comentario(pr, this.usuarioBean.getUsuario(), contenido);   
             }
             actualizarListas();
     }
