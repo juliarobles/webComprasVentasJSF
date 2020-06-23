@@ -1,57 +1,75 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+    AUTOR:
+    Daniel Ruiz Aswani
+    Julia Robles Medina (internacionalización)
+-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view locale="#{usuarioBean.currentLocale}">
     <h:head>
         <title>Registro</title>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="registro.css" />
-        
         <div class="fondo">
-            <h:form class="container">
-                <h1 class="iniciarSesion">¡Bienvenido!</h1>
-                <h3 class="palabrasPrincipales">Introduce tus datos</h3>
+            <div class="container">
+            <h:form>
+                <h1 class="iniciarSesion">#{msgs.bienvenido}</h1>
+                <h3 class="palabrasPrincipales">#{msgs.introduceDatos}</h3>
                 
-                <h:outputText  class="palabrasPrincipales" value="Usuario"/>
-                <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.usuario}" validator="#{usuarioCrearEditarBean.validarUsuario}" a:placeholder="Usuario" a:pattern="[A-Za-z0-9]+">
+                <h:outputText  class="palabrasPrincipales" value="#{msgs.usuario}"/>
+                <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.usuario}" validator="#{usuarioCrearEditarBean.validarUsuario}" a:placeholder="#{msgs.usuario}" a:pattern="[A-Za-z0-9]+">
                     <f:validateRequired/>
                     <f:validateLength maximum="100"/>
                 </h:inputText>
                
 
-                <h:outputText class="palabrasPrincipales" id="correo" value="Correo"/>
-                <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.email}" validator="#{usuarioCrearEditarBean.validarCorreo}" a:placeholder="Correo" a:pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                <h:outputText class="palabrasPrincipales" id="correo" value="#{msgs.correo}"/>
+                <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.email}" validator="#{usuarioCrearEditarBean.validarCorreo}" a:placeholder="#{msgs.correo}" a:pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
                     <f:validateRequired/>
                     <f:validateLength maximum="100"/>
                 </h:inputText>
                 <h:message for="correo"/>
 
-                <h:outputText class="palabrasPrincipales" value="Nombre"/>
-                <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.nombre}" a:placeholder="Nombre" a:pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}">
+                <h:outputText class="palabrasPrincipales" value="#{msgs.nombre}"/>
+                <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.nombre}" a:placeholder="#{msgs.nombre}" a:pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}">
                     <f:validateRequired/>
                     <f:validateLength maximum="100"/>
                 </h:inputText>
                 
 
-                <h:outputText class="palabrasPrincipales" value="Contraseña"/>
-                <h:inputSecret value="#{usuarioCrearEditarBean.usuarioSeleccionado.password}" a:placeholder="Contraseña" a:pattern="[A-Za-z0-9!?-]{8,50}">
+                <h:outputText class="palabrasPrincipales" value="#{msgs.pass}"/>
+                <h:inputSecret value="#{usuarioCrearEditarBean.usuarioSeleccionado.password}" a:placeholder="#{msgs.pass}" a:pattern="[A-Za-z0-9!?-]{8,50}">
                     <f:validateRequired/>
                     <f:validateLength maximum="50"/>
                 </h:inputSecret>
                 
 
-                <h:outputText  class="palabrasPrincipales" value="Foto de perfil"/>
-                <h:inputText  value="#{usuarioCrearEditarBean.usuarioSeleccionado.foto}" a:placeholder="URL de la imagen" a:type="url">
+                <h:outputText  class="palabrasPrincipales" value="#{msgs.fotoPerfil}"/>
+                <h:inputText  value="#{usuarioCrearEditarBean.usuarioSeleccionado.foto}" a:placeholder="#{msgs.urlImagen}" a:type="url">
                     <f:validateLength maximum="520"/>
                 </h:inputText>
                 
-                <h:commandButton class="btn" value="Registrar" action="#{usuarioCrearEditarBean.doGuardar()}"/>
+                <h:commandButton class="btn" value="#{msgs.registrar}" action="#{usuarioCrearEditarBean.doGuardar()}"/>
             </h:form>
+            <center>
+                <h:form>
+                    <h:commandLink styleClass="lenguaje ingles" action="#{usuarioBean.setEnglish()}">
+                        <img src="resources/imagenes/en.png"/>
+                    </h:commandLink>&nbsp;
+                    <h:commandLink styleClass="lenguaje" action="#{usuarioBean.setSpanish()}">   
+                        <img src="resources/imagenes/es.png"/>
+                    </h:commandLink>
+                </h:form>
+            </center>
+            </div>
         </div>
         
     </h:body>
+    </f:view>
 </html>
 
