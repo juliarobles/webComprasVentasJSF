@@ -28,7 +28,7 @@
                         <td>
                             <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.usuario}" a:placeholder="Usuario" a:pattern="[A-Za-z0-9]+">
                                 <f:validateRequired/>
-                                <f:validateLength maximum="100" minimum="1"/>
+                                <f:validateLength maximum="100"/>
                             </h:inputText>
                         </td>
                     </tr>
@@ -36,6 +36,7 @@
                         <td>Email</td>
                         <td>
                             <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.email}" a:placeholder="Email" a:pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                                <f:validateRequired/>
                                 <f:validateLength maximum="100"/>
                             </h:inputText>
                         </td>
@@ -45,7 +46,7 @@
                         <td>
                             <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.nombre}" a:placeholder="Nombre" a:pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}">
                                 <f:validateRequired/>
-                                <f:validateLength maximum="100" minimum="1"/>
+                                <f:validateLength maximum="100"/>
                             </h:inputText>
                         </td>
                     </tr>
@@ -62,7 +63,7 @@
                         <td>
                             <h:inputText value="#{usuarioCrearEditarBean.usuarioSeleccionado.password}" a:placeholder="Contraseña" a:pattern="[A-Za-z0-9!?-]{8,50}">
                                 <f:validateRequired/>
-                                <f:validateLength maximum="50" minimum="1"/>
+                                <f:validateLength maximum="50"/>
                             </h:inputText>
                         </td>
                     </tr>

@@ -44,26 +44,16 @@ public class UsuarioCrearEditarBean {
 
     @PostConstruct
     public void init(){
-        if (this.usuarioBean.getUsuario() == null) { // Acceso no autorizado (sin autenticar)
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("login.jsf");           
-            } catch (IOException ex) {
-                LOG.severe(String.format("Se ha producido una excepcion: %s", ex.getMessage()));
-            }
-        } else {        
+        if (this.usuarioBean.getUsuario() == null) { // Registrarse
+            this.usuarioSeleccionado = new UsuarioDTO(0);
+        } else { //Editar usuario desde admin       
             this.usuarioSeleccionado = this.usuarioBean.getUsuarioSeleccionado();
-            if (this.usuarioSeleccionado == null) { // Es crear nuevo usuario (registrar)
-                this.usuarioSeleccionado = new UsuarioDTO(0);
-            } else { // Es editar usuario
-                if(!this.usuarioBean.getUsuario().getAdministrador()){
-                   try {
-                        FacesContext.getCurrentInstance().getExternalContext().redirect("login.jsf");           
-                    } catch (IOException ex) {
-                        LOG.severe(String.format("Se ha producido una excepcion: %s", ex.getMessage()));
-                    } 
-                } else {
-                    this.usuarioBean.setUsuarioSeleccionado(null);
-                }
+            if (this.usuarioSeleccionado == null || !this.usuarioBean.getUsuario().getAdministrador()) { // Es crear nuevo usuario (registrar)
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("login.jsf");           
+                } catch (IOException ex) {
+                    LOG.severe(String.format("Se ha producido una excepcion: %s", ex.getMessage()));
+                } 
             }
         }
     }
@@ -78,11 +68,13 @@ public class UsuarioCrearEditarBean {
     
     public String doGuardar(){
         this.usuarioService.createOrUpdate(this.usuarioSeleccionado);
-        if(this.usuarioBean.getUsuario().getAdministrador()){
+        if(this.usuarioBean.getUsuario() == null){
+            this.usuarioBean.setUsuario(this.usuarioService.buscarPorUsuario(this.usuarioSeleccionado.getUsuario()));
+            return "paginaPrincipal";
+        } else if(this.usuarioBean.getUsuario().getAdministrador()){
             return "usuariosAdmin?faces-redirect=true";
         } else {
-            this.usuarioBean.setUsuario(this.usuarioService.buscarPorUsuario(this.usuarioSeleccionado.getUsuario()));
-            return "paginaPrincipal?faces-redirect=true";
+            return null;
         }
     }
     
@@ -116,12 +108,6 @@ public class UsuarioCrearEditarBean {
             ((UIInput)toValidate).setValid(false);
             context.addMessage(toValidate.getClientId(context), new FacesMessage("El usuario ya está en uso"));
         }
-    }
-    public String doRegistrar(){
-        this.usuarioService.createOrUpdate(this.usuarioSeleccionado);
-        this.usuarioBean.usuario = this.usuarioSeleccionado;
-        //Este metodo está pendiente de revisión
-        return "paginaPrincipal";
     }
     
     

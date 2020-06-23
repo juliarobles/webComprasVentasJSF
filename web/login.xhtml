@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!--
+Daniel Ruiz Aswani
 Roberto Michán Sánchez 
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -11,7 +12,6 @@ Roberto Michán Sánchez
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="login.css" />
-        
         <div class="fondo" id="fondo">
             <div class="container">
                     <h:form>
@@ -30,28 +30,6 @@ Roberto Michán Sánchez
                 </h:form>
                 <h:outputLink value="registro.jsf" class="enlace">¿No tienes cuenta?</h:outputLink>
             </div>
-        
-            
-
-                
-                
-               <!-- <table>
-                    <tr>
-                        <td>Usuario:</td>
-                        <td><h:inputText value="#{usuarioBean.email}"/></td>                
-                    </tr>
-                    <tr>
-                        <td>Clave:</td>
-                        <td><h:inputSecret value="#{usuarioBean.clave}" /> </td>                                    
-                    </tr>            
-                    <tr>
-                        <td colspan="2"><h:commandButton value="Enviar" action="#{usuarioBean.doLogin()}" /></td>
-                    </tr>
-                    <tr>                
-                        <td colspan="2">#{usuarioBean.status}</td>                    
-                    </tr>
-                </table>-->
-            
         </div>
     </h:body>
 </html>
