@@ -69,6 +69,7 @@
                             <f:viewParam id="id" name ="id" value="#{producto.id}"/>
                         </f:metadata>
                         <h:link outcome="verProducto" includeViewParams="true" styleClass="card">
+                            <f:param name="productoId" value="#{producto.id}"/>
                             <div class="imagen">
                                 <img src="#{producto.foto}"/>
                             </div>

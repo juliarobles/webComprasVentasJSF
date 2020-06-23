@@ -4,13 +4,49 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <f:metadata>
+        <f:viewParam name="productoId" value="#{productoVerBean.id}" />
         <f:viewAction action="#{usuarioBean.comprobarLogin()}" />
     </f:metadata>
     <h:head>
-        <title>Facelet Title</title>
+        <title>Titulo</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:outputStylesheet library="css" name="verProducto.css"/>
+        <h:outputStylesheet library="css" name="formularios.css"/>
+        
+        <h:link styleClass="volver" rendered="#{!usuarioBean.usuario.administrador}" 
+                outcome="paginaPrincipal" value="&#8592; Volver al menú principal" />
+        
+        <div class="todo">
+            <div class="contenido">
+                <h:graphicImage class="imagen" value="#{productoVerBean.producto.foto}" />
+                <h1>#{productoVerBean.producto.titulo}</h1>
+                <p class="fila">
+                    <categoria>
+                        <!--<h:link outcome="ProductosListar">
+                           <f:param name="categoria" value="#{productoVerBean.producto.categoria}"/>
+                        </h:link>-->
+                        #{productoVerBean.producto.categoria.nombre}
+                    </categoria>
+                    <media>#{productoVerBean.mediaPr()}</media>
+                </p>
+                
+                <p class="descripcion">#{productoVerBean.producto.descripcion}</p>
+               
+                <h:dataTable value="#{productoVerBean.listaEtiquetas}" var = "eti">
+                    
+                    <h:outputText value="#{eti.nombre}"/>
+                   
+                </h:dataTable>
+                
+                <p class="fila">
+                    <vendedor>Vendido por: #{productoVerBean.producto.vendedor.usuario}</vendedor>
+                    <fecha>productoVerBean.formatearFecha</fecha>
+                </p>
+                
+                <h:commandButton value="Comprar" rendered="#{!productoVerBean.esPropio()}" />
+            </div>
+        </div>
     </h:body>
 </html>
 
