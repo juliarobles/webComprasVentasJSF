@@ -17,6 +17,8 @@
         <h:outputScript library="javascript" name="comentario.js"  />
         <h:link styleClass="volver" rendered="#{!usuarioBean.usuario.administrador}" 
                 outcome="paginaPrincipal" value="&#8592; Volver al menú principal" />
+        <h:link styleClass="volver" rendered="#{usuarioBean.usuario.administrador}" 
+                outcome="productosAdmin" value="&#8592; Volver a la lista de productos" />
         
         <div class="todo">
             <div class="contenido">
