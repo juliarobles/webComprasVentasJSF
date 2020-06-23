@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
-    AUTOR: Julia Robles Medina
+    AUTOR: 
+    Julia Robles Medina
     Roberto Michán Sánchez (volver admin, comprobarLogin)
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -11,6 +12,7 @@
     <f:metadata>
         <f:viewAction action="#{usuarioBean.comprobarLogin()}" />
     </f:metadata>
+    <f:view locale="#{usuarioBean.currentLocale}">
     <h:head>
         <title>Perfil</title>
     </h:head>
@@ -18,79 +20,89 @@
         <h:outputStylesheet library="css" name="formularios.css" />
         <h:outputStylesheet library="css" name="perfil.css" />
         <h:link styleClass="volver" rendered="#{usuarioBean.usuario.administrador}" 
-                outcome="usuariosAdmin" value="&#8592; Volver a la lista de usuarios" />
+                outcome="usuariosAdmin" value="&#8592; #{msgs.volverListaUsuarios}" />
         <h:link styleClass="volver" rendered="#{!usuarioBean.usuario.administrador}" 
-                outcome="paginaPrincipal" value="&#8592; Volver al menú principal" />
+                outcome="paginaPrincipal" value="&#8592; #{msgs.volverMenuPrincipal}" />
         <div class="todo">
+            <h:form>
+                <h:commandLink styleClass="lenguaje" action="#{usuarioBean.setSpanish()}">   
+                    <img src="resources/imagenes/es.png"/>
+                </h:commandLink>&nbsp;
+                <h:commandLink styleClass="lenguaje ingles" action="#{usuarioBean.setEnglish()}">
+                    <img src="resources/imagenes/en.png"/>
+                </h:commandLink>
+            </h:form>
             <img class="avatar" id="avatar" src="#{usuarioPerfilBean.usuario.foto}" width="200" height="200"/>
             <h1>#{usuarioPerfilBean.usuario.nombre}</h1>
             <h2>#{usuarioPerfilBean.usuario.usuario}</h2>
-            <h3>Mis productos</h3>
+            <h3>#{msgs.perfilMisProductos}</h3>
             <h:panelGroup rendered="#{usuarioPerfilBean.listaProductos.size() == 0}">
-                <h2>Ningún producto ha sido publicado todavía</h2>
+                <h2>#{msgs.perfilNingunProducto}</h2>
             </h:panelGroup>
             <h:form>
                 <h:dataTable id="listaProductos" rendered="#{usuarioPerfilBean.listaProductos.size() > 0}" 
                              value="#{usuarioPerfilBean.listaProductos}" var="producto">
                     <h:column>
-                        <f:facet name="header">FOTO</f:facet>
+                        <f:facet name="header">#{msgs.foto}</f:facet>
                         <img class="imagen" src="#{producto.foto}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">TITULO</f:facet>
+                        <f:facet name="header">#{msgs.titulo}</f:facet>
                         #{producto.titulo}
                     </h:column>
                     <h:column>
-                        <f:facet name="header">DESCRIPCION</f:facet>
+                        <f:facet name="header">#{msgs.descripcion}</f:facet>
                         #{producto.descripcion}
                     </h:column>
                     <h:column>
-                        <f:facet name="header">SUBCATEGORIA</f:facet>
+                        <f:facet name="header">#{msgs.subcategoria}</f:facet>
                         #{producto.categoria.nombre}
                     </h:column>
                     <h:column>
-                        <f:facet name="header">ETIQUETAS</f:facet>
+                        <f:facet name="header">#{msgs.etiquetas}</f:facet>
                         <ui:repeat value="#{producto.etiquetas}" var="etiq">
                             ##{etiq.nombre}
                         </ui:repeat>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">PRECIO</f:facet>
+                        <f:facet name="header">#{msgs.precio}</f:facet>
                         <h:outputText value="#{producto.precio}">
                             <f:convertNumber minIntegerDigits="0" maxFractionDigits="2"/>
                         </h:outputText>€
                     </h:column>
                     <h:column>
-                        <f:facet name="header">VALORACION</f:facet>
+                        <f:facet name="header">#{msgs.valoracion}</f:facet>
                         <h:outputText rendered="#{producto.valoracionmedia >= 0}" value="#{producto.valoracionmedia}">
                             <f:convertNumber minIntegerDigits="0" maxFractionDigits="2"/>
                         </h:outputText>
                         <h:outputText rendered="#{producto.valoracionmedia lt 0}" value="Sin valoraciones"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">FECHA</f:facet>
+                        <f:facet name="header">#{msgs.fecha}</f:facet>
                         <h:outputText value="#{producto.fecha}">
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </h:outputText>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">HORA</f:facet>
+                        <f:facet name="header">#{msgs.hora}</f:facet>
                         <h:outputText value="#{producto.hora}">
                             <f:convertDateTime pattern="HH:mm"/>
                         </h:outputText>
                     </h:column>
                     <h:column>
-                        <h:commandLink styleClass="editar" value="Ver todo" action="#{usuarioBean.doCerrarSesion()}"/>
+                        <h:commandLink styleClass="editar" value="#{msgs.vertodo}" action="#{usuarioBean.doCerrarSesion()}"/>
                     </h:column>
                     <h:column>
-                        <h:commandLink styleClass="editar" value="Editar" action="#{usuarioBean.doEditarProducto(producto)}"/>
+                        <h:commandLink styleClass="editar" value="#{msgs.editar}" action="#{usuarioBean.doEditarProducto(producto)}"/>
                     </h:column>
                     <h:column>
-                        <h:commandLink styleClass="borrar" value="Borrar" onclick="return confirm('¿Estás seguro?');" action="#{usuarioBean.doBorrarProducto(producto)}"/>
+                        <h:commandLink rendered="#{usuarioBean.spanish}" styleClass="borrar" value="#{msgs.borrar}" onclick="return confirm('¿Estás seguro?');" action="#{usuarioBean.doBorrarProducto(producto)}"/>
+                        <h:commandLink rendered="#{!usuarioBean.spanish}" styleClass="borrar" value="#{msgs.borrar}" onclick="return confirm('Are you sure?');" action="#{usuarioBean.doBorrarProducto(producto)}"/>
                     </h:column>
                 </h:dataTable>
             </h:form>
         </div>
     </h:body>
+    </f:view>
 </html>
 
