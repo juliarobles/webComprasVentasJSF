@@ -6,6 +6,7 @@
 package comprasventasweb.bean;
 
 import comprasventasweb.dto.CategoriaDTO;
+import comprasventasweb.dto.ComentarioDTO;
 import comprasventasweb.dto.EtiquetaDTO;
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.service.ComentarioService;
@@ -48,6 +49,8 @@ public class ProductoVerBean {
     }
     
     protected String contenido;
+    
+    protected List<ComentarioDTO> listaComentarios;
     
     @Inject
     private UsuarioBean usuarioBean;
@@ -96,6 +99,16 @@ public class ProductoVerBean {
     
     @PostConstruct
     public void init(){
+        this.producto = this.usuarioBean.getProductoSeleccionado();
+        this.listaComentarios = this.comentarioService.searchByProducto(producto);
+    }
+
+    public List<ComentarioDTO> getListaComentarios() {
+        return listaComentarios;
+    }
+
+    public void setListaComentarios(List<ComentarioDTO> listaComentarios) {
+        this.listaComentarios = listaComentarios;
     }
     
     public String mediaPr(){
@@ -116,14 +129,37 @@ public class ProductoVerBean {
     
     public boolean esPropio(){
         boolean propio = false;
-        System.out.println(producto + " vendedor");
-        System.out.println(this.usuarioBean.getUsuario().getId()+ " yo");
         if(producto.getVendedor().getId().equals(this.usuarioBean.getUsuario().getId())){
             propio = true;
         }
         return propio;
     }
     
+    public boolean comentarios(){
+        boolean res = this.listaComentarios.size()>0;
+        return res;
+    }
+    public void eliminarComentario(ComentarioDTO comentario){
+                
+                String idComentario = comentario.getId()+"";
+                if(producto == null || idComentario == null || idComentario.isEmpty()){
+                    LOG.log(Level.SEVERE, "No se ha encontrado el comentario a borrar"); 
+                } else {
+                    this.comentarioService.eliminarComentario(Integer.parseInt(idComentario));
+                    //Actualizar con Ajax
+                }
+                actualizarListas();
+    }
+    
+    public boolean AdminOUsuario(ComentarioDTO comentario){
+        boolean res = false;
+ 
+        if(comentario.getUsuario().getId().equals(this.usuarioBean.getUsuario().getId()) 
+                || this.usuarioBean.getUsuario().getAdministrador()){
+            res = true;
+        }
+        return res;
+    }
     public void comentar(){
         ProductoDTO pr = this.producto;
             if(pr==null){
@@ -133,16 +169,12 @@ public class ProductoVerBean {
             } catch (IOException ex) {
                 LOG.severe(String.format("Se ha producido una excepcion: %s", ex.getMessage()));
             }        
-            } else {
-               
+            } else {      
+                System.out.println("Comentario " + contenido);
                 this.comentarioService.comentario(pr, this.usuarioBean.getUsuario(), contenido);
-                try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("verProducto.jsf");           
-            } catch (IOException ex) {
-                LOG.severe(String.format("Se ha producido una excepcion: %s", ex.getMessage()));
-            }  
-    
+                
             }
+            actualizarListas();
     }
     public String getContenido() {
         return contenido;
@@ -151,6 +183,12 @@ public class ProductoVerBean {
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
+    
+    
+    public void actualizarListas(){
+        this.listaComentarios = this.comentarioService.searchByProducto(producto);
+    }
+    
     
     public void guardarValoracion(){
         if (this.usuarioBean.getUsuario()==null) { // Se ha llamado al servlet sin haberse autenticado
@@ -169,8 +207,6 @@ public class ProductoVerBean {
                     LOG.severe(String.format("Se ha producido una excepcion: %s", ex.getMessage()));
                 }   
             } else {
-                System.out.println("Guardando valoración de " + valoracion + " para el producto " + pr.getTitulo()
-                + " del usuario " + this.usuarioBean.getUsuario());
                 this.valoracionService.valorar(valoracion, pr, this.usuarioBean.getUsuario());   
             }   
         }

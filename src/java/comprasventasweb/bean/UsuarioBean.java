@@ -81,6 +81,12 @@ public class UsuarioBean implements Serializable {
         }
     }
     
+    public String doVerProducto(int id){
+        this.modoCrear = false;
+        this.setProductoSeleccionado(this.productoService.searchById(id+""));
+        //this.listaSubcategorias = null;
+        return "verProducto";
+    }
     public String doPerfil(){
         return "perfil";
     }
