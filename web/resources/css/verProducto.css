@@ -146,7 +146,7 @@ h5 {
     margin-bottom: 10px;
 }
 
-.contenido button, .botonComentario, .comentarioSubmit {
+.contenido button, .botonComentario, .comentarioSubmit, .botonComprar {
     text-decoration: none;
     background-color: transparent;
     color:#003257;
@@ -165,7 +165,7 @@ h5 {
     
 }
 
-.contenido button:hover, .botonComentario:hover, .comentarioSubmit:hover {
+.contenido button:hover, .botonComentario:hover, .comentarioSubmit:hover, .botonComprar:hover{
     color:white;
     background-color: #003257;
 }
