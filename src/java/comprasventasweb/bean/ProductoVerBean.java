@@ -43,7 +43,7 @@ public class ProductoVerBean {
     }
 
     public void setValoracion(int valoracion) {
-        System.out.println("SetValoracion");
+        System.out.println("Se ha establecido al valoración a " + this.valoracion);
         this.valoracion = valoracion;
         guardarValoracion();
     }
@@ -73,6 +73,8 @@ public class ProductoVerBean {
     public void setId(int id) {
         this.id = id;
         this.setProducto(this.productoService.searchById(this.id + ""));
+        this.listaComentarios = this.comentarioService.searchByProducto(producto);
+        valoracion = this.valoracionService.searchValoracion(this.usuarioBean.getUsuario().getId(), this.producto.getId());
     }
 
     public ProductoDTO getProducto() {
@@ -99,9 +101,14 @@ public class ProductoVerBean {
     
     @PostConstruct
     public void init(){
-        this.producto = this.usuarioBean.getProductoSeleccionado();
-        this.listaComentarios = this.comentarioService.searchByProducto(producto);
+        //this.usuarioBean.productoSeleccionado = this.productoService.searchById(this.id+"");
+        //this.producto = this.usuarioBean.getProductoSeleccionado();
         
+        //System.out.println("La valoración es de " + valoracion);
+        //System.out.println(this.usuarioBean.getUsuario().getId());
+        //System.out.println(this.producto.getId());
+       
+        //System.out.println("La valoración actualizada es de " + valoracion);
     }
 
     public List<ComentarioDTO> getListaComentarios() {
@@ -148,11 +155,12 @@ public class ProductoVerBean {
         return res;
     }
     public void eliminarComentario(ComentarioDTO comentario){
-                
+                System.out.println("He entrado a eliminar comentario");
                 String idComentario = comentario.getId()+"";
                 if(producto == null || idComentario == null || idComentario.isEmpty()){
                     LOG.log(Level.SEVERE, "No se ha encontrado el comentario a borrar"); 
                 } else {
+                    System.out.println("Eliminar comentario " + comentario.getTexto());
                     this.comentarioService.eliminarComentario(Integer.parseInt(idComentario));
                     actualizarListas();
                 }

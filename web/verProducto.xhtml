@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <f:metadata>
-        <!--<f:viewParam name="productoId" value="#{productoVerBean.id}" />-->
+        <f:viewParam name="productoId" value="#{productoVerBean.id}" />
         <f:viewAction action="#{usuarioBean.comprobarLogin()}" />
     </f:metadata>
     <h:head>
@@ -67,9 +67,11 @@
                 <h:panelGrid  columns="2" cellpadding="5px" class="centrar">
                     <h:outputText value="¿Que nota le pondrías a este producto?"/>
                     <h:outputText value="¿Te gustaría añadir un comentario?"/> 
-                    <h:form>
+                    <h:form id="valora">
+                         <h:inputHidden value="#{productoVerBean.valoracion}" id="val"/>
                         <div class="estre">
                             <p class="clasificacion">
+                               
                                     <h:selectOneRadio value="#{productoVerBean.valoracion}" onclick="this.form.submit();" >
                                         <f:selectItem itemValue="1" itemLabel="★" id="valor5"/>
                                         <f:selectItem itemValue="2" itemLabel="★" id="valor4"/>
@@ -86,7 +88,7 @@
                 
                 
                 
-                <h:form>
+                <h:form id="nuevoCom">
                 <div id="id01" class="modal" >
                         
                     <div class="modal-content animate">
@@ -108,7 +110,7 @@
                 <h:panelGrid style="width:100%" rendered="#{!productoVerBean.comentarios()}">
                     <h:outputText value="No hay comentarios aún"/>
                 </h:panelGrid>
-                <h:form>
+                <h:form id="comentario">
                     <h:panelGrid style="width:100%" rendered="#{productoVerBean.comentarios()}" id="panelComentarios" >
                         <ui:repeat value="#{productoVerBean.listaComentarios}" var="comentario" id="listaComentarios">
                             <p class="emisor"> #{comentario.usuario.usuario} -
@@ -121,8 +123,8 @@
                                         </h:outputText>
                             </p>
                             <p class="comentarioContainer">#{comentario.texto}</p>
-                            <p><h:commandLink id="eliminarComent" value="Eliminar comentario" class="eliminar" action="#{productoVerBean.eliminarComentario(comentario)}" rendered="#{productoVerBean.AdminOUsuario(comentario)}" >
-                                    <f:ajax execute="eliminarComent" render="comentarios" />
+                            <p><h:commandLink id="eliminarComent" value="Eliminar comentario" class="eliminar" actionListener="#{productoVerBean.eliminarComentario(comentario)}" rendered="#{productoVerBean.AdminOUsuario(comentario)}" >
+                                    <f:ajax  render="comentarios comentario valora nuevoCom todo" execute="comentarios comentario valora nuevoCom" />
                                </h:commandLink>
                             </p>
                         </ui:repeat>
