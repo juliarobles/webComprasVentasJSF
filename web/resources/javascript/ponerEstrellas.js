@@ -6,6 +6,7 @@
 
 window.onload = function() {
   var val = document.getElementById('val')
+  console.log("Número de estrellas " + val)
   var valoracion = val.value
   
   if(valoracion !== null && valoracion >= -1 && valoracion <= 5){

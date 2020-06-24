@@ -15,6 +15,7 @@ import comprasventasweb.service.ValoracionService;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -125,11 +126,12 @@ public class ProductoVerBean {
         return res;
     }
     
-    public String formatearFecha(){
+    public String formatearFecha(Date f, Date h){
+        
         String res = "";
         SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
-        res = fecha.format(this.producto.getFecha()) + " " + hora.format(producto.getHora());
+        res = fecha.format(f) + " " + hora.format(h);
         return res;
     }
     

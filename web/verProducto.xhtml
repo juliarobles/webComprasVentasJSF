@@ -47,7 +47,7 @@
                 <p class="fila">
                     <vendedor>Vendido por:</vendedor>
                     <h:outputText value="#{productoVerBean.producto.vendedor.usuario}"/>
-                    <fecha>#{productoVerBean.formatearFecha()}</fecha>
+                    <fecha>#{productoVerBean.formatearFecha(productoVerBean.producto.fecha, productoVerBean.producto.hora)}</fecha>
                 </p>
                 
                 
@@ -104,7 +104,17 @@
                 <h:form>
                     <h:panelGrid style="width:100%" rendered="#{productoVerBean.comentarios()}" id="panelComentarios" >
                         <ui:repeat value="#{productoVerBean.listaComentarios}" var="comentario" id="listaComentarios">
-                            <p class="emisor"> #{comentario.usuario.usuario} - #{productoVerBean.formatearFecha()}</p>
+                            <p class="emisor"> #{comentario.usuario.usuario} - #{productoVerBean.formatearFecha(comentario.fecha, comentario.hora)}
+                               <fecha>
+                                        <h:outputText value="#{comentario.fecha}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </h:outputText>
+                                        &nbsp;
+                                        <h:outputText value="#{comentario.hora}">
+                                            <f:convertDateTime pattern="HH:mm"/>
+                                        </h:outputText>
+                                    </fecha>
+                            </p>
                             <p class="comentarioContainer">#{comentario.texto}</p>
                             <p><h:commandLink id="eliminarComent" value="Eliminar comentario" class="eliminar" action="#{productoVerBean.eliminarComentario(comentario)}" rendered="#{productoVerBean.AdminOUsuario(comentario)}" >
                                     <f:ajax execute="eliminarComent" render="comentarios" />
