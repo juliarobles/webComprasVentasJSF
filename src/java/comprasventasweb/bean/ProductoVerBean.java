@@ -213,7 +213,8 @@ public class ProductoVerBean {
                     LOG.severe(String.format("Se ha producido una excepcion: %s", ex.getMessage()));
                 }   
             } else {
-                this.valoracionService.valorar(valoracion, pr, this.usuarioBean.getUsuario());  
+                this.valoracionService.valorar(valoracion, pr, this.usuarioBean.getUsuario());
+                this.producto = this.productoService.searchById(this.producto.getId().toString());
                  try {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("verProducto.jsf");           
                 } catch (IOException ex) {
