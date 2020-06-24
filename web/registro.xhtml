@@ -40,7 +40,7 @@
                 <h:message for="correo" styleClass="mensajeError"/><br></br>
 
                 <h:outputText class="palabrasPrincipales" value="#{msgs.nombre}"/>
-                <h:inputText id="nombre" value="#{usuarioCrearEditarBean.usuarioSeleccionado.nombre}" a:placeholder="#{msgs.nombre}" a:pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}"
+                <h:inputText id="nombre" value="#{usuarioCrearEditarBean.usuarioSeleccionado.nombre}" a:placeholder="#{msgs.nombre}" a:pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]+"
                              required ="true"
                              requiredMessage="#{msgs.campoNecesario}"
                              validatorMessage="#{msgs.longitudErronea} 100">
@@ -49,7 +49,7 @@
                 <h:message for="nombre" styleClass="mensajeError"/><br></br>
                  
                 <h:outputText class="palabrasPrincipales" value="#{msgs.pass}"/>
-                <h:inputSecret id="pass" value="#{usuarioCrearEditarBean.usuarioSeleccionado.password}" a:placeholder="#{msgs.pass}" a:pattern="[A-Za-z0-9!?-]{1,50}"
+                <h:inputSecret id="pass" value="#{usuarioCrearEditarBean.usuarioSeleccionado.password}" a:placeholder="#{msgs.pass}" a:pattern="[A-Za-z0-9!?-]+"
                                required ="true"
                                requiredMessage="#{msgs.campoNecesario}"
                                validatorMessage="#{msgs.errorPassword}">

@@ -59,67 +59,84 @@
                     <tr>
                         <td class="titulo">#{msgs.titulo}</td>
                         <td>
-                            <h:inputText id="titulo" value="#{productoCrearEditarBean.producto.titulo}" a:placeholder="#{msgs.titulo}" a:pattern="[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}">
+                            <h:inputText id="titulo" value="#{productoCrearEditarBean.producto.titulo}" a:placeholder="#{msgs.titulo}" a:pattern="[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]+"
+                                        required ="true"
+                                        requiredMessage="#{msgs.campoNecesario}"
+                                        validatorMessage="#{msgs.longitudErronea} 100">
                                 <f:validateLength maximum="100" minimum="1"/>
-                                <f:validateRequired/>
                             </h:inputText>
+                            <br><h:message for="titulo" styleClass="mensajeError"/></br>
                         </td>
                     </tr>
                     <tr>
                         <td class="titulo">#{msgs.descripcion}</td>
                         <td>
-                            <h:inputTextarea value="#{productoCrearEditarBean.producto.descripcion}" a:placeholder="#{msgs.descripcion}">
+                            <h:inputTextarea id="descripcion" value="#{productoCrearEditarBean.producto.descripcion}" a:placeholder="#{msgs.descripcion}"
+                                             validatorMessage="#{msgs.longitudErronea} 500">
                                 <f:validateLength maximum="500"/>
                             </h:inputTextarea>
+                            <br><h:message for="descripcion" styleClass="mensajeError"/></br>
                         </td>
                     </tr>
                     <tr>
                         <td class="titulo">#{msgs.categoria}</td>
                         <td>
-                            <h:selectOneMenu value="#{productoCrearEditarBean.categoriaSeleccionada}">
+                            <h:selectOneMenu id="categoria" value="#{productoCrearEditarBean.categoriaSeleccionada}"
+                                             required ="true"
+                                             requiredMessage="#{msgs.campoNecesario}">
                                 <f:selectItem itemLabel="#{msgs.seleccionaCategoria}"/>
                                 <f:selectItems value="#{productoCrearEditarBean.listaCategorias}" var="categoria"
                                                itemValue="#{categoria.id}" itemLabel="#{categoria.nombre}"/>
                                 <f:ajax render="subcategoria"/>
                             </h:selectOneMenu>
+                            <br><h:message for="categoria" styleClass="mensajeError"/></br>
                         </td>
                     </tr>
                     <tr>
                         <td class="titulo">#{msgs.subcategoria}</td>
                         <td>
-                            <h:selectOneMenu id="subcategoria" value="#{productoCrearEditarBean.subcategoriaSeleccionada}">
+                            <h:selectOneMenu id="subcategoria" value="#{productoCrearEditarBean.subcategoriaSeleccionada}"
+                                             required ="true"
+                                             requiredMessage="#{msgs.campoNecesario}">
                                 <f:selectItem itemLabel="#{msgs.seleccionaSubcategoria}"/>
                                 <f:selectItems value="#{usuarioBean.listaSubcategorias}" var="subcategoria"
                                                itemValue="#{subcategoria.id}" itemLabel="#{subcategoria.nombre}"/>
                                 <f:validateRequired/>
                             </h:selectOneMenu>
+                            <br><h:message for="subcategoria" styleClass="mensajeError"/></br>
                         </td>
                     </tr>
                     <tr>
                         <td class="titulo">#{msgs.precio}</td>
                         <td>
-                            <h:inputText value="#{productoCrearEditarBean.producto.precio}" a:placeholder="#{msgs.precio}">
+                            <h:inputText id="precio" value="#{productoCrearEditarBean.producto.precio}" a:placeholder="#{msgs.precio}"
+                                         required ="true"
+                                         requiredMessage="#{msgs.campoNecesario}"
+                                         validatorMessage="#{msgs.errorPrecio}">
                                 <f:validateLength maximum="50"/>
-                                <!--<f:convertNumber maxFractionDigits="2" type="currency"/>-->
                                 <f:validateDoubleRange minimum="0"/>
-                                <f:validateRequired/>
                             </h:inputText>
+                            <br><h:message for="precio" styleClass="mensajeError"/></br>
                         </td>
                     </tr>
                     <tr>
                         <td class="titulo">#{msgs.foto}</td>
                         <td>
-                            <h:inputText value="#{productoCrearEditarBean.producto.foto}" a:placeholder="#{msgs.urlImagen}" a:type="url">
+                            <h:inputText id="foto" value="#{productoCrearEditarBean.producto.foto}" a:placeholder="#{msgs.urlImagen}" a:type="url"
+                                         validatorMessage="#{msgs.errorURL}">
                                 <f:validateLength maximum="520"/>
                             </h:inputText>
+                            <br><h:message for="foto" styleClass="mensajeError"/></br>
                         </td>
                     </tr>
                     <tr>
                         <td class="titulo">#{msgs.etiquetas}</td>
                         <td>
-                            <h:inputText value="#{productoCrearEditarBean.todasEtiquetas}" a:placeholder="#{msgs.etiquetaPlaceholder}" a:pattern="([#]{1}[a-zA-Z0-9]{1,200}[ ]{0,200}){0,200}" >
+                            <h:inputText id="etiquetas" value="#{productoCrearEditarBean.todasEtiquetas}" a:placeholder="#{msgs.etiquetaPlaceholder}" a:pattern="([#]{1}[a-zA-Z0-9]{1,200}[ ]{0,200}){0,200}" 
+                                         validatorMessage="#{msgs.longitudErronea} 200">
                                 <f:validateLength maximum="200"/>
                             </h:inputText>
+                            <br><h:message for="etiquetas" styleClass="mensajeError"/></br>
                         </td>
                     </tr>
                 </table>

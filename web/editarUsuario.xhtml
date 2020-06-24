@@ -42,7 +42,7 @@
                                         validatorMessage="#{msgs.errorUsuario}">
                                 <f:validateLength maximum="100"/>
                             </h:inputText>
-                            <h:message for="usuario" styleClass="mensajeError"/><br></br>
+                            <br><h:message for="usuario" styleClass="mensajeError"/></br>
                         </td>
                     </tr>
                     <tr>
@@ -54,19 +54,19 @@
                                          validatorMessage="#{msgs.errorEmail}">
                                 <f:validateLength maximum="100"/>
                             </h:inputText>
-                            <h:message for="correo" styleClass="mensajeError"/><br></br>
+                            <br><h:message for="correo" styleClass="mensajeError"/></br>
                         </td>
                     </tr>
                     <tr>
                         <td>#{msgs.nombre}</td>
                         <td>
-                            <h:inputText id="nombre" value="#{usuarioCrearEditarBean.usuarioSeleccionado.nombre}" a:placeholder="#{msgs.nombre}" a:pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]{1,100}"
+                            <h:inputText id="nombre" value="#{usuarioCrearEditarBean.usuarioSeleccionado.nombre}" a:placeholder="#{msgs.nombre}" a:pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,'-]+"
                                         required ="true"
                                         requiredMessage="#{msgs.campoNecesario}"
                                         validatorMessage="#{msgs.longitudErronea} 100">
                                 <f:validateLength maximum="100"/>
                             </h:inputText>
-                            <h:message for="nombre" styleClass="mensajeError"/><br></br>
+                            <br><h:message for="nombre" styleClass="mensajeError"/></br>
                         </td>
                     </tr>
                     <tr>
@@ -76,19 +76,19 @@
                                          validatorMessage="#{msgs.errorURL}">
                                 <f:validateLength maximum="520"/>
                             </h:inputText>
-                            <h:message for="foto" styleClass="mensajeError"/><br></br>
+                            <br><h:message for="foto" styleClass="mensajeError"/></br>
                         </td>
                     </tr>
                     <tr>
                         <td>#{msgs.pass}</td>
                         <td>
-                            <h:inputText id="pass" value="#{usuarioCrearEditarBean.usuarioSeleccionado.password}" a:placeholder="#{msgs.pass}" a:pattern="[A-Za-z0-9!?-]{8,50}"
+                            <h:inputText id="pass" value="#{usuarioCrearEditarBean.usuarioSeleccionado.password}" a:placeholder="#{msgs.pass}" a:pattern="[A-Za-z0-9!?-]+"
                                         required ="true"
                                         requiredMessage="#{msgs.campoNecesario}"
                                         validatorMessage="#{msgs.errorPassword}">
-                                <f:validateLength maximum="50"/>
+                                <f:validateLength minimum="8" maximum="50"/>
                             </h:inputText>
-                            <h:message for="pass" styleClass="mensajeError"/><br></br>
+                            <br><h:message for="pass" styleClass="mensajeError"/></br>
                         </td>
                     </tr>
                 </table>
