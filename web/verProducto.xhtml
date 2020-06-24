@@ -75,15 +75,15 @@
                         <h:outputText value="#{msgs.queNota}"/>
                         <h:outputText value="#{msgs.queComentario}"/> 
                         <h:form id="valora">
-                            <h:inputHidden value="#{productoVerBean.valoracion}" id="val"/>
+                            <h:inputHidden value="#{productoVerBean.valoracion}" id="val" />
                             <div class="estre" >
                                 <center>
-                                        <h:selectOneRadio  class="clasificacion"  value="#{productoVerBean.valoracion}" onclick="this.form.submit();" >
-                                            <f:selectItem itemValue="1" itemLabel="★" id="valor5"/>
-                                            <f:selectItem itemValue="2" itemLabel="★" id="valor4"/>
-                                            <f:selectItem itemValue="3" itemLabel="★" id="valor3"/>
-                                            <f:selectItem itemValue="4" itemLabel="★" id="valor2"/>
-                                            <f:selectItem itemValue="5" itemLabel="★" id="valor1"/>
+                                        <h:selectOneRadio id="radio" class="clasificacion"  value="#{productoVerBean.valoracion}" onclick="this.form.submit();" >
+                                            <f:selectItem itemValue="5" itemLabel="★"/>
+                                            <f:selectItem itemValue="4" itemLabel="★"/>
+                                            <f:selectItem itemValue="3" itemLabel="★"/>
+                                            <f:selectItem itemValue="2" itemLabel="★"/>
+                                            <f:selectItem itemValue="1" itemLabel="★"/>
                                         </h:selectOneRadio>
                                 </center>
                             </div>

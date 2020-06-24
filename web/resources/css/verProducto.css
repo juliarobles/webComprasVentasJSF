@@ -27,7 +27,7 @@ and open the template in the editor.
     justify-content: center;
 }
 
-.estre label {
+.estre td {
     font-size: 25px;
 }
 
@@ -42,7 +42,7 @@ and open the template in the editor.
     
 }
 
-.estre label:hover,
+.estre td:hover,
 .estre td:hover ~ td {
     color: orange;
 }

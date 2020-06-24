@@ -6,17 +6,17 @@
 
 window.onload = function() {
   var val = document.getElementById('valora:val').value;
-  var valoracion = val.value;
-  
+  var radio = document.getElementById('valora:radio');
+  var valoracion = val.valueOf();
   if(valoracion !== null && valoracion >= -1 && valoracion <= 5){
-      for(var i = 1; i <= valoracion; i++){
-          var estrella = document.getElementById('valor'+i);
+      for(var i = 0; i < valoracion; i++){
+          var estrella = radio.rows[0].cells[4-i];
           estrella.style.color = 'orange';
       }
       if(valoracion !== 5){
-         for(var i = valoracion+1; i <= 5; i++){
-            var estrella = document.getElementById('valor'+i);
-            estrella.style.color = 'grey';
+         for(var i = valoracion; i < 5; i++){
+            var estrella = radio.rows[0].cells[4-i];
+            //estrella.style.color = 'black';
          } 
       }
       
