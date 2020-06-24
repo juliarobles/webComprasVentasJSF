@@ -117,6 +117,7 @@ public class ProductoVerBean {
             System.out.println("Se ha cogido el producto de usuario bean");
            // this.producto = this.usuarioBean.getProductoSeleccionado();
             this.setId(id);
+            actualizarListas();
         }
     }
 
@@ -214,7 +215,7 @@ public class ProductoVerBean {
     
     public void actualizarListas(){
         this.listaComentarios = this.comentarioService.searchByProducto(producto);
-        System.out.println("Comentarios actuales "+this.listaComentarios.toString());
+        this.setListaEtiquetas(this.producto.getEtiquetas());
     }
     
     
@@ -237,6 +238,7 @@ public class ProductoVerBean {
             } else {
                 this.valoracionService.valorar(valoracion, pr, this.usuarioBean.getUsuario());
                 this.producto = this.productoService.searchById(this.producto.getId().toString());
+                this.mediaPr();
                  try {
                     FacesContext.getCurrentInstance().getExternalContext().redirect("verProducto.jsf");           
                 } catch (IOException ex) {

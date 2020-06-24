@@ -61,7 +61,7 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">#{msgs.etiquetasM}</f:facet>
-                        <ui:repeat value="#{producto.etiquetas}" var="etiq">
+                        <ui:repeat value="#{usuarioPerfilBean.obtenerListaEtiq(producto)}" var="etiq">
                             <h:commandLink rendered="#{!usuarioBean.usuario.administrador}" value="##{etiq.nombre}" action="#{usuarioBean.doListarProductos('Etiqueta', etiq.nombre)}"/>
                             <h:outputText rendered="#{usuarioBean.usuario.administrador}" value="##{etiq.nombre}"/>&nbsp;
                         </ui:repeat>
@@ -92,7 +92,9 @@
                         </h:outputText>
                     </h:column>
                     <h:column>
-                        <h:commandLink styleClass="editar" value="#{msgs.vertodo}" action="#{usuarioBean.doCerrarSesion()}"/>
+                        <h:link styleClass="editar" outcome ="verProducto.jsf" value="#{msgs.vertodo}" >
+                             <f:param name="productoId" value="#{producto.id}"/>
+                        </h:link>
                     </h:column>
                     <h:column>
                         <h:commandLink styleClass="editar" value="#{msgs.editar}" action="#{usuarioBean.doEditarProducto(producto)}"/>

@@ -45,12 +45,16 @@
                 </p>
                 
                 <p class="descripcion">#{productoVerBean.producto.descripcion}</p>
-               
-                <h:dataTable value="#{productoVerBean.listaEtiquetas}" var = "eti">
+                <h:form>
+                    <h:panelGrid columns="#{productoVerBean.listaEtiquetas.size()}">
+                        <ui:repeat value="#{productoVerBean.listaEtiquetas}" var = "eti">
+                           <!-- <h:outputText class="fecha" value="##{eti.nombre} "/>-->
+                            <h:commandLink rendered="#{!usuarioBean.usuario.administrador}" value="##{eti.nombre}" action="#{usuarioBean.doListarProductos('Etiqueta', eti.nombre)}"/>
+                            <h:outputText rendered="#{usuarioBean.usuario.administrador}" value="##{eti.nombre}"/>&nbsp;
+                        </ui:repeat>
+                    </h:panelGrid>
+                </h:form>
                     
-                    <h:outputText value="#{eti.nombre}"/>
-                   
-                </h:dataTable>
                 
                 <p class="fila">
                     <vendedor>#{msgs.vendidoPor}</vendedor>

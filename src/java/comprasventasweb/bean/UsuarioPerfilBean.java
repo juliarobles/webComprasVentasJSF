@@ -3,6 +3,7 @@
 */
 package comprasventasweb.bean;
 
+import comprasventasweb.dto.EtiquetaDTO;
 import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.dto.UsuarioDTO;
 import comprasventasweb.service.ProductoService;
@@ -25,6 +26,16 @@ import javax.inject.Inject;
 @RequestScoped
 public class UsuarioPerfilBean {
 
+    protected List<EtiquetaDTO> listaEtiquetas;
+
+    public List<EtiquetaDTO> getListaEtiquetas() {
+        return listaEtiquetas;
+    }
+
+    public void setListaEtiquetas(List<EtiquetaDTO> listaEtiquetas) {
+        this.listaEtiquetas = listaEtiquetas;
+    }
+    
     @Inject
     private UsuarioBean usuarioBean;
     
@@ -83,5 +94,8 @@ public class UsuarioPerfilBean {
     public void setListaProductos(List<ProductoDTO> listaProductos) {
         this.listaProductos = listaProductos;
     }
-    
+    public List<EtiquetaDTO> obtenerListaEtiq(ProductoDTO producto){
+        listaEtiquetas = producto.getEtiquetas();
+        return listaEtiquetas;
+    }
 }
