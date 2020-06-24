@@ -9,6 +9,7 @@ import comprasventasweb.dto.ProductoDTO;
 import comprasventasweb.service.CategoriaService;
 import comprasventasweb.service.ProductoService;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -65,13 +66,29 @@ public class ProductosListarBean {
                 LOG.severe(String.format("Se ha producido una excepcion: %s", ex.getMessage()));
             }
         } else {
-                listaProductos = this.productoServices.searchAllInverso(); 
+                //listaProductos = this.productoServices.searchAllInverso(); 
                 listaProductosFull = this.productoServices.searchAllInverso2();
                 listaCategorias = this.categoriaService.searchAll();
-                select = "";
-                search = "";
-                categoria = null;
+                if(this.usuarioBean.getSelect() != null){
+                    select = this.usuarioBean.getSelect();
+                    this.usuarioBean.setSelect(null);
+                } else {
+                    select = "";  
+                }
+                if(this.usuarioBean.getSearch() != null){
+                    search = this.usuarioBean.getSearch();
+                    this.usuarioBean.setSearch(null);
+                } else {
+                    search = "";  
+                }
+                if(this.usuarioBean.getCategoria() != null){
+                    categoria = this.usuarioBean.getCategoria();
+                    this.usuarioBean.setCategoria(null);
+                } else {
+                    categoria = null;  
+                }
                 placeholder = "";
+                doFiltrar();
         }
     }
 
@@ -188,7 +205,11 @@ public class ProductosListarBean {
         String end;
         String formato;
         
-        listaProductos.clear();
+        if(this.listaProductos != null){
+            listaProductos.clear();
+        } else {
+            listaProductos = new ArrayList<>();
+        }
         
         if(categoria == null){
             switch(select) {

@@ -34,10 +34,10 @@
                 <h1>#{productoVerBean.producto.titulo}</h1>
                 <p class="fila">
                     <categoria>
-                        <!--<h:link outcome="ProductosListar">
-                           <f:param name="categoria" value="#{productoVerBean.producto.categoria}"/>
-                        </h:link>-->
-                        #{productoVerBean.producto.categoria.nombre}
+                        <h:form>
+                            <h:commandLink rendered="#{!usuarioBean.usuario.administrador}" value="#{productoVerBean.producto.categoria.nombre}" action="#{usuarioBean.doListarProductos('B'.concat(productoVerBean.producto.categoria.id.toString()))}"/>
+                        </h:form>
+                        <h:outputText rendered="#{usuarioBean.usuario.administrador}" value="#{productoVerBean.producto.categoria.nombre}"/>
                     </categoria>
                     <h:panelGroup id="valoracion">
                        <media>#{productoVerBean.mediaPr()}</media> 

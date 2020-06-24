@@ -56,12 +56,14 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">#{msgs.subcategoriaM}</f:facet>
-                        #{producto.categoria.nombre}
+                        <h:commandLink rendered="#{!usuarioBean.usuario.administrador}" value="#{producto.categoria.nombre}" action="#{usuarioBean.doListarProductos('B'.concat(producto.categoria.id.toString()))}"/>
+                        <h:outputText rendered="#{usuarioBean.usuario.administrador}" value="#{producto.categoria.nombre}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">#{msgs.etiquetasM}</f:facet>
                         <ui:repeat value="#{producto.etiquetas}" var="etiq">
-                            ##{etiq.nombre}
+                            <h:commandLink rendered="#{!usuarioBean.usuario.administrador}" value="##{etiq.nombre}" action="#{usuarioBean.doListarProductos('Etiqueta', etiq.nombre)}"/>
+                            <h:outputText rendered="#{usuarioBean.usuario.administrador}" value="##{etiq.nombre}"/>&nbsp;
                         </ui:repeat>
                     </h:column>
                     <h:column>

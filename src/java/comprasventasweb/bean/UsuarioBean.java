@@ -43,6 +43,9 @@ public class UsuarioBean implements Serializable {
     protected String email;
     protected String clave;
     protected String status;
+    protected String select;
+    protected String search;
+    protected String categoria;
     
     /**
      * Creates a new instance of UsuarioBean
@@ -102,6 +105,23 @@ public class UsuarioBean implements Serializable {
     }
     
     public String doListarProductos(){
+        this.select = null;
+        this.search = null;
+        this.categoria = null;
+        return "paginaPrincipal";
+    }
+    
+    public String doListarProductos(String select, String search){
+        this.select = select;
+        this.search = search;
+        this.categoria = null;
+        return "paginaPrincipal";
+    }
+    
+    public String doListarProductos(String cat){
+        this.select = null;
+        this.search = null;
+        this.categoria = cat;
         return "paginaPrincipal";
     }
 
@@ -243,4 +263,32 @@ public class UsuarioBean implements Serializable {
     public void setUsuarioSeleccionado(UsuarioDTO usuarioSeleccionado) {
         this.usuarioSeleccionado = usuarioSeleccionado;
     }   
+
+    public String getSelect() {
+        return select;
+    }
+
+    public void setSelect(String select) {
+        this.select = select;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    
+    
+    
 }
