@@ -35,15 +35,6 @@ import javax.inject.Inject;
 @RequestScoped
 public class ProductoVerBean {
     
-    protected boolean panelComentario;
-
-    public boolean isPanelComentario() {
-        return panelComentario;
-    }
-
-    public void setPanelComentario(boolean panelComentario) {
-        this.panelComentario = panelComentario;
-    }
     protected int valoracion;
 
     public int getValoracion() {
@@ -109,7 +100,7 @@ public class ProductoVerBean {
     public void init(){
         this.producto = this.usuarioBean.getProductoSeleccionado();
         this.listaComentarios = this.comentarioService.searchByProducto(producto);
-        this.panelComentario = false;
+        
     }
 
     public List<ComentarioDTO> getListaComentarios() {
@@ -119,16 +110,13 @@ public class ProductoVerBean {
     public void setListaComentarios(List<ComentarioDTO> listaComentarios) {
         this.listaComentarios = listaComentarios;
     }
-    
+    /*
     public void mostrarPanel(boolean val){
         System.out.println("Panel comentario cambiado a " + val);
-        this.panelComentario = val;
+        this.usuarioBean.setMostrarNuevoComentario(val);
         
-    }
+    }*/
     
-    public boolean mostrar(){
-        return this.panelComentario;
-    }
     public String mediaPr(){
         String res = "";
         DecimalFormat df = new DecimalFormat("#.##");

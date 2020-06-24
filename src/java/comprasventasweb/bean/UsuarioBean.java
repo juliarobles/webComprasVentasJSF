@@ -239,5 +239,5 @@ public class UsuarioBean implements Serializable {
 
     public void setUsuarioSeleccionado(UsuarioDTO usuarioSeleccionado) {
         this.usuarioSeleccionado = usuarioSeleccionado;
-    }
+    }   
 }

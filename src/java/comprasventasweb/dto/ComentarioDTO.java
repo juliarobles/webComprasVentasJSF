@@ -24,6 +24,10 @@ public class ComentarioDTO {
         
     }
 
+    public ComentarioDTO(int i) {
+        this.id = i;
+    }
+
     public Integer getId() {
         return id;
     }

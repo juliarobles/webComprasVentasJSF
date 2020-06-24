@@ -67,36 +67,29 @@
                                         <f:selectItem itemValue="5" itemLabel="★" />
                                     </h:selectOneRadio>
                     </h:form>
-                    <h:form>
-                        <h:commandButton value="Añadir nuevo comentario" action="#{productoVerBean.mostrarPanel(true)}" class="botonComentario">
-                            <f:ajax render="nuevoComentario" />
-                        </h:commandButton>  
-                    </h:form>
+                    <button onclick="document.getElementById('id01').style.display='block'" class="botonComentario">Pulsa aquí para añadir un comentario</button>
                 </h:panelGrid>
-                <h3>Todos los comentarios</h3>
                 
                 
-                <h:panelGroup id="nuevoComentario" class="modal" >
-                    <h:panelGroup  rendered="#{productoVerBean.mostrar()}">
-                                            <h1> hola</h1>
-                         <h:form class="modal-content animate">
+                
+                
+                <div id="id01" class="modal">
+                        
+                    <div class="modal-content animate">
+                        <h:form>
                         <h3>Nuevo comentario</h3>
-                        <h:inputTextarea id="contenido" class="contenidoComentario"  cols="60" rows="8" required="true" value="#{productoVerBean.contenido}"/>
-                        <p><h:commandButton id="comentar" class="comentarioSubmit" value="Enviar comentario" action="#{productoVerBean.comentar}" >
-                                <f:ajax  execute="contenido" render="comentarios listaComentarios panelComentarios" />
+                        <h:inputTextarea id="contenido" styleClass="contenidoComentario"  cols="60" rows="8" required="true" value="#{productoVerBean.contenido}"/>
+                        <p><h:commandButton id="comentar" styleClass="comentarioSubmit" value="Enviar comentario" action="#{productoVerBean.comentar}" >
+                                <f:ajax  execute="contenido" render="comentarios" />
                             </h:commandButton></p>
-                        <h:button value="Cancelar">
-                            <f:ajax event="click" render="nuevoComentario" listener="#{productoVerBean.mostrarPanel(false)}"/>
-                        </h:button>
+                        <p><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancelar</button></p>
                         </h:form>
-                    </h:panelGroup>
-                </h:panelGroup>
+                    </div>
+                </div>
+                </h:panelGrid>
                 
-                
-               
-                
-                
-                
+                <h3>Todos los comentarios</h3>
+                <h:panelGroup id="comentarios">
                 <h:panelGrid rendered="#{!productoVerBean.comentarios()}">
                     <h:outputText value="No hay comentarios aún"/>
                 </h:panelGrid>
@@ -105,15 +98,14 @@
                         <ui:repeat value="#{productoVerBean.listaComentarios}" var="comentario" id="listaComentarios">
                             <p class="emisor"> #{comentario.usuario.usuario}</p>
                             <p class="comentarioContainer">#{comentario.texto}</p>
-                            <p><h:commandLink id="eliminarComent" value="Eliminar comentario" class="eliminar"  rendered="#{productoVerBean.AdminOUsuario(comentario)}" >
-                                    <f:ajax render = "eliminarComent" listener="#{productoVerBean.eliminarComentario(comentario)}" />
+                            <p><h:commandLink id="eliminarComent" value="Eliminar comentario" class="eliminar" action="#{productoVerBean.eliminarComentario(comentario)}" rendered="#{productoVerBean.AdminOUsuario(comentario)}" >
+                                    <f:ajax execute="eliminarComent" render="comentarios" />
                                </h:commandLink>
                             </p>
                         </ui:repeat>
                     </h:panelGrid>   
                 </h:form>
-               
-                </h:panelGrid>
+                </h:panelGroup>
             </div>
         </div>
     </h:body>
