@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * AUTOR:
+ *Daniel Ruiz Aswani
  */
 package comprasventasweb.bean;
 
@@ -139,7 +138,7 @@ public class ProductoVerBean {
         String res = "";
         DecimalFormat df = new DecimalFormat("#.##");
         
-        res= df.format(this.producto.getValoracionmedia())+ "/5★";
+        res= df.format(this.producto.getValoracionmedia())+ "/5★ " + this.valoracionService.searchValoraciones(id).size() + " valoraciones" ;
         return res;
     }
     /*

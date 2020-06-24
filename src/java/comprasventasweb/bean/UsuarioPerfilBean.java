@@ -1,5 +1,6 @@
 /*
     AUTOR: Julia Robles Medina
+           Daniel Ruiz Aswani (obtenerListaEtiq)
 */
 package comprasventasweb.bean;
 

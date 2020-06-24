@@ -52,7 +52,11 @@ public class ValoracionFacade extends AbstractFacade<Valoracion> {
        q.setParameter("producto", producto.getId());
        return q.getResultList();
     }
-    
+     public List<Valoracion> findByProductoID(Integer producto){
+       Query q = this.getEntityManager().createNamedQuery("Valoracion.findByProducto");
+       q.setParameter("producto", producto);
+       return q.getResultList();
+    }
     public List<Valoracion> findByUser(Usuario usuario){
        Query q = this.getEntityManager().createNamedQuery("Valoracion.findByUsuario");
        q.setParameter("usuario", usuario.getId());
