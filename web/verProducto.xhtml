@@ -47,7 +47,14 @@
                 <p class="fila">
                     <vendedor>Vendido por:</vendedor>
                     <h:outputText value="#{productoVerBean.producto.vendedor.usuario}"/>
-                    <fecha>#{productoVerBean.formatearFecha(productoVerBean.producto.fecha, productoVerBean.producto.hora)}</fecha>
+                    <fecha>
+                        <h:outputText value="#{productoVerBean.producto.fecha}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:outputText>&nbsp;
+                        <h:outputText value="#{productoVerBean.producto.hora}" >
+                            <f:convertDateTime pattern="HH:mm"/>
+                        </h:outputText>
+                    </fecha>
                 </p>
                 
                 
@@ -104,8 +111,7 @@
                 <h:form>
                     <h:panelGrid style="width:100%" rendered="#{productoVerBean.comentarios()}" id="panelComentarios" >
                         <ui:repeat value="#{productoVerBean.listaComentarios}" var="comentario" id="listaComentarios">
-                            <p class="emisor"> #{comentario.usuario.usuario} - #{productoVerBean.formatearFecha(comentario.fecha, comentario.hora)}
-                               <fecha>
+                            <p class="emisor"> #{comentario.usuario.usuario} -
                                         <h:outputText value="#{comentario.fecha}">
                                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                                         </h:outputText>
@@ -113,7 +119,6 @@
                                         <h:outputText value="#{comentario.hora}">
                                             <f:convertDateTime pattern="HH:mm"/>
                                         </h:outputText>
-                                    </fecha>
                             </p>
                             <p class="comentarioContainer">#{comentario.texto}</p>
                             <p><h:commandLink id="eliminarComent" value="Eliminar comentario" class="eliminar" action="#{productoVerBean.eliminarComentario(comentario)}" rendered="#{productoVerBean.AdminOUsuario(comentario)}" >

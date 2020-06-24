@@ -125,7 +125,7 @@ public class ProductoVerBean {
         res= df.format(this.producto.getValoracionmedia())+ "/5★";
         return res;
     }
-    
+    /*
     public String formatearFecha(Date f, Date h){
         
         String res = "";
@@ -133,7 +133,7 @@ public class ProductoVerBean {
         SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
         res = fecha.format(f) + " " + hora.format(h);
         return res;
-    }
+    }*/
     
     public boolean esPropio(){
         boolean propio = false;
