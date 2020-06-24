@@ -70,7 +70,7 @@
                             <f:viewParam id="id" name ="id" value="#{producto.id}"/>
                         </f:metadata>
                         <h:form>
-                            <h:commandLink  action="#{usuarioBean.doVerProducto(producto.id)}" styleClass="card">
+                            <h:link  outcome="verProducto.jsf" styleClass="card">
                             <f:param name="productoId" value="#{producto.id}"/>
                             <div class="imagen">
                                 <img src="#{producto.foto}"/>
@@ -99,7 +99,7 @@
                                     </fecha>
                                 </div>
                              </article>
-                            </h:commandLink>
+                            </h:link>
                         </h:form>
                         
                     </ui:repeat>

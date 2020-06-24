@@ -43,7 +43,7 @@ public class ProductoVerBean {
     }
 
     public void setValoracion(int valoracion) {
-        System.out.println("SetValoracion");
+        System.out.println("Se ha establecido al valoración a " + this.valoracion);
         this.valoracion = valoracion;
         guardarValoracion();
     }
@@ -56,7 +56,7 @@ public class ProductoVerBean {
     private UsuarioBean usuarioBean;
     protected List<EtiquetaDTO> listaEtiquetas;
     protected ProductoDTO producto;
-    protected int id;
+    protected Integer id;
     @EJB
     private ProductoService productoService;
      @EJB
@@ -66,13 +66,22 @@ public class ProductoVerBean {
     
     private static final Logger LOG = Logger.getLogger(ProductoVerBean.class.getName());
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-        this.setProducto(this.productoService.searchById(this.id + ""));
+    public void setId(Integer id) {
+        if(id != null && id !=0 ){
+          this.id = id;
+          this.setProducto(this.productoService.searchById(this.id + ""));
+          this.usuarioBean.setProductoSeleccionado(producto);
+
+        }else{
+            this.id = this.usuarioBean.getProductoSeleccionado().getId();
+            this.producto = this.usuarioBean.getProductoSeleccionado();
+        }
+        this.listaComentarios = this.comentarioService.searchByProducto(producto);
+         valoracion = this.valoracionService.searchValoracion(this.usuarioBean.getUsuario().getId(), this.producto.getId()); 
     }
 
     public ProductoDTO getProducto() {
@@ -99,9 +108,16 @@ public class ProductoVerBean {
     
     @PostConstruct
     public void init(){
-        this.producto = this.usuarioBean.getProductoSeleccionado();
-        this.listaComentarios = this.comentarioService.searchByProducto(producto);
+        //this.usuarioBean.productoSeleccionado = this.productoService.searchById(this.id+"");
+        //this.producto = this.usuarioBean.getProductoSeleccionado();
         
+       
+    
+        if(this.usuarioBean.getProductoSeleccionado()!= null ){
+            System.out.println("Se ha cogido el producto de usuario bean");
+           // this.producto = this.usuarioBean.getProductoSeleccionado();
+            this.setId(id);
+        }
     }
 
     public List<ComentarioDTO> getListaComentarios() {
@@ -137,6 +153,9 @@ public class ProductoVerBean {
     
     public boolean esPropio(){
         boolean propio = false;
+        System.out.println("Id del producto pasada por parametros " + this.id);
+        System.out.println("Producto " + producto.getId());
+        System.out.println("Id usuario "+this.usuarioBean.getUsuario().getId());
         if(producto.getVendedor().getId().equals(this.usuarioBean.getUsuario().getId())){
             propio = true;
         }
@@ -148,11 +167,12 @@ public class ProductoVerBean {
         return res;
     }
     public void eliminarComentario(ComentarioDTO comentario){
-                
+                System.out.println("He entrado a eliminar comentario");
                 String idComentario = comentario.getId()+"";
                 if(producto == null || idComentario == null || idComentario.isEmpty()){
                     LOG.log(Level.SEVERE, "No se ha encontrado el comentario a borrar"); 
                 } else {
+                    System.out.println("Eliminar comentario " + comentario.getTexto());
                     this.comentarioService.eliminarComentario(Integer.parseInt(idComentario));
                     actualizarListas();
                 }
