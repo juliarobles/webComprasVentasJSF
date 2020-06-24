@@ -112,11 +112,12 @@ media, fecha {
     text-align: right;
 }
 
-categoria a {
+.categoria{
     text-decoration: none;
+    text-align: left;
 }
 
-categoria a:hover {
+.categoria:hover {
     color: #ababab;
 }
 
@@ -128,6 +129,7 @@ fecha {
 media {
     color: #003257;
     font-size: 24px;
+    text-align: right;
 }
 
 vendedor, categoria a, .emisor {

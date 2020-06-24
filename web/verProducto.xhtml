@@ -38,15 +38,11 @@
                 <h:graphicImage class="imagen" value="#{productoVerBean.producto.foto}" />
                 <h1>#{productoVerBean.producto.titulo}</h1>
                 <p class="fila">
-                    <categoria>
                         <h:form>
-                            <h:commandLink rendered="#{!usuarioBean.usuario.administrador}" value="#{productoVerBean.producto.categoria.nombre}" action="#{usuarioBean.doListarProductos('B'.concat(productoVerBean.producto.categoria.id.toString()))}"/>
+                            <h:commandLink styleClass="categoria" rendered="#{!usuarioBean.usuario.administrador}" value="#{productoVerBean.producto.categoria.nombre}" action="#{usuarioBean.doListarProductos('B'.concat(productoVerBean.producto.categoria.id.toString()))}"/>
                         </h:form>
-                        <h:outputText rendered="#{usuarioBean.usuario.administrador}" value="#{productoVerBean.producto.categoria.nombre}"/>
-                    </categoria>
-                    <h:panelGroup id="valoracion">
-                       <media>#{productoVerBean.mediaPr()}</media> 
-                    </h:panelGroup>
+                            <h:outputText styleClass="categoria" rendered="#{usuarioBean.usuario.administrador}" value="#{productoVerBean.producto.categoria.nombre}"/>
+                    <media>#{productoVerBean.mediaPr()}</media> 
                 </p>
                 
                 <p class="descripcion">#{productoVerBean.producto.descripcion}</p>
@@ -93,7 +89,6 @@
                                             <f:selectItem itemValue="3" itemLabel="★" id="valor3"/>
                                             <f:selectItem itemValue="4" itemLabel="★" id="valor2"/>
                                             <f:selectItem itemValue="5" itemLabel="★" id="valor1"/>
-                                            <f:ajax render="valoracion"/>
                                         </h:selectOneRadio>
                                 </center>
                             </div>
@@ -107,10 +102,10 @@
 
                             <h3>#{msgs.nuevoComentario}</h3>
                             <h:inputTextarea id="contenido" styleClass="contenidoComentario"  cols="60" rows="8" required="true" value="#{productoVerBean.contenido}"/>
-                            <p><h:commandButton id="comentar" styleClass="comentarioSubmit" value="Enviar comentario" action="#{productoVerBean.comentar()}" onclick="document.getElementById('id01').style.display='none'">
+                            <p><h:commandButton id="comentar" styleClass="comentarioSubmit" value="#{msgs.enviarComentario}" action="#{productoVerBean.comentar()}" onclick="document.getElementById('id01').style.display='none'">
                                     <f:ajax  execute="contenido" render="comentarios" />
                                 </h:commandButton></p>
-                            <p><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancelar</button></p>
+                            <p><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">#{msgs.cancelar}</button></p>
 
                         </div>
                     </div>
