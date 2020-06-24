@@ -15,6 +15,7 @@
         <h:outputStylesheet library="css" name="verProducto.css"/>
         <h:outputStylesheet library="css" name="formularios.css"/>
         <h:outputScript library="javascript" name="comentario.js"  />
+        <h:outputScript library="javascript" name="ponerEstrellas.js"  />
         <h:link styleClass="volver" rendered="#{!usuarioBean.usuario.administrador}" 
                 outcome="paginaPrincipal" value="&#8592; Volver al menú principal" />
         <h:link styleClass="volver" rendered="#{usuarioBean.usuario.administrador}" 
@@ -45,14 +46,14 @@
                 <p class="fila">
                     <vendedor>Vendido por:</vendedor>
                     <h:outputText value="#{productoVerBean.producto.vendedor.usuario}"/>
-                    <fecha>productoVerBean.formatearFecha</fecha>
+                    <fecha>#{productoVerBean.formatearFecha()}</fecha>
                 </p>
                 
                 
-                <h:button class="boton" value="Comprar" rendered="#{!productoVerBean.esPropio()}" />
+                <h:button class="botonComprar" value="Comprar" rendered="#{!productoVerBean.esPropio()}" />
             </div>
             <div class="comentarios">
-                <h:panelGrid rendered="#{!productoVerBean.esPropio()}">
+                <h:panelGrid style="width:100%" rendered="#{!productoVerBean.esPropio()}">
                                   
                 <h3>Queremos saber tu opinión</h3>
                 <h:panelGrid  columns="2" cellpadding="5px" class="centrar">
@@ -90,13 +91,13 @@
                 
                 <h3>Todos los comentarios</h3>
                 <h:panelGroup id="comentarios">
-                <h:panelGrid rendered="#{!productoVerBean.comentarios()}">
+                <h:panelGrid style="width:100%" rendered="#{!productoVerBean.comentarios()}">
                     <h:outputText value="No hay comentarios aún"/>
                 </h:panelGrid>
                 <h:form>
-                    <h:panelGrid  rendered="#{productoVerBean.comentarios()}" id="panelComentarios" >
+                    <h:panelGrid style="width:100%" rendered="#{productoVerBean.comentarios()}" id="panelComentarios" >
                         <ui:repeat value="#{productoVerBean.listaComentarios}" var="comentario" id="listaComentarios">
-                            <p class="emisor"> #{comentario.usuario.usuario}</p>
+                            <p class="emisor"> #{comentario.usuario.usuario} - #{productoVerBean.formatearFecha()}</p>
                             <p class="comentarioContainer">#{comentario.texto}</p>
                             <p><h:commandLink id="eliminarComent" value="Eliminar comentario" class="eliminar" action="#{productoVerBean.eliminarComentario(comentario)}" rendered="#{productoVerBean.AdminOUsuario(comentario)}" >
                                     <f:ajax execute="eliminarComent" render="comentarios" />
