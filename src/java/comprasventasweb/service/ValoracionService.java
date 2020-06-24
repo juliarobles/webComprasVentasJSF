@@ -101,6 +101,9 @@ public class ValoracionService {
        this.productoFacade.edit(pr);
     }
 
+    public List<Valoracion> searchValoraciones(Integer idpr){
+        return this.valoracionFacade.findByProductoID(idpr);
+    }
     public int searchValoracion(Integer user, Integer producto) {
         List<Valoracion> val = this.valoracionFacade.searchByProductoYUser(user, producto);
         if(val == null || val.isEmpty()){

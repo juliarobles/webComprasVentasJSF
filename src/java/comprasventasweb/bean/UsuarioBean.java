@@ -3,6 +3,7 @@
  * Julia Robles Medina (doCerrarSesion, doCrearProducto, doEditarProducto, doPerfil, doListarProductos)
  * Roberto Michán Sánchez (doLogin, comprobarAdmin, comprobarLogin)
  * Tomás (doBorrarProducto)
+ * Daniel Ruiz Aswani (doVerProducto)
  */
 package comprasventasweb.bean;
 
