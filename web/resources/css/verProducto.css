@@ -8,7 +8,16 @@ and open the template in the editor.
     Author     : danim
 */
 
+.lenguaje {
+    position: absolute;
+    right: 20px;
+    top: 35px;
+    margin-right: 20px;
+}
 
+.ingles {
+    margin-right: 60px;
+}
 
 /*Codigo copiado estrellas valoracion*/
 .estre p {

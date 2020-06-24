@@ -56,7 +56,7 @@ public class ProductoVerBean {
     private UsuarioBean usuarioBean;
     protected List<EtiquetaDTO> listaEtiquetas;
     protected ProductoDTO producto;
-    protected int id;
+    protected Integer id;
     @EJB
     private ProductoService productoService;
      @EJB
@@ -66,15 +66,22 @@ public class ProductoVerBean {
     
     private static final Logger LOG = Logger.getLogger(ProductoVerBean.class.getName());
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-        this.setProducto(this.productoService.searchById(this.id + ""));
+    public void setId(Integer id) {
+        if(id != null && id !=0 ){
+          this.id = id;
+          this.setProducto(this.productoService.searchById(this.id + ""));
+          this.usuarioBean.setProductoSeleccionado(producto);
+
+        }else{
+            this.id = this.usuarioBean.getProductoSeleccionado().getId();
+            this.producto = this.usuarioBean.getProductoSeleccionado();
+        }
         this.listaComentarios = this.comentarioService.searchByProducto(producto);
-        valoracion = this.valoracionService.searchValoracion(this.usuarioBean.getUsuario().getId(), this.producto.getId());
+         valoracion = this.valoracionService.searchValoracion(this.usuarioBean.getUsuario().getId(), this.producto.getId()); 
     }
 
     public ProductoDTO getProducto() {
@@ -104,11 +111,13 @@ public class ProductoVerBean {
         //this.usuarioBean.productoSeleccionado = this.productoService.searchById(this.id+"");
         //this.producto = this.usuarioBean.getProductoSeleccionado();
         
-        //System.out.println("La valoración es de " + valoracion);
-        //System.out.println(this.usuarioBean.getUsuario().getId());
-        //System.out.println(this.producto.getId());
        
-        //System.out.println("La valoración actualizada es de " + valoracion);
+    
+        if(this.usuarioBean.getProductoSeleccionado()!= null ){
+            System.out.println("Se ha cogido el producto de usuario bean");
+           // this.producto = this.usuarioBean.getProductoSeleccionado();
+            this.setId(id);
+        }
     }
 
     public List<ComentarioDTO> getListaComentarios() {
@@ -144,6 +153,9 @@ public class ProductoVerBean {
     
     public boolean esPropio(){
         boolean propio = false;
+        System.out.println("Id del producto pasada por parametros " + this.id);
+        System.out.println("Producto " + producto.getId());
+        System.out.println("Id usuario "+this.usuarioBean.getUsuario().getId());
         if(producto.getVendedor().getId().equals(this.usuarioBean.getUsuario().getId())){
             propio = true;
         }

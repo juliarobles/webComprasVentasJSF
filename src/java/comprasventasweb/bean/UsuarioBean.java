@@ -55,6 +55,9 @@ public class UsuarioBean implements Serializable {
         this.status = "";
         this.email = "";
         this.clave = "";
+        this.usuarioSeleccionado = null;
+        this.productoSeleccionado = null;
+        this.listaSubcategorias = null;
         return "login";
     }
     

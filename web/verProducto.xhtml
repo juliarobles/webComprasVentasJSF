@@ -8,18 +8,26 @@
         <f:viewParam name="productoId" value="#{productoVerBean.id}" />
         <f:viewAction action="#{usuarioBean.comprobarLogin()}" />
     </f:metadata>
+    <f:view locale="#{usuarioBean.currentLocale}">
     <h:head>
-        <title>Titulo</title>
+        <title>#{productoVerBean.producto.titulo}</title>
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="verProducto.css"/>
         <h:outputStylesheet library="css" name="formularios.css"/>
         
         <h:link styleClass="volver" rendered="#{!usuarioBean.usuario.administrador}" 
-                outcome="paginaPrincipal" value="&#8592; Volver al menú principal" />
+                outcome="paginaPrincipal" value="&#8592; #{msgs.volverMenuPrincipal}" />
         <h:link styleClass="volver" rendered="#{usuarioBean.usuario.administrador}" 
-                outcome="productosAdmin" value="&#8592; Volver a la lista de productos" />
-        
+                outcome="productosAdmin" value="&#8592; #{msgs.volverListaProductos}" />
+        <h:form>
+            <h:commandLink styleClass="lenguaje" action="#{usuarioBean.setSpanish()}">   
+                <img src="resources/imagenes/es.png"/>
+            </h:commandLink>&nbsp;
+            <h:commandLink styleClass="lenguaje ingles" action="#{usuarioBean.setEnglish()}">
+                <img src="resources/imagenes/en.png"/>
+            </h:commandLink>
+        </h:form>
         <div class="todo">
             <div class="contenido">
                 <h:graphicImage class="imagen" value="#{productoVerBean.producto.foto}" />
@@ -45,7 +53,7 @@
                 </h:dataTable>
                 
                 <p class="fila">
-                    <vendedor>Vendido por:</vendedor>
+                    <vendedor>#{msgs.vendidoPor}</vendedor>
                     <h:outputText value="#{productoVerBean.producto.vendedor.usuario}"/>
                     <fecha>
                         <h:outputText value="#{productoVerBean.producto.fecha}">
@@ -58,57 +66,52 @@
                 </p>
                 
                 
-                <h:button class="botonComprar" value="Comprar" rendered="#{!productoVerBean.esPropio()}" />
+                <h:button class="botonComprar" value="#{msgs.comprar}" rendered="#{!productoVerBean.esPropio()}" />
             </div>
             <div class="comentarios">
-                <h:panelGrid style="width:100%" rendered="#{!productoVerBean.esPropio()}">
-                                  
-                <h3>Queremos saber tu opinión</h3>
-                <h:panelGrid  columns="2" cellpadding="5px" class="centrar">
-                    <h:outputText value="¿Que nota le pondrías a este producto?"/>
-                    <h:outputText value="¿Te gustaría añadir un comentario?"/> 
-                    <h:form id="valora">
-                         <h:inputHidden value="#{productoVerBean.valoracion}" id="val"/>
-                        <div class="estre">
-                            <p class="clasificacion">
-                               
-                                    <h:selectOneRadio value="#{productoVerBean.valoracion}" onclick="this.form.submit();" >
-                                        <f:selectItem itemValue="1" itemLabel="★" id="valor5"/>
-                                        <f:selectItem itemValue="2" itemLabel="★" id="valor4"/>
-                                        <f:selectItem itemValue="3" itemLabel="★" id="valor3"/>
-                                        <f:selectItem itemValue="4" itemLabel="★" id="valor2"/>
-                                        <f:selectItem itemValue="5" itemLabel="★" id="valor1"/>
-                                        <f:ajax render="valoracion"/>
-                                    </h:selectOneRadio>
-                            </p>
+                <h:panelGrid style="width:100%" rendered="#{!productoVerBean.esPropio()}">             
+                    <h3>#{msgs.queremosOpinion}</h3>
+                    <h:panelGrid  columns="2" cellpadding="5px" class="centrar">
+                        <h:outputText value="#{msgs.queNota}"/>
+                        <h:outputText value="#{msgs.queComentario}"/> 
+                        <h:form id="valora">
+                            <h:inputHidden value="#{productoVerBean.valoracion}" id="val"/>
+                            <div class="estre">
+                                <p class="clasificacion">
+                                        <h:selectOneRadio value="#{productoVerBean.valoracion}" onclick="this.form.submit();" >
+                                            <f:selectItem itemValue="1" itemLabel="★" id="valor5"/>
+                                            <f:selectItem itemValue="2" itemLabel="★" id="valor4"/>
+                                            <f:selectItem itemValue="3" itemLabel="★" id="valor3"/>
+                                            <f:selectItem itemValue="4" itemLabel="★" id="valor2"/>
+                                            <f:selectItem itemValue="5" itemLabel="★" id="valor1"/>
+                                            <f:ajax render="valoracion"/>
+                                        </h:selectOneRadio>
+                                </p>
+                            </div>
+                        </h:form>
+                        <button onclick="document.getElementById('id01').style.display='block'" class="botonComentario">#{msgs.pulsaComentario}</button>
+                    </h:panelGrid>
+                    <h:form>
+                    <div id="id01" class="modal" >
+
+                        <div class="modal-content animate">
+
+                            <h3>#{msgs.nuevoComentario}</h3>
+                            <h:inputTextarea id="contenido" styleClass="contenidoComentario"  cols="60" rows="8" required="true" value="#{productoVerBean.contenido}"/>
+                            <p><h:commandButton id="comentar" styleClass="comentarioSubmit" value="Enviar comentario" action="#{productoVerBean.comentar()}" onclick="document.getElementById('id01').style.display='none'">
+                                    <f:ajax  execute="contenido" render="comentarios" />
+                                </h:commandButton></p>
+                            <p><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancelar</button></p>
+
                         </div>
-                    </h:form>
-                    <button onclick="document.getElementById('id01').style.display='block'" class="botonComentario">Pulsa aquí para añadir un comentario</button>
-                </h:panelGrid>
-                
-                
-                
-                <h:form id="nuevoCom">
-                <div id="id01" class="modal" >
-                        
-                    <div class="modal-content animate">
-                        
-                        <h3>Nuevo comentario</h3>
-                        <h:inputTextarea id="contenido" styleClass="contenidoComentario"  cols="60" rows="8" required="true" value="#{productoVerBean.contenido}"/>
-                        <p><h:commandButton id="comentar" styleClass="comentarioSubmit" value="Enviar comentario" action="#{productoVerBean.comentar()}" onclick="document.getElementById('id01').style.display='none'">
-                                <f:ajax  execute="contenido" render="comentarios" />
-                            </h:commandButton></p>
-                        <p><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancelar</button></p>
-                        
                     </div>
-                </div>
-                </h:form>
+                    </h:form>
                 </h:panelGrid>
                 
-                <h3>Todos los comentarios</h3>
+                <h3>#{msgs.todosComentario}</h3>
                 <h:panelGroup id="comentarios">
                 <h:panelGrid style="width:100%" rendered="#{!productoVerBean.comentarios()}">
-                    <h:outputText value="No hay comentarios aún"/>
+                    <h:outputText value="#{msgs.noHayComentarios}"/>
                 </h:panelGrid>
                 <h:form id="comentario">
                     <h:panelGrid style="width:100%" rendered="#{productoVerBean.comentarios()}" id="panelComentarios" >
@@ -123,8 +126,8 @@
                                         </h:outputText>
                             </p>
                             <p class="comentarioContainer">#{comentario.texto}</p>
-                            <p><h:commandLink id="eliminarComent" value="Eliminar comentario" class="eliminar" actionListener="#{productoVerBean.eliminarComentario(comentario)}" rendered="#{productoVerBean.AdminOUsuario(comentario)}" >
-                                    <f:ajax  render="comentarios comentario valora nuevoCom todo" execute="comentarios comentario valora nuevoCom" />
+                            <p><h:commandLink id="eliminarComent" value="#{msgs.eliminarComentario}" class="eliminar" action="#{productoVerBean.eliminarComentario(comentario)}" rendered="#{productoVerBean.AdminOUsuario(comentario)}" >
+                                    <f:ajax execute="eliminarComent" render="comentarios" />
                                </h:commandLink>
                             </p>
                         </ui:repeat>
@@ -136,5 +139,6 @@
         <h:outputScript library="javascript" name="comentario.js" target="body" />
         <h:outputScript library="javascript" name="ponerEstrellas.js" target="body" />
     </h:body>
+    </f:view>
 </html>
 
