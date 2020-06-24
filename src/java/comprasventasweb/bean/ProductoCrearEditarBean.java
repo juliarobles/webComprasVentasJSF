@@ -21,10 +21,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-/**
- *
- * @author Usuario
- */
 @Named(value = "productoCrearEditarBean")
 @RequestScoped
 public class ProductoCrearEditarBean implements Serializable {

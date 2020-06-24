@@ -137,8 +137,9 @@ public class ProductoVerBean {
     public String mediaPr(){
         String res = "";
         DecimalFormat df = new DecimalFormat("#.##");
-        
-        res= df.format(this.producto.getValoracionmedia())+ "/5★ " + this.valoracionService.searchValoraciones(id).size() + " valoraciones" ;
+        if(this.producto.getValoracionmedia() > 0){
+            res= df.format(this.producto.getValoracionmedia())+ "/5★ (" + this.valoracionService.searchValoraciones(id).size() + ")" ;
+        }
         return res;
     }
     /*

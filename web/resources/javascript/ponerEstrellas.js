@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+/*
+ * Autor: Julia Robles Medina
+ * 
+ */
 window.onload = function() {
   var val = document.getElementById('valora:val').value;
   var radio = document.getElementById('valora:radio');
