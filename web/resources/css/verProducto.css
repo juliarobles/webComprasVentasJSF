@@ -43,11 +43,11 @@ and open the template in the editor.
 }
 
 .estre label:hover,
-.estre label:hover ~ label {
+.estre td:hover ~ td {
     color: orange;
 }
 
-.estre input[type="radio"]:checked ~ label {
+.estre input[type="radio"]:checked ~ label{
     color: orange;
 }
 
