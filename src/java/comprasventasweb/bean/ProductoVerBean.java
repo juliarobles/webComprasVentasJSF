@@ -153,14 +153,7 @@ public class ProductoVerBean {
     }*/
     
     public boolean esPropio(){
-        boolean propio = false;
-        System.out.println("Id del producto pasada por parametros " + this.id);
-        System.out.println("Producto " + producto.getId());
-        System.out.println("Id usuario "+this.usuarioBean.getUsuario().getId());
-        if(producto.getVendedor().getId().equals(this.usuarioBean.getUsuario().getId())){
-            propio = true;
-        }
-        return propio;
+        return this.usuarioBean.getUsuario().getAdministrador() || producto.getVendedor().getId().equals(this.usuarioBean.getUsuario().getId());
     }
     
     public boolean comentarios(){
